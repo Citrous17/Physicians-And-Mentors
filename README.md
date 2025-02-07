@@ -9,16 +9,13 @@ Things you may want to cover:
 
 * System dependencies
 
-* Configuration
+# Database creation
+- rails db:create
 
-* Database creation
+# Database initialization
+- rails db:migrate
 
-* Database initialization
+# How to run the test suite
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# To connect to an already running container, use:
+docker exec -it <name-of-container> /bin/bash 
