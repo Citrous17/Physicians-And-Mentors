@@ -9,12 +9,16 @@ docker build -t 502_fem_docker .
 # Create network
 docker network create rails-net
 
+
 # Start PostgreSQL
 docker run --name postgres \
   --network rails-net \
   -e POSTGRES_PASSWORD=password \
   -e POSTGRES_USER=postgres \
   -d postgres:latest
+# for powershell
+docker run --name postgres --network rails-net -e POSTGRES_PASSWORD=password -e POSTGRES_USER=postgres -d postgres:latest
+
 
 # Give PostgreSQL a moment to start up
 sleep 5
@@ -26,6 +30,11 @@ docker run -it \
   -p 3000:3000 \
   -v $(pwd):/app \
   502_fem_docker bash
+# for powershell
+docker run -it --name rails-app --network rails-net -p 3000:3000 502_fem_docker bash
+
+# To connect to the already running container
+docker exec -it rails-app bash
 
 ** Inside the container run the following commands
 bundle install
