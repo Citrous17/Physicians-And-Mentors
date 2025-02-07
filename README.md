@@ -1,21 +1,35 @@
-# README
+* Docker Instructions
+** Make a new directory and copy the Dockerfile to it
+** Run the command to build the dockerfile
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+docker build -t 502_fem_docker .
 
-Things you may want to cover:
+** Copy the contents from database.yml to config/database.yml
+** Run the following commands to run start the databased and the container
+# Create network
+docker network create rails-net
 
-* Ruby version
+# Start PostgreSQL
+docker run --name postgres \
+  --network rails-net \
+  -e POSTGRES_PASSWORD=password \
+  -e POSTGRES_USER=postgres \
+  -d postgres:latest
 
-* System dependencies
+# Give PostgreSQL a moment to start up
+sleep 5
 
-# Database creation
-- rails db:create
+# Start Rails
+docker run -it \
+  --name rails-app \
+  --network rails-net \
+  -p 3000:3000 \
+  -v $(pwd):/app \
+  502_fem_docker bash
 
-# Database initialization
-- rails db:migrate
+** Inside the container run the following commands
+bundle install
+rails db:create
+rails db:migrate
+rails server -b 0.0.0.0
 
-# How to run the test suite
-
-# To connect to an already running container, use:
-docker exec -it <name-of-container> /bin/bash 
