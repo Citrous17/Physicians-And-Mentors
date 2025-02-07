@@ -81,8 +81,8 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  url: <%= ENV["DATABASE_URL"] %>
   primary: &primary_production
+    url: <%= ENV["DATABASE_URL"] %>
     <<: *default
     database: physicians_and_mentors_production
     username: physicians_and_mentors
