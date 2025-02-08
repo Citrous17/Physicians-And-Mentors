@@ -14,5 +14,5 @@ RUN gem install rails
 # Set working directory
 WORKDIR /app
 # Keep container running for interactive use
-CMD [“/bin/bash”]
+CMD ["/bin/bash"]
 

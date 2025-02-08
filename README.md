@@ -1,16 +1,13 @@
 * Docker Instructions
-** Make a new directory and copy the Dockerfile to it
-** Run the command to build the dockerfile
 
-docker build -t 502_fem_docker .
+# STEP 1 (run once): BUILD THE DOCKER IMAGE
+docker build -t 502_fem_docker -f Dockerfile.local .
 
-** Copy the contents from database.yml to config/database.yml
-** Run the following commands to run start the databased and the container
-# Create network
+
+# Step 2 (run once): create a network using docker, called 'rails-net'
 docker network create rails-net
 
-
-# Start PostgreSQL
+# Step 3 (run once): Start PostgreSQL, which is necessary for database testing/operations
 docker run --name postgres \
   --network rails-net \
   -e POSTGRES_PASSWORD=password \
@@ -20,10 +17,10 @@ docker run --name postgres \
 docker run --name postgres --network rails-net -e POSTGRES_PASSWORD=password -e POSTGRES_USER=postgres -d postgres:latest
 
 
-# Give PostgreSQL a moment to start up
+# Give PostgreSQL a moment to start up (Optional?)
 sleep 5
 
-# Start Rails
+# Step 4 (run once): Start new container using the image we created (502_fem_docker)
 docker run -it \
   --name rails-app \
   --network rails-net \
@@ -33,12 +30,15 @@ docker run -it \
 # for powershell
 docker run -it --name rails-app --network rails-net -p 3000:3000 502_fem_docker bash
 
-# To connect to the already running container
+# Step 5 (run when necessary) to connect to bash/cmd line of an already running container:
 docker exec -it rails-app bash
 
 ** Inside the container run the following commands
+# Step 6 (run once, IN THE CONTAINER BASH)
 bundle install
 rails db:create
 rails db:migrate
+
+# Step 7 (run when necessary, test the rails server, IN THE CONTAINER BASH)
 rails server -b 0.0.0.0
 
