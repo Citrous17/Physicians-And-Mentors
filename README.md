@@ -47,6 +47,9 @@ docker run --name postgres \
   -d postgres:latest
 ```
 
+### Env file
+In the `.env` file, add variables `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `SECRET_KEY_BASE`.  Do not add any other variables.
+
 ### Start Rails
 ```
 docker run -it \
