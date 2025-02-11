@@ -1,7 +1,5 @@
-<p>Please sign in to continue:</p>
-
 <% if session[:user_id] %>
-  <p>You are already logged in.</p>
+  <p>Welcome Back!</p>
   <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-danger" %>
 <% else %>
   <p>Please sign in to continue:</p>

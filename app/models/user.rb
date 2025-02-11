@@ -1,11 +1,20 @@
 class User < ApplicationRecord
-    validates :uid, presence: true
-    validates :provider, presence: true
-  
-    def self.from_omniauth(auth)
-      where(uid: auth.uid, provider: auth.provider).first_or_create do |user|
-        user.name = auth.info.name
-        user.email = auth.info.email
-      end
+  def self.from_omniauth(auth)
+    user = where(uid: auth.uid, provider: auth.provider).first
+
+    if user.nil?
+      # If no user is found, create a new user
+      user = User.create!(
+        first_name: auth.info.first_name || "",
+        last_name: auth.info.last_name || "",
+        email: auth.info.email,
+        name: auth.info.name,
+        profile_image_url: auth.info.image,
+        uid: auth.uid,
+        provider: auth.provider
+      )
     end
+
+    user
   end
+end
