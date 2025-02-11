@@ -39,6 +39,9 @@ bundle install
 rails db:create
 rails db:migrate
 
+# Step 6.5, if not done already, may need to setup .env file
+** Create a .env file manually
+** in the .env file, include variables of GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET
+
 # Step 7 (run when necessary, test the rails server, IN THE CONTAINER BASH)
 rails server -b 0.0.0.0
-
