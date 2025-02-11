@@ -45,3 +45,16 @@ rails db:migrate
 
 # Step 7 (run when necessary, test the rails server, IN THE CONTAINER BASH)
 rails server -b 0.0.0.0
+
+
+
+# NOTE, for the following to work you need heroku-cli installed!
+# HEROKU - how to connect to bash and database within app!
+* Step 1: login to heroku. run the following command:
+heroku login
+* This should bring up a link in the terminal, click it and log in
+
+* step 2: to connect to heroku bash, run:
+heroku run bash -a p-a-m-test-app
+* step 3: to connect to database within app:
+# insert command here when it gets figured out
