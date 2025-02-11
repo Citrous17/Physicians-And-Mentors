@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   def self.from_omniauth(auth)
-    user = where(uid: auth.uid, provider: auth.provider).first
+    user = where(user_id: auth.uid, provider: auth.provider).first
 
     if user.nil?
       # If no user is found, create a new user
@@ -10,7 +10,7 @@ class User < ApplicationRecord
         email: auth.info.email,
         name: auth.info.name,
         profile_image_url: auth.info.image,
-        uid: auth.uid,
+        user_id: auth.uid,
         provider: auth.provider
       )
     end
