@@ -14,7 +14,8 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
         DOB: Date.parse("199#{i}-01-01"),
         phone_number: i.even? ? "123-456-789#{i}" : nil,
         profile_image_url: "https://example.com/profile#{i}.jpg",
-        isProfessional: [true, false].sample
+        isProfessional: [true, false].sample,
+        user_id: i.to_s
       )
   end
   

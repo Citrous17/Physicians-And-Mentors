@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  validates :user_id, presence: true
+
   def self.from_omniauth(auth)
     user = where(user_id: auth.uid, provider: auth.provider).first
 
@@ -10,7 +12,7 @@ class User < ApplicationRecord
         email: auth.info.email,
         name: auth.info.name,
         profile_image_url: auth.info.image,
-        user_id: auth.uid,
+        user_id: auth.uid.to_s,
         provider: auth.provider
       )
     end
