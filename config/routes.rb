@@ -11,5 +11,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  #### TEMP VALUE, COMMENT OUT OR DELETE BEFORE MERGE
+  root "mentor_portal#dashboard"
+  ####
+
   get 'mentor_portal/dashboard', to: 'mentor_portal#dashboard'
+  get 'mentor_portal/messages', to: 'mentor_portal#messages'
+  get 'mentor_portal/posts', to: 'mentor_portal#posts'
 end
