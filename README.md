@@ -1,27 +1,4 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Physicians and Mentors
 
 ## Docker instructions
 * Make a new directory and copy the Dockerfile to it
@@ -82,6 +59,8 @@ docker run --name postgres \
 ### Env file
 In the `.env` file, add variables `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `SECRET_KEY_BASE`.  Do not add any other variables.
 
+Remove `/.env*` from `.dockerignore`.
+
 ### Start Rails
 ```
 docker run -it \
@@ -112,3 +91,13 @@ Start
 ```
 docker exec -it rails-app /bin/bash 
 ```
+
+## Pull database from Heroku
+
+Pull from Heroku Postgres database to local:
+
+```
+heroku pg:pull DATABASE_URL mylocaldb --app example-app
+```
+
+The database url can be found in Heroku config variables under the test app.
