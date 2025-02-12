@@ -7,5 +7,4 @@ class MentorPortalController < ApplicationController
 
     def posts
     end
-    
 end

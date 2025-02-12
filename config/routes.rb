@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   root "mentor_portal#dashboard"
   ####
 
-  get 'mentor_portal/dashboard', to: 'mentor_portal#dashboard'
-  get 'mentor_portal/messages', to: 'mentor_portal#messages'
-  get 'mentor_portal/posts', to: 'mentor_portal#posts'
+  get "mentor_portal/dashboard", to: "mentor_portal#dashboard"
+  get "mentor_portal/messages", to: "mentor_portal#messages"
+  get "mentor_portal/posts", to: "mentor_portal#posts"
 end
