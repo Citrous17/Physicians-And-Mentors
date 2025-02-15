@@ -1,0 +1,56 @@
+<header class="bg-transparent text-white p-4 flex justify-between items-center absolute top-0 left-0 w-full z-10">
+    <div class="text-xl font-bold flex items-center">
+        <img src="/images/logo-1.png" alt="Physicians and Mentors Logo" class="w-16 h-16 mr-4" />
+        <h1 class="text-3xl">Physicians and Mentors (Test Build)</h1>
+    </div>
+
+  <nav>
+    <%= link_to "Home", home_path, class: "hover:text-gray-300 text-lg bg-transparent  text-white-900 font-semibold hover:text-white mt-8 p-4 text-3xl border border-gray-500 rounded" %>
+    <%= link_to "Login", login_path, class: "hover:text-gray-300 text-lg bg-transparent  text-white-900 font-semibold hover:text-white mt-8 p-4 text-3xl border border-white-900 rounded" %>
+  </nav>
+ 
+</header>
+
+  <div class="relative w-screen h-screen bg-cover bg-center bg-fixed bg-black" style=";">
+  <!-- Blue overlay with blur -->
+  <div class="absolute w-max-screen h-screen pt-32"></div>
+  <img src="/images/background02.jpeg" alt="Physicians and Mentors Home Image" class="absolute w-screen h-screen object-cover blur-lg opacity-70" />
+
+  <!-- Centered content -->
+  <div class="relative flex items-center justify-center h-full flex-col">
+    <h1 class="text-4xl md:text-6xl text-white font-bold mt-[32px]">
+      Login
+    </h1>
+    <%= form_with url: login_path, method: :post do |f| %>
+        <div class="text-white pt-8">
+          <%= f.label :email %>
+          <%= f.text_field :email, class: "border p-2 w-full my-2" %>
+        </div>
+      
+        <div class="text-white">
+          <%= f.label :password %>
+          <%= f.password_field :password, class: "border p-2 w-full my-2" %>
+        </div>
+      
+        <div>
+          <%= f.submit "Submit", class: "bg-transparent border-white border text-white px-4 py-2 ml-64 rounded mt-4" %>
+        </div>
+        <div class="flex justify-center">
+            <p class="text-sm text-white font-bold mt-4">
+                or
+            </p>
+        </div>
+    <% end %>
+    <div class="flex justify-center text-white">
+    <%= button_to "Log in with Google", '/auth/google_oauth2', method: :post, data: { turbo: "false" }, class: "hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 text-3xl border border-white rounded" %>
+    </div>
+
+  </div>
+
+
+  <div class="absolute bottom-0 w-full text-center pb-4">
+  <p class="text-white text-lg">
+    A <a href="https://www.slinghealthtamu.org/" class="underline">Sling Health TAMU</a> Application
+  </p>
+  </div>
+</div>

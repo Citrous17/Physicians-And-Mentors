@@ -72,5 +72,8 @@ group :test do
   gem "webdrivers"
 end
 
+gem "tailwindcss-ruby", "~> 4.0"
+
+gem "tailwindcss-rails", "~> 4.0"
 # Tests
 gem "rexml"

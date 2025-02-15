@@ -12,7 +12,9 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  get '/auth/:provider/callback', to: 'sessions#omniauth'
+  get '/auth/:provider/callback', to: 'login#omniauth'
+  get 'home', to: 'home#index'
+  get 'login', to: 'login#new'
   delete '/logout', to: 'sessions#destroy'
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
