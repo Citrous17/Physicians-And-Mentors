@@ -2,6 +2,21 @@
   <p>Welcome Back!</p>
   <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-danger" %>
 <% else %>
+
+<header class="bg-gray-800 text-white p-4 flex justify-between items-center">
+  <div class="text-xl font-bold flex items-center">
+    <h1 class="text-2xl">Physicians and Mentors (Test Build)</h1>
+  </div>
+
+  <nav>
+    <%= link_to "Login", login_path, class: "hover:text-gray-300 text-lg" %>
+  </nav>
+</header>
+
+  <div class="bg-red-500 text-white p-4 text-center">
+  If you see a red box with white text, Tailwind is working!
+  </div>
+
   <p>Please sign in to continue:</p>
   <%= button_to "Log in with Google", '/auth/google_oauth2', method: :post, data: { turbo: "false" }, class: "btn btn-primary" %>
 <% end %>
