@@ -17,7 +17,7 @@
   </div>
 
   <div class="field">
-    <%= form.label :last_name %>
+    <%= form.label :first_name %>
     <%= form.text_field :first_name %>
   </div>
 
