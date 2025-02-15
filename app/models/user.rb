@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  validates :user_id, presence: true
+  # TODO: Add user id in creation of user automatically
+  #validates :user_id, presence: true
 
   def self.from_omniauth(auth)
     user = where(user_id: auth.uid, provider: auth.provider).first

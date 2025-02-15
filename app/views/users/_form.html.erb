@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :last_name %>
-    <%= form.text_field :first_name %>
+    <%= form.text_field :last_name %>
   </div>
 
   <div class="field">
@@ -23,18 +23,18 @@
 
   <div class="field">
     <%= form.label :email %>
-    <%= form.number_field :email %>
+    <%= form.text_field :email %>
 
   </div>
 
   <div class="field">
-    <%= form.label :password %>
-    <%= form.number_field :password %>
+    <%= form.label :password_digest %>
+    <%= form.text_field :password_digest %>
   </div>
 
   <div class="field">
-    <%= form.label :dob %>
-    <%= form.date_select :dob %>
+    <%= form.label :DOB %>
+    <%= form.date_select :DOB %>
   </div>
 
   <div class="field">
@@ -44,12 +44,13 @@
 
   <div class="field">
     <%= form.label :profile_image_url %>
-    <%= form.number_field :profile_image_url %>
+    <%= form.text_field :profile_image_url %>
   </div>
 
+  <%# TODO: Change isProfessional to is_professional when database is modified %>
   <div class="field">
-    <%= form.label :is_professional %>
-    <%= form.number_field :is_professional %>
+    <%= form.label :isProfessional %>
+    <%= form.text_field :isProfessional%>
   </div>
 
 
