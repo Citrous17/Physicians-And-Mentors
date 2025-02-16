@@ -47,7 +47,7 @@ docker run -it \
 --network rails-net \
 -p 3000:3000 \
 -v $(pwd):/app \
-502_fem_docker bash -c "bin/rails db:create && bin/rails db:migrate"
+502_fem_docker bash 
 
-echo "Docker container setup complete! Database created and migrations completed."
-./connect_local.sh
+#echo "Docker container setup complete! Database created and migrations completed."
+#./connect_local.sh
