@@ -42,12 +42,13 @@ docker run --name $CONTAINER_NAME_SQL \
   -d postgres:latest
 
 echo "Starting new container: $CONTAINER_NAME_RAILS_APP..."
-docker run -it \
---name $CONTAINER_NAME_RAILS_APP \
---network rails-net \
--p 3000:3000 \
--v $(pwd):/app \
-502_fem_docker bash 
+docker run --name $CONTAINER_NAME_RAILS_APP \
+    --network rails-net \
+    -p 3000:3000 \
+    -v $(pwd):/app \
+    -d 502_fem_docker:latest sleep infinity
+    #-d 502_fem_docker:latest bash -c "rails db:create && rails db:migrate && rails server -b '0.0.0.0'"
 
-#echo "Docker container setup complete! Database created and migrations completed."
-#./connect_local.sh
+echo "Docker container setup complete! Database created and migrations completed."
+chmod +x ./connect_local.sh
+./connect_local.sh
