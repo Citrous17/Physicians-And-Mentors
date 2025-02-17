@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
     def omniauth
       user = User.from_omniauth(request.env['omniauth.auth'])
-      
+
       if user
         session[:user_id] = user.id
         session[:email] = user.email
@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     def create
       user = User.find_by(email: params[:email])
 
-      if (user[:password_digest] == params[:password])
+      if user && (user[:password_digest] == params[:password])
         session[:user_id] = user.id
         session[:email] = user.email
         session[:first_name] = user.first_name
