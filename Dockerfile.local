@@ -34,4 +34,16 @@ EXPOSE 3000
 
 #Ensure bin files are executable
 RUN sed -i 's/\r$//' bin/*
-RUN chmod +x bin/rails
+d +x bin/rails
+=======
+# Install Yarn
+RUN npm install -g yarn
+# Install Rails
+RUN gem install rails
+
+COPY Gemfile* /app/
+RUN bundle install
+RUN bundle exec rails assets:precompile
+
+# Keep container running for interactive use
+CMD ["/bin/bash"]

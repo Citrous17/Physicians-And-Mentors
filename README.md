@@ -40,6 +40,6 @@ heroku pg:pull DATABASE_URL mylocaldb --app example-app
 
 
 ## (IN CONTAINER BASH) To locally host app, make a rails server with the command:
-'''
 rails s -b 0.0.0.0
-'''
+
+The database url can be found in Heroku config variables under the test app.

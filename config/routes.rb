@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'login#omniauth'
   get 'home', to: 'home#index'
   get 'login', to: 'login#new'
+  post "/login", to: "sessions#create"
   delete '/logout', to: 'sessions#destroy'
+  get 'users', to: 'users#index'
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
