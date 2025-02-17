@@ -7,19 +7,43 @@ RUN apt-get update -qq && apt-get install -y \
     postgresql-client \
     nodejs \
     npm
+
+# Install Yarn
+RUN npm install -g yarn
+
+# Install Rails
+RUN gem install rails
+
+
+# Install Heroku CLI
+RUN curl -fsSL https://cli-assets.heroku.com/install-ubuntu.sh | bash
+
+
+# Set working directory
+WORKDIR /app
+
+# Copy application files
+COPY . /app/
+
+# Install gems
+RUN bundle install
+
+#precompile assets
+RUN bundle exec rails assets:precompile
+EXPOSE 3000
+
+#Ensure bin files are executable
+RUN sed -i 's/\r$//' bin/*
+d +x bin/rails
+=======
 # Install Yarn
 RUN npm install -g yarn
 # Install Rails
 RUN gem install rails
-EXPOSE 3000
-# Set working directory
-WORKDIR /app
 
 COPY Gemfile* /app/
 RUN bundle install
 RUN bundle exec rails assets:precompile
 
-=======
 # Keep container running for interactive use
 CMD ["/bin/bash"]
-
