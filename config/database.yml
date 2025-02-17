@@ -82,6 +82,7 @@ test:
 #
 production:
   primary: &primary_production
+    url: <%= ENV["DATABASE_URL"] %>
     <<: *default
     database: physicians_and_mentors_production
     username: physicians_and_mentors

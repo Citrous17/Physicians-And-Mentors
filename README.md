@@ -1,60 +1,103 @@
-* Docker Instructions
+# Physicians and Mentors
 
-# STEP 1 (run once): BUILD THE DOCKER IMAGE
-docker build -t 502_fem_docker -f Dockerfile.local .
+## Docker instructions
+* Make a new directory and copy the Dockerfile to it
 
+Docker file for local:
 
-# Step 2 (run once): create a network using docker, called 'rails-net'
+```
+# Dockerfile
+FROM ruby:3.3.6
+# Install essential Linux packages
+RUN apt-get update -qq && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    postgresql-client \
+    nodejs \
+    npm
+# Install Yarn
+RUN npm install -g yarn
+# Install Rails
+RUN gem install rails
+# Set working directory
+WORKDIR /app
+
+COPY Gemfile* /app/
+RUN bundle install
+RUN bundle exec rails assets:precompile
+EXPOSE 3000
+RUN chmod +x bin/rails
+RUN bin/rails db:create
+RUN bin/rails db:migrate
+
+# Keep container running for interactive use
+CMD [“/bin/bash”]
+```
+
+* Run the command to build the dockerfile
+```
+docker build -t 502_fem_docker .
+```
+
+* Copy the contents from database.yml to config/database.yml
+* Run the following commands to run start the database and the container
+
+### Create network
+```
 docker network create rails-net
+```
 
-# Step 3 (run once): Start PostgreSQL, which is necessary for database testing/operations
+### Start PostgreSQL
+```
 docker run --name postgres \
   --network rails-net \
   -e POSTGRES_PASSWORD=password \
   -e POSTGRES_USER=postgres \
   -d postgres:latest
-# for powershell
-docker run --name postgres --network rails-net -e POSTGRES_PASSWORD=password -e POSTGRES_USER=postgres -d postgres:latest
+```
 
+### Env file
+In the `.env` file, add variables `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `SECRET_KEY_BASE`.  Do not add any other variables.
 
-# Give PostgreSQL a moment to start up (Optional?)
-sleep 5
+Remove `/.env*` from `.dockerignore`.
 
-# Step 4 (run once): Start new container using the image we created (502_fem_docker)
+### Start Rails
+```
 docker run -it \
   --name rails-app \
   --network rails-net \
   -p 3000:3000 \
   -v $(pwd):/app \
   502_fem_docker bash
-# for powershell
-docker run -it --name rails-app --network rails-net -p 3000:3000 502_fem_docker bash
+```
 
-# Step 5 (run when necessary) to connect to bash/cmd line of an already running container:
-docker exec -it rails-app bash
+* Inside the container run the following commands
 
-** Inside the container run the following commands
-# Step 6 (run once, IN THE CONTAINER BASH)
-bundle install
-rails db:create
-rails db:migrate
-
-# Step 6.5, if not done already, may need to setup .env file
-** Create a .env file manually
-** in the .env file, include variables of GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET
-
-# Step 7 (run when necessary, test the rails server, IN THE CONTAINER BASH)
+```
 rails server -b 0.0.0.0
+```
 
+### Run existing
 
+Make sure that `postgres` and `rails-app` are already started:
 
-# NOTE, for the following to work you need heroku-cli installed!
-# HEROKU - how to connect to bash and database within app!
-* Step 1: login to heroku. run the following command:
-heroku login
-* This should bring up a link in the terminal, click it and log in
+```
+docker start rails-app  
+docker start postgres 
+```
 
-* step 2: to connect to heroku bash, run:
-heroku run bash -a p-a-m-test-app
-* step 3: to connect to database within app:
-# insert command here when it gets figured out
+Start
+
+```
+docker exec -it rails-app /bin/bash 
+```
+
+## Pull database from Heroku
+
+Pull from Heroku Postgres database to local:
+
+```
+heroku pg:pull DATABASE_URL mylocaldb --app example-app
+```
+
+The database url can be found in Heroku config variables under the test app.

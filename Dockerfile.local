@@ -11,8 +11,15 @@ RUN apt-get update -qq && apt-get install -y \
 RUN npm install -g yarn
 # Install Rails
 RUN gem install rails
+EXPOSE 3000
 # Set working directory
 WORKDIR /app
+
+COPY Gemfile* /app/
+RUN bundle install
+RUN bundle exec rails assets:precompile
+
+=======
 # Keep container running for interactive use
 CMD ["/bin/bash"]
 

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  content: MyText
+  sending_user: one
+  time_sent: 2025-02-11 20:38:08
+  parent_post: one
+
+two:
+  title: MyString
+  content: MyText
+  sending_user: two
+  time_sent: 2025-02-11 20:38:08
+  parent_post: two
