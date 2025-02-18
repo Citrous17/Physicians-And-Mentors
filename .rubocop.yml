@@ -1,8 +1,99 @@
+inherit_from: .rubocop_todo.yml
+
 # Omakase Ruby styling for Rails
 inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+AllCops:
+  TargetRubyVersion: 3.3.6
+  Exclude:
+    - "db/schema.rb"
+    - "vendor/**/*"
+  NewCops: enable
+
+Layout/IndentationWidth:
+  Width: 2
+  IndentationWidth: 5 # This setting is non-standard; RuboCop only supports consistent indentation.
+
+Layout/LineLength:
+  Max: 100
+
+Style/CommentAnnotation:
+  Enabled: true
+  Keywords:
+    - TODO
+    - FIXME
+    - OPTIMIZE
+    - HACK
+    - REVIEW
+
+Style/TrailingWhitespace:
+  Enabled: true
+
+Style/RedundantBegin:
+  Enabled: true
+
+Style/BlockDelimiters:
+  EnforcedStyle: line
+
+Style/For:
+  Enabled: false # Enforce `each` instead
+
+Style/UnlessElse:
+  Enabled: true # Prevents using `unless ... else`
+
+Style/NegatedWhile:
+  Enabled: true # Enforce `until` instead of `while !`
+
+Naming/MethodName:
+  EnforcedStyle: snake_case
+
+Naming/VariableName:
+  EnforcedStyle: snake_case
+
+Naming/ClassAndModuleCamelCase:
+  Enabled: true
+
+Naming/PredicateName:
+  Enabled: true
+  ForbiddenPrefixes:
+    - is
+    - does
+    - can
+
+Naming/VariableNumber:
+  Enabled: false # Allow meaningful variable names with numbers if needed
+
+Naming/ConstantName:
+  Enabled: true
+  EnforcedStyle: screaming_snake_case
+
+Rails/PluralizationGrammar:
+  Enabled: true
+
+Rails/PrimaryKeyName:
+  Enabled: true
+
+Rails/ForeignKeyName:
+  Enabled: true
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: true
+
+Rails/Delegate:
+  Enabled: true
+
+Rails/EnumUniqueness:
+  Enabled: true
+
+Rails/SkipsModelValidations:
+  Enabled: true
+
+Rails/ActionController:
+  Enabled: true
+
+Rails/ActionView:
+  Enabled: true
+
+Style/DefWithParentheses:
+  Enabled: true
+  EnforcedStyle: require_parentheses
