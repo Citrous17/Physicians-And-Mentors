@@ -34,8 +34,7 @@ EXPOSE 3000
 
 #Ensure bin files are executable
 RUN sed -i 's/\r$//' bin/*
-d +x bin/rails
-=======
+RUN chmod +x bin/rails
 # Install Yarn
 RUN npm install -g yarn
 # Install Rails
