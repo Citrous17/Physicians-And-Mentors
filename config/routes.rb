@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :professionals
   resources :users
   # get "users/index"
   # get "users/new"
