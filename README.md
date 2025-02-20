@@ -1,10 +1,12 @@
 # Physicians and Mentors
 
 
-## TO MAKE SURE SCRIPTS CAN BE RAN, RUN THE FOLLOWING:
+## TO MAKE SURE SCRIPTS CAN BE RAN, RUN THE FOLLOWING: with dos2unix installed!!!
 '''
 chmod +x build_local.sh
 chmod +x connect_local.sh
+dos2unix build_local.sh
+dos2unix connect_local.sh
 '''
 
 
@@ -12,6 +14,7 @@ chmod +x connect_local.sh
 '''
 ./build_local.sh
 '''
+
 ### (IN CONTAINER BASH) also run this to setup the db:
 '''
 rails db:create
