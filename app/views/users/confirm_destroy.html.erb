@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Are you sure you want to destroy this user?</h1>
+
 <p>
   <strong>First name:</strong>
   <%= @user.first_name %>
@@ -17,5 +19,6 @@
   <%= @user.isProfessional %>
 
 </p>
+<%= button_to 'Destroy user', @user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

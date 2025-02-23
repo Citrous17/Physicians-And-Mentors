@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :users
+  resources :users do
+    member do 
+      get 'confirm_destroy'
+    end
+  end
   # get "users/index"
   # get "users/new"
   # get "users/edit"
