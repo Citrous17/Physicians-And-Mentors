@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Are you sure you want to destroy this user?</h1>
+
+<p>
+  <strong>First name:</strong>
+  <%= @user.first_name %>
+  <strong>Last name:</strong>
+  <%= @user.last_name %>
+  <strong>Email:</strong>
+  <%= @user.email %>
+  <strong>DOB:</strong>
+  <%= @user.DOB %>
+  <strong>Phone number:</strong>
+  <%= @user.phone_number %>
+  <strong>Profile image url:</strong>
+  <%= @user.profile_image_url %>
+  <strong>Is professional:</strong>
+  <%= @user.isProfessional %>
+
+</p>
+<%= button_to 'Destroy user', @user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
