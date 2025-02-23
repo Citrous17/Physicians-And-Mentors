@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :professionals
-  resources :users
+  resources :users do
+    member do 
+      get 'confirm_destroy'
+    end
+  end
   # get "users/index"
   # get "users/new"
   # get "users/edit"
@@ -16,7 +20,9 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback', to: 'login#omniauth'
   get 'home', to: 'home#index'
   get 'login', to: 'login#new'
+  post "/login", to: "sessions#create"
   delete '/logout', to: 'sessions#destroy'
+  get 'users', to: 'users#index'
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest

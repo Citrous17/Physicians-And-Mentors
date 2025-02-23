@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   # TODO: Add user id in creation of user automatically
   #validates :user_id, presence: true
+  # TODO: Validate other fields.  OAuth does not seem to create these fields automatically
+  validates :email, presence: true
 
   def self.from_omniauth(auth)
     user = where(user_id: auth.uid, provider: auth.provider).first

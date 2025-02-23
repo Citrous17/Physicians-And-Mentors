@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: %i[ show edit update destroy ]
+
   def index
     @users = User.all 
+    initialize_search
+    handle_search_name
+    handle_filters
   end
 
   def new
@@ -38,6 +43,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def confirm_destroy
+    @user = User.find(params[:id])
+  end
+
+  def destroy
+    @user.destroy
+
+    respond_to do |format|
+      format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -48,6 +66,38 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:last_name, :first_name, :email, :password_digest, :DOB, :phone_number, :profile_image_url, :isProfessional)
     end
+
+    def initialize_search
+      # Check if there's a new search term
+      if params[:search_name].present?
+        session[:search_name] = params[:search_name]
+        session[:filter] = nil
+        session[:filter_option] = nil
+      else
+        session[:search_name] = nil
+        session[:filter] = nil
+        session[:filter_option] = nil
+        # If no new search term, use the previous session values (if they exist)
+        # session[:search_name] ||= params[:search_name]
+        # session[:filter] = params[:filter]
+        # params[:filter_option] = nil if params[:filter_option] == ""
+        # session[:filter_option] = params[:filter_option]
+      end
+    end
+    
+    def handle_search_name
+      if session[:search_name]
+        @users = User.where("first_name LIKE ?", "%#{session[:search_name].titleize}%")
+      else
+        @users = User.all
+      end
+    end
+    
+    def handle_filters
+      if session[:filter_option] && session[:filter] == "isProfessional"
+        @users = @users.where(isProfessional: session[:filter_option])
+      end
+    end   
 
 
 end
