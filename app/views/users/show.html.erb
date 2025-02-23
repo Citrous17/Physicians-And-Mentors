@@ -1,42 +1,21 @@
-<h1>Users show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-
 <p id="notice"><%= notice %></p>
 
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Email</th>
-      <th>Birthday</th>
-      <th>Phone number</th>
-      <th>Profile image url</th>
-      <%# <th>Is professional</th> %>
+<p>
+  <strong>First name:</strong>
+  <%= @user.first_name %>
+  <strong>Last name:</strong>
+  <%= @user.last_name %>
+  <strong>Email:</strong>
+  <%= @user.email %>
+  <strong>DOB:</strong>
+  <%= @user.DOB %>
+  <strong>Phone number:</strong>
+  <%= @user.phone_number %>
+  <strong>Profile image url:</strong>
+  <%= @user.profile_image_url %>
+  <strong>Is professional:</strong>
+  <%= @user.isProfessional %>
 
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.first_name %></td>
-        <td><%= user.last_name %></td>
-        <td><%= user.email %></td>
-        <td><%= user.phone_number %></td>
-        <td><%= user.profile_image_url %></td>
-        <%# <td><%= user.is_professional %></td> %>
-        
-        <%# <td><%= link_to 'Show', user %></td> %>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', confirm_destroy_user_path(user) %></td>
-
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New User', new_user_path %>
+</p>
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
