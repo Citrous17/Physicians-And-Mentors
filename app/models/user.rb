@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_secure_password
   # TODO: Add user id in creation of user automatically
   #validates :user_id, presence: true
   # TODO: Validate other fields.  OAuth does not seem to create these fields automatically
