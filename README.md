@@ -1,16 +1,19 @@
 # Physicians and Mentors
 
 
-## TO MAKE SURE SCRIPTS CAN BE RAN, RUN THE FOLLOWING: with dos2unix installed!!!
+## TO MAKE SURE SCRIPTS CAN BE RAN, RUN THE FOLLOWING: with dos2unix installed!
 '''
 chmod +x build_local.sh
 chmod +x connect_local.sh
 dos2unix build_local.sh
 dos2unix connect_local.sh
 '''
+* Addendum- make sure these environment variables are set before running the build_local script!
+'''
+'''
 
 
-## First Time Setup or missing image/containers, run the following script:
+## First Time Setup or missing image/containers, run the following script with docker desktop up and running:
 '''
 ./build_local.sh
 '''
@@ -38,6 +41,7 @@ heroku login
 ### Run this to pull from the heroku database:
 '''
 heroku pg:pull DATABASE_URL mylocaldb --app example-app
+heroku pg:pull DATABASE_URL localdb --app p-a-m-test-app
 '''
 #### The DATABASE_URL can be found in Heroku config variables under the test app.
 
