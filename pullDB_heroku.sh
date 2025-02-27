@@ -19,10 +19,13 @@ for VAR in "${REQUIRED_VARS[@]}"; do
     fi
 done
 
+docker exec -it $APP_HOST bash -c "echo 'machine api.heroku.com login $HEROKU_APP password $HEROKU_API_KEY' > ~/.netrc && chmod 600 ~/.netrc"
+
 echo "🔄 Downloading backup from Heroku..."
-docker exec -it $APP_HOST heroku pg:backups:download --app $HEROKU_APP && \
+docker exec -it $APP_HOST heroku pg:backups:download --app $HEROKU_APP
+
 echo "🔄 Ensuring the database exists locally..."
-docker exec -it $APP_HOST rails db:create && \
+docker exec -it $APP_HOST rails db:create
 echo "🔄 Restoring to local database from dump file..."
 cat latest.dump | docker exec -i $DATABASE_HOST pg_restore --clean --if-exists --no-owner -U $DATABASE_USERNAME -d $DATABASE_NAME
 

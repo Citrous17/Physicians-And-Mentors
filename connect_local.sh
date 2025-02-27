@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🔄 Starting container: $APP_HOST..."
+echo -ne "🔄 Starting container: $APP_HOST...\r"
 if docker start $APP_HOST >/dev/null 2>&1; then
   echo "✅ Container $APP_HOST started."
 else
@@ -8,7 +8,7 @@ else
   exit 1
 fi
 
-echo "🔄 Starting database container: $DATABASE_HOST..."
+echo -ne "🔄 Starting database container: $DATABASE_HOST...\r"
 if docker start $DATABASE_HOST >/dev/null 2>&1; then
   echo "✅ Database container $DATABASE_HOST started."
 else
