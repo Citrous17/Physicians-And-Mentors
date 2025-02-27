@@ -17,14 +17,23 @@ else
 fi
 
 # once env file has all variables loaded, then check if we have all the right variables
-echo -ne "🔄 Checking required environment variables...\r"
+MISSING_VARS=()
+
+# find missing variables
 for VAR in "${REQUIRED_VARS[@]}"; do
   if [ -z "${!VAR}" ]; then
-    echo "❌ Error: $VAR is not set. Please ensure it is defined in the .env file."
-    exit 1
+    MISSING_VARS+=("$VAR")
   fi
 done
-echo "✅ All required environment variables are set."
+
+# print out missing variables
+if [ ${#MISSING_VARS[@]} -ne 0 ]; then
+  echo "❌ Error: The following environment variables are missing:"
+  for VAR in "${MISSING_VARS[@]}"; do
+    echo "   - $VAR"
+  done
+  exit 1
+fi
 
 # Remove .env from .dockerignore if it exists
 if grep -q "^$ENV_FILE$" $DOCKERIGNORE_FILE; then
@@ -40,7 +49,9 @@ if [ "$(docker ps -aq -f name=$APP_HOST)" ]; then
         echo "✅ Container $APP_HOST stopped."
     else
         echo "❌ Failed to stop $APP_HOST."
-        echo "potential fix: make sure docker desktop is running!"
+        echo "Potential issues:"
+        echo "1. Docker Desktop may not be running."
+        echo "2. There is some other error with the container."
         exit 1
     fi
 
@@ -49,6 +60,8 @@ if [ "$(docker ps -aq -f name=$APP_HOST)" ]; then
         echo "✅ Container $APP_HOST removed."
     else
         echo "❌ Failed to remove $APP_HOST."
+        echo "1. Docker Desktop may not be running."
+        echo "2. There is some other error with the container."
         exit 1
     fi
 else
@@ -63,6 +76,8 @@ if [ "$(docker ps -aq -f name=$DATABASE_HOST)" ]; then
     else
         echo "❌ Failed to stop $DATABASE_HOST."
         echo "potential fix: make sure docker desktop is running!"
+        echo "1. Docker Desktop may not be running."
+        echo "2. There is some other error with the container."
         exit 1
     fi
 
@@ -71,6 +86,8 @@ if [ "$(docker ps -aq -f name=$DATABASE_HOST)" ]; then
         echo "✅ Container $DATABASE_HOST removed."
     else
         echo "❌ Failed to remove $DATABASE_HOST."
+        echo "1. Docker Desktop may not be running."
+        echo "2. There is some other error with the container."
         exit 1
     fi
 else

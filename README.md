@@ -16,7 +16,6 @@ APP_HOST=<any given name>
 DATABASE_HOST=<any given name different from APP_HOST>
 DATABASE_PASSWORD=<any given password; only used locally>
 DATABASE_USERNAME=<any given username; only used locally>
-HEROKU_API_KEY=<exact heroku auth key; obtained via the '''heroku auth:token''' command, but may need to run '''heroku login''' first>
 DATABASE_NAME=physicians_and_mentors_development
 '''
 
@@ -34,10 +33,6 @@ rails db:migrate
 #### Option 2: (OUTSIDE OF CONTAINER BASH) OR run this to pull to local db from the heroku database
 '''
 ./pullDB_heroku.sh
-'''
-* if the heroku API token is expired, run:
-'''
-heroku auth:create
 '''
 
 ## To connect to existing container's command line / bash, wether its running or not, run this script:

@@ -19,10 +19,28 @@ for VAR in "${REQUIRED_VARS[@]}"; do
     fi
 done
 
-docker exec -it $APP_HOST bash -c "echo 'machine api.heroku.com login $HEROKU_APP password $HEROKU_API_KEY' > ~/.netrc && chmod 600 ~/.netrc"
+# Handle Heroku API key
+if [ -z "$HEROKU_API_KEY" ]; then
+    echo "🔑 HEROKU_API_KEY is missing. Logging into Heroku to obtain it..."
+    heroku login
+    HEROKU_API_KEY=$(heroku auth:token)
+
+    if [ -z "$HEROKU_API_KEY" ]; then
+        echo "❌ Failed to obtain Heroku API key."
+        exit 1
+    fi
+
+    echo "🔐 Storing Heroku API key in .env..."
+    echo -e "\nHEROKU_API_KEY=$HEROKU_API_KEY" >> .env
+fi
+
+# Ensure Heroku authentication is set up
+docker exec -it $APP_HOST bash -c "
+echo 'machine api.heroku.com login $HEROKU_APP password $HEROKU_API_KEY' > ~/.netrc
+chmod 600 ~/.netrc"
 
 echo "🔄 Downloading backup from Heroku..."
-docker exec -it $APP_HOST heroku pg:backups:download --app $HEROKU_APP
+docker exec -it $APP_HOST bash -c "HEROKU_API_KEY=$HEROKU_API_KEY heroku pg:backups:download --app $HEROKU_APP"
 
 echo "🔄 Ensuring the database exists locally..."
 docker exec -it $APP_HOST rails db:create
