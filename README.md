@@ -3,8 +3,8 @@
 
 ## TO MAKE SURE SCRIPTS CAN BE RAN, RUN the following with dos2unix installed:
 '''
-chmod +x build_local.sh connect_local.sh pullDB_heroku.sh
-dos2unix build_local.sh connect_local.sh pullDB_heroku.sh
+chmod +x build_local.sh connect_local.sh pull_heroku_db.sh
+dos2unix build_local.sh connect_local.sh pull_heroku_db.sh
 '''
 ### Make sure .env file exists and is populated with the following variables before running scripts; replace "<any ...>" && "<exact ...>" from below with actual values:
 '''
@@ -32,7 +32,7 @@ rails db:migrate
 
 #### Option 2: (OUTSIDE OF CONTAINER BASH) OR run this to pull to local db from the heroku database
 '''
-./pullDB_heroku.sh
+./pull_heroku_db.sh
 '''
 
 ## To connect to existing container's command line / bash, wether its running or not, run this script:
