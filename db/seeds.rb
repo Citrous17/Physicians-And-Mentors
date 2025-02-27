@@ -15,7 +15,7 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
         phone_number: i.even? ? "123-456-789#{i}" : nil,
         profile_image_url: "https://example.com/profile#{i}.jpg",
         isProfessional: [true, false].sample,
-        user_id: i.to_s
+        user_id: i
       )
   end
   
@@ -23,7 +23,6 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
   users.each do |user|
     if user.isProfessional
       PhysicianSpecialty.create!(
-        physician_specialty_id: user.id,
         user_id: user.id,
         specialty_id: specialties.sample.id
       )
@@ -40,12 +39,7 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
         time_sent: Time.now
     )
     posts << post
-    end
-
-    # Now update parent_post_id safely
-    posts.each_with_index do |post, i|
-    post.update!(parent_post_id: i > 5 ? posts.sample.id : nil) if i > 5
-    end
+  end
   
   # Assigning Specialties to Posts
   posts.each do |post|
@@ -55,22 +49,10 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
     )
   end
   
-  # Creating Messages
-  10.times do |i|
-    Message.create!(
-      content: "Message content #{i}",
-      title: "Message Title #{i}",
-      sending_user_id: users.sample.id,
-      receiving_user_id: users.sample.id,
-      time_sent: Time.now.to_s,
-      parent_message_id: i > 5 ? Message.order("RANDOM()").first.id : nil
-    )
-  end
-  
   # Creating Admins
   Admin.create!(
     user_id: users.sample.id,
-    permissions: "all"
+    canEditDatabase: true
   )
   
   puts "Seed data successfully created!"
