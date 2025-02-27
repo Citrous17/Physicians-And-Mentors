@@ -41,4 +41,11 @@ rails db:migrate
 '''
 
 ## (IN CONTAINER BASH) To locally host app, make a rails server with the command:
+'''
 rails s -b 0.0.0.0
+'''
+
+## (IN CONTAINER BASH) to run tests:
+'''
+bundle exec rspec
+'''
