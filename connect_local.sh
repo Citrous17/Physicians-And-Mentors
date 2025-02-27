@@ -6,23 +6,20 @@ REQUIRED_VARS=("GOOGLE_CLIENT_ID" "GOOGLE_CLIENT_SECRET" "DATABASE_USERNAME" "DA
 echo -ne "🔄 Loading environment variables from .env file...\r"
 if [ -f .env ]; then
   export $(grep -v '^#' .env | xargs)
-  echo "✅ Environment variables loaded."
+  echo -ne "✅ Environment variables loaded.                  \n"
 else
-  echo "❌ Error: .env file not found. Please create it before running this script."
+  echo -ne "❌ Error: .env file not found. Please create it before running this script.      \n"
   exit 1
 fi
 
-# once env file has all variables loaded, then check if we have all the right variables
+# Check for missing variables
 MISSING_VARS=()
-
-# find missing variables
 for VAR in "${REQUIRED_VARS[@]}"; do
   if [ -z "${!VAR}" ]; then
     MISSING_VARS+=("$VAR")
   fi
 done
 
-# print out missing variables
 if [ ${#MISSING_VARS[@]} -ne 0 ]; then
   echo "❌ Error: The following environment variables are missing:"
   for VAR in "${MISSING_VARS[@]}"; do
@@ -38,17 +35,17 @@ fi
 
 echo -ne "🔄 Starting container: $APP_HOST...\r"
 if docker start "$APP_HOST" >/dev/null 2>&1; then
-  echo "✅ Container $APP_HOST started."
+  echo -ne "✅ Container $APP_HOST started.            \n"
 else
-  echo "❌ Failed to start $APP_HOST."
+  echo -ne "❌ Failed to start $APP_HOST.              \n"
   exit 1
 fi
 
 echo -ne "🔄 Starting database container: $DATABASE_HOST...\r"
 if docker start "$DATABASE_HOST" >/dev/null 2>&1; then
-  echo "✅ Database container $DATABASE_HOST started."
+  echo -ne "✅ Database container $DATABASE_HOST started.      \n"
 else
-  echo "❌ Failed to start $DATABASE_HOST."
+  echo -ne "❌ Failed to start $DATABASE_HOST.           \n"
   exit 1
 fi
 
