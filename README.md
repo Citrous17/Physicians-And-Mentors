@@ -1,6 +1,22 @@
-# Physicians-and-Mentors
+# Physicians-and-Mentors - HEROKU INSTRUCTIONS
+## How to deploy app on Heroku:
+1. Login to heroku.com.
+2. Navigate to your dashboard.
+3. Click on the p-a-m-pipeline.
+4. Click on the NAME "p-a-m-test-app".
+5. Click on the "deploy" tab.
+6. Scroll down to the "Manual deploy" section and choose the "test" branch to deploy
+7. Click "Deploy Branch" (and wait a few minutes for the app to start up).
 
+## HOW TO pause/stop app on Heroku
+1. Login on heroku.
+2. Navigate to the p-a-m-pipeline
+3. Click on the name "p-a-m-test-app".
+4. Click on the "settings" tab.
+5. Scroll down until you see the "maintenance mode" section, then turn it on.
+* To turn the app back on, simply turn maintenance mode off.
 
+# Physicians-and-Mentors - LOCAL TESTING AND DEVELOPMENT:
 ## TO MAKE SURE SCRIPTS CAN BE RAN, RUN the following with dos2unix installed:
 ```
 chmod +x build_local.sh connect_local.sh pull_heroku_db.sh
