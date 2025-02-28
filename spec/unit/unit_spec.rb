@@ -6,11 +6,12 @@ RSpec.describe User, type: :model do
       first_name: 'firstname',
       last_name: 'lastname',
       email: 'email@provider.com',
-      password_digest: 'mypassword',
+      password: 'mypassword',
+      password_confirmation: 'mypassword',
       DOB: Date.new(2025,1,1),
       phone_number: '999999999',
       profile_image_url: 'profile.image.link',
-      isProfessional: 'false'
+      isProfessional: false
     )
   end
 
