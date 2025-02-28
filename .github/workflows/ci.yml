@@ -20,6 +20,7 @@ jobs:
           bundler-cache: true
 
       - name: Scan for common Rails security vulnerabilities using static analysis
+        run: chmod +x bin/brakeman
         run: bin/brakeman --no-pager
 
   scan_js:
