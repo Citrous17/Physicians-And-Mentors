@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get 'confirm_destroy'
     end
   end
+  resources :posts, only: [:index, :new, :create, :show]
   # get "users/index"
   # get "users/new"
   # get "users/edit"
