@@ -8,7 +8,7 @@
       <li>
         <h2><%= link_to post.title, post_path(post) %></h2>
         <p><%= post.content.truncate(100) %></p> <!-- Show preview of content -->
-        <p><strong>Posted by User:</strong> <%= post.sending_user_id %></p>
+        <p><strong>Posted by:</strong> <%= post.sending_user&.name || "Unknown" %></p>
         <p><small>Posted on: <%= post.created_at.strftime("%B %d, %Y %I:%M %p") %></small></p>
       </li>
     <% end %>
@@ -16,4 +16,3 @@
 <% else %>
   <p>No posts available. Be the first to <%= link_to "create a new post", new_post_path %>!</p>
 <% end %>
-

@@ -14,7 +14,7 @@ class PostsController < ApplicationController
       @post.sending_user_id = current_user.id  # Assign logged-in user's ID
   
       if @post.save
-        redirect_to @post, notice: "Post created successfully!"
+        redirect_to posts_path, notice: "Post created successfully!"
       else
         render :new, status: :unprocessable_entity
       end
