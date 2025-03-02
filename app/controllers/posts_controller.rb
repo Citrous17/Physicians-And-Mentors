@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+    before_action :require_login, only: [:new, :create]
+  
     def new
       @post = Post.new
     end
@@ -9,12 +11,13 @@ class PostsController < ApplicationController
   
     def create
       @post = Post.new(post_params)
-      
+      @post.sending_user_id = current_user.id  # Assign logged-in user's ID
+  
       if @post.save
         redirect_to @post, notice: "Post created successfully!"
       else
         render :new, status: :unprocessable_entity
-      end  # <-- This was missing
+      end
     end
   
     def show
@@ -23,14 +26,16 @@ class PostsController < ApplicationController
       if @post.nil?
         flash[:alert] = "Post not found"
         redirect_to posts_path
-      end  # <-- This was missing
+      end
     end
   
     private
   
     def post_params
-      params.require(:post).permit(:title, :content, :sending_user_id)
+      params.require(:post).permit(:title, :content) # Removed :sending_user_id (we assign it)
     end
-  end
+
+end
+  
   
   
