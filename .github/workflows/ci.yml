@@ -1,4 +1,4 @@
-name: CI
+me: CI
 
 on:
   pull_request:
@@ -20,6 +20,7 @@ jobs:
           bundler-cache: true
 
       - name: Scan for common Rails security vulnerabilities using static analysis
+        run: chmod +x bin/brakeman
         run: bin/brakeman --no-pager
 
   scan_js:
@@ -36,6 +37,7 @@ jobs:
           bundler-cache: true
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
+        run: chmod +x bin/importmap
         run: bin/importmap audit
 
   lint:
@@ -51,6 +53,7 @@ jobs:
           bundler-cache: true
 
       - name: Lint code for consistent style
+        run: chmod +x bin/rubocop
         run: bin/rubocop -f github
 
   test:
