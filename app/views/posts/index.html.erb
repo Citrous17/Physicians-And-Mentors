@@ -8,8 +8,19 @@
       <li>
         <h2><%= link_to post.title, post_path(post) %></h2>
         <p><%= post.content.truncate(100) %></p> <!-- Show preview of content -->
-        <p><strong>Posted by:</strong> <%= post.sending_user&.name || "Unknown" %></p>
+        <p><strong>Posted by:</strong> <%= post.sending_user.name %></p>
         <p><small>Posted on: <%= post.created_at.strftime("%B %d, %Y %I:%M %p") %></small></p>
+
+        <h3>Specialties:</h3>
+        <% if post.specialties&.any? %> 
+        <ul>
+            <% post.specialties.each do |specialty| %>
+            <li><%= specialty.name %></li>
+            <% end %>
+        </ul>
+        <% else %>
+        <p>No specialties assigned.</p>
+        <% end %>
       </li>
     <% end %>
   </ul>
