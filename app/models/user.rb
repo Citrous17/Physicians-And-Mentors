@@ -1,8 +1,14 @@
 class User < ApplicationRecord
-  has_secure_password validations: false  # Disable default password validation
-
-  validates :email, presence: true
-  validates :password, presence: true, unless: -> { provider.present? && user_id.present? } 
+  has_secure_password
+  # TODO: Add user id in creation of user automatically
+  #validates :user_id, presence: true
+  # TODO: Validate other fields.  OAuth does not seem to create these fields automatically
+  validates :email, presence: true, uniqueness: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :DOB, presence: true
+  validates :phone_number, presence: true
+  validates :isProfessional, inclusion: { in: [true, false] }
 
   def self.from_omniauth(auth)
     user = where(user_id: auth.uid, provider: auth.provider).first_or_initialize do |new_user|
