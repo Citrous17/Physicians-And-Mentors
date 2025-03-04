@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_secure_password
+  has_secure_password # enables password hashing
   # TODO: Add user id in creation of user automatically
   #validates :user_id, presence: true
   # TODO: Validate other fields.  OAuth does not seem to create these fields automatically
@@ -7,8 +7,11 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :DOB, presence: true
+  validates :password, presence: true
   validates :phone_number, presence: true
   validates :isProfessional, inclusion: { in: [true, false] }
+
+  scope :professionals, -> { where(isProfessional: true)}
 
   def full_name
     "#{first_name} #{last_name}"
@@ -30,4 +33,3 @@ class User < ApplicationRecord
     user
   end
 end
-

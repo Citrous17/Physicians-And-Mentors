@@ -1,10 +1,9 @@
-<%= form_with(model: professional, class: "contents") do |form| %>
-  <% if professional.errors.any? %>
+<%= form_with(model: @professional, url: professionals_path, method: :post, local: true, class: "contents") do |form| %>
+  <% if @professional.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(professional.errors.count, "error") %> prohibited this professional from being saved:</h2>
-
+      <h2><%= pluralize(@professional.errors.count, "error") %> prohibited this user from being saved:</h2>
       <ul class="list-disc ml-6">
-        <% professional.errors.each do |error| %>
+        <% @professional.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -13,45 +12,50 @@
 
   <div class="my-5">
     <%= form.label :last_name %>
-    <%= form.text_field :last_name, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": professional.errors[:last_name].none?, "border-red-400 focus:outline-red-600": professional.errors[:last_name].any?}] %>
+    <%= form.text_field :last_name, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if @professional.errors[:last_name].any?}" %>
   </div>
 
   <div class="my-5">
     <%= form.label :first_name %>
-    <%= form.text_field :first_name, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": professional.errors[:first_name].none?, "border-red-400 focus:outline-red-600": professional.errors[:first_name].any?}] %>
+    <%= form.text_field :first_name, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if @professional.errors[:first_name].any?}" %>
   </div>
 
   <div class="my-5">
     <%= form.label :email %>
-    <%= form.text_field :email, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": professional.errors[:email].none?, "border-red-400 focus:outline-red-600": professional.errors[:email].any?}] %>
+    <%= form.email_field :email, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if @professional.errors[:email].any?}" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :password_digest %>
-    <%= form.text_field :password_digest, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": professional.errors[:password_digest].none?, "border-red-400 focus:outline-red-600": professional.errors[:password_digest].any?}] %>
+    <%= form.label :password %>
+    <%= form.password_field :password, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if @professional.errors[:password].any?}" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :DOB %>
-    <%= form.date_field :DOB, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": professional.errors[:DOB].none?, "border-red-400 focus:outline-red-600": professional.errors[:DOB].any?}] %>
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if @professional.errors[:password_confirmation].any?}" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :DOB, "Date of Birth" %>
+    <%= form.date_field :DOB, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if professional.errors[:DOB].any?}" %>
   </div>
 
   <div class="my-5">
     <%= form.label :phone_number %>
-    <%= form.text_field :phone_number, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": professional.errors[:phone_number].none?, "border-red-400 focus:outline-red-600": professional.errors[:phone_number].any?}] %>
+    <%= form.text_field :phone_number, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if professional.errors[:phone_number].any?}" %>
   </div>
 
   <div class="my-5">
     <%= form.label :profile_image_url %>
-    <%= form.text_field :profile_image_url, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": professional.errors[:profile_image_url].none?, "border-red-400 focus:outline-red-600": professional.errors[:profile_image_url].any?}] %>
+    <%= form.text_field :profile_image_url, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if professional.errors[:profile_image_url].any?}" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :isProfessional %>
-    <%= form.checkbox :isProfessional, class: ["block shadow-sm rounded-md border outline-hidden mt-2 h-5 w-5", {"border-gray-400 focus:outline-blue-600": professional.errors[:isProfessional].none?, "border-red-400 focus:outline-red-600": professional.errors[:isProfessional].any?}] %>
+  <div class="my-5 flex items-center">
+    <%= form.check_box :isProfessional, { class: "mr-2 h-5 w-5" }, true, false %>
+    <%= form.label :isProfessional, "Sign up as a Professional" %>
   </div>
 
   <div class="inline">
-    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit "Create Account", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium cursor-pointer" %>
   </div>
 <% end %>

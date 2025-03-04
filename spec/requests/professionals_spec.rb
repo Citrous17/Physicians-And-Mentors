@@ -1,21 +1,20 @@
 RSpec.describe "/professionals", type: :request do
   let(:valid_attributes) {
-    { name: "Dr. Smith", email: "dr.smith@example.com", password: "password", isProfessional: true }
+    { first_name: "Rodriguez", last_name: "Smith", email: "user#{SecureRandom.uuid}@example.com", password: "password", isProfessional: true, DOB: Date.parse("2003-07-15"), phone_number: '999999999'}
   }
 
   let(:invalid_attributes) {
-    { name: "", email: "invalid-email", password: "", isProfessional: true }
+    { first_name: "", last_name: "", email: "invalid-email", password: "", isProfessional: false, DOB: '', phone_number: ''}
   }
 
   describe "GET /index" do
     it "renders a successful response and lists only professionals" do
       professional = User.create! valid_attributes
-      non_professional = User.create!(valid_attributes.merge(isProfessional: false))
+      non_professional = User.create!(valid_attributes.merge(email: "user#{SecureRandom.uuid}@example.com", isProfessional: false))
 
       get professionals_url
       expect(response).to be_successful
-      expect(response.body).to include(professional.name)
-      expect(response.body).not_to include(non_professional.name)
+      expect(assigns(:professionals)).to match_array(User.where(isProfessional: true))
     end
   end
 
@@ -52,7 +51,7 @@ RSpec.describe "/professionals", type: :request do
 
       it "redirects to the created professional" do
         post professionals_url, params: { user: valid_attributes }
-        expect(response).to redirect_to(professional_url(User.last))
+        expect(response).to redirect_to(user_url(User.last))
       end
     end
 
@@ -72,14 +71,16 @@ RSpec.describe "/professionals", type: :request do
 
   describe "PATCH /update" do
     let(:new_attributes) {
-      { name: "Updated Name" }
+      { first_name: "Updated Name",
+        last_name: "Updated Name" }
     }
 
     it "updates the requested professional" do
       professional = User.create! valid_attributes
       patch professional_url(professional), params: { user: new_attributes }
       professional.reload
-      expect(professional.name).to eq("Updated Name")
+      expect(professional.first_name).to eq("Updated Name")
+      expect(professional.last_name).to eq("Updated Name")
     end
 
     it "redirects to the professional" do

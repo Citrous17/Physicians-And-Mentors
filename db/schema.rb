@@ -13,7 +13,6 @@
 ActiveRecord::Schema[8.0].define(version: 2025_03_03_195533) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
-
   create_table "admins", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.boolean "canEditDatabase", default: true
