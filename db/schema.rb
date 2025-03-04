@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_27_200235) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_04_071420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -67,7 +67,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_200235) do
     t.string "phone_number"
     t.string "profile_image_url"
     t.boolean "isProfessional"
-    t.bigint "user_id"
+    t.string "user_id"
+    t.boolean "isAdmin", default: false, null: false
   end
 
   add_foreign_key "admins", "users"

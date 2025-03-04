@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :email, presence: true
 
   def self.from_omniauth(auth)
-    user = where(user_id: auth.uid, provider: auth.provider).first
+    user = where(user_id: auth.uid.to_s, provider: auth.provider).first
 
     if user.nil?
       # If no user is found, create a new user
@@ -14,10 +14,11 @@ class User < ApplicationRecord
         first_name: auth.info.first_name || "",
         last_name: auth.info.last_name || "",
         email: auth.info.email,
-        name: auth.info.name,
         profile_image_url: auth.info.image,
         user_id: auth.uid.to_s,
-        provider: auth.provider
+        provider: auth.provider,
+        password_digest: 'password', # Dummy password
+        isAdmin: true
       )
     end
 

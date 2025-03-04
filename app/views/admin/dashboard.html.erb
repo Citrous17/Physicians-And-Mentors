@@ -1,0 +1,21 @@
+<h1>Admin Dashboard</h1>
+<p>Welcome, <%= current_user.email %></p>
+
+<h2>Admin Actions</h2>
+<ul>
+  <li><%= link_to "View Users", admin_users_path %></li>
+  <li><%= link_to "View Database", admin_database_path %></li>
+</ul>
+
+<h3>Invite a New Admin</h3>
+<%= form_with url: admin_invite_admin_path, method: :post do |form| %>
+  <%= form.label :email, "User Email:" %>
+  <%= form.text_field :email %>
+  <%= form.submit "Make Admin" %>
+<% end %>
+
+<% flash.each do |key, message| %>
+  <div class="alert alert-<%= key %>">
+    <%= message %>
+  </div>
+<% end %>
