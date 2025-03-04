@@ -1,10 +1,10 @@
 RSpec.describe "/professionals", type: :request do
   let(:valid_attributes) {
-    { first_name: "Rodriguez", last_name: "Smith", email: "user#{SecureRandom.uuid}@example.com", password: "password", isProfessional: true, DOB: Date.parse("2003-07-15"), phone_number: '999999999'}
+    { first_name: "Rodriguez", last_name: "Smith", email: "user#{SecureRandom.uuid}@example.com", password: "password", password_confirmation: "password", isProfessional: true, DOB: Date.parse("2003-07-15"), phone_number: '999999999'}
   }
 
   let(:invalid_attributes) {
-    { first_name: "", last_name: "", email: "invalid-email", password: "", isProfessional: false, DOB: '', phone_number: ''}
+    { first_name: "", last_name: "", email: "invalid-email", password: "", password_confirmation: "", isProfessional: false, DOB: '', phone_number: ''}
   }
 
   describe "GET /index" do
@@ -87,7 +87,7 @@ RSpec.describe "/professionals", type: :request do
       professional = User.create! valid_attributes
       patch professional_url(professional), params: { user: new_attributes }
       professional.reload
-      expect(response).to redirect_to(professional_url(professional))
+      expect(response).to redirect_to(user_url(professional))
     end
   end
 
