@@ -1,0 +1,27 @@
+/* General table style */
+th,td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  backdrop-filter: blur(10px);
+}
+
+/* Table header */
+th {
+  background-color: #724099aa;
+  color: white;
+}
+
+/* Striped table rows */
+tr:nth-child(even) {
+  background-color: #f2f2f255;
+}
+
+/* tr:hover {
+  background-color: #A97FC9
+} */
+
+/* Action button */
+/* .action-button:hover {
+  background-color: #BE9ED6
+} */
