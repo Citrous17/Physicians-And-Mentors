@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_27_200235) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_03_195533) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,7 +24,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_200235) do
     t.bigint "parent_post_id", null: false
     t.text "content", null: false
     t.bigint "sending_user_id", null: false
-    t.datetime "time_sent", null: false
     t.index ["parent_post_id"], name: "index_comments_on_parent_post_id"
     t.index ["sending_user_id"], name: "index_comments_on_sending_user_id"
   end
@@ -47,8 +46,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_200235) do
     t.string "title"
     t.text "content"
     t.bigint "sending_user_id"
-    t.datetime "time_sent"
     t.bigint "post_id"
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.index ["sending_user_id"], name: "index_posts_on_sending_user_id"
   end
 

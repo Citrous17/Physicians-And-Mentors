@@ -10,6 +10,10 @@ class User < ApplicationRecord
   validates :phone_number, presence: true
   validates :isProfessional, inclusion: { in: [true, false] }
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   def self.from_omniauth(auth)
     user = where(user_id: auth.uid, provider: auth.provider).first_or_initialize do |new_user|
       new_user.first_name = auth.info.first_name || ""

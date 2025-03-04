@@ -1,7 +1,7 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
 
-<p><strong>Posted by:</strong> <%= @post.sending_user.name %></p>
+<p><strong>Posted by:</strong> <%= @post.sending_user.full_name %></p>
 
 <h3>Specialties:</h3>
 <% if @post.specialties.any? %>

@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "professionals/show", type: :view do
   before(:each) do
-    assign(:professional, Professional.create!(
+    assign(:professional, User.create!(
       last_name: "Last Name",
       first_name: "First Name",
       email: "Email",
       password_digest: "Password Digest",
       phone_number: "Phone Number",
       profile_image_url: "Profile Image Url",
-      isProfessional: false
+      isProfessional: true
     ))
   end
 

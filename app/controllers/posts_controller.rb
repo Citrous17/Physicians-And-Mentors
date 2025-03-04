@@ -37,7 +37,7 @@ class PostsController < ApplicationController
     private
   
     def post_params
-      params.require(:post).permit(:title, :content, specialty_ids: []) # Removed :sending_user_id (we assign it)
+      params.require(:post).permit(:title, :content, :sending_user_id, specialty_ids: []) # Removed :sending_user_id (we assign it)
     end
 
 end
