@@ -61,6 +61,7 @@ group :development, :test do
 
   # rubocop
   gem "rubocop", require: false
+  gem "rails-controller-testing"
 end
 
 group :development do

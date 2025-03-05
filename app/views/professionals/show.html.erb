@@ -1,17 +1,21 @@
-<% content_for :title, "Showing professional" %>
+<p id="notice"><%= notice %></p>
 
-<div class="md:w-2/3 w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
+<p>
+  <strong>First name:</strong>
+  <%= @professional.first_name %>
+  <strong>Last name:</strong>
+  <%= @professional.last_name %>
+  <strong>Email:</strong>
+  <%= @professional.email %>
+  <strong>DOB:</strong>
+  <%= @professional.DOB %>
+  <strong>Phone number:</strong>
+  <%= @professional.phone_number %>
+  <strong>Profile image url:</strong>
+  <%= @professional.profile_image_url %>
+  <strong>Is professional:</strong>
+  <%= @professional.isProfessional %>
 
-  <h1 class="font-bold text-4xl">Showing professional</h1>
-
-  <%= render @professional %>
-
-  <%= link_to "Edit this professional", edit_professional_path(@professional), class: "mt-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to professionals", professionals_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <div class="inline-block ml-2">
-    <%= button_to "Destroy this professional", @professional, method: :delete, class: "mt-2 rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium" %>
-  </div>
-</div>
+</p>
+<%= link_to 'Edit', edit_user_path(@professional) %> |
+<%= link_to 'Back', users_path %>

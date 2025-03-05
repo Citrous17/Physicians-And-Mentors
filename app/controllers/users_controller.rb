@@ -64,7 +64,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:last_name, :first_name, :email, :password, :password_confirmation, :DOB, :phone_number, :profile_image_url, :isProfessional)
+      params.require(:user).permit(:last_name, :first_name, :email, :password, :DOB, :phone_number, :profile_image_url, :isProfessional)
     end
 
     def initialize_search
