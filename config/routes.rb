@@ -26,6 +26,11 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get 'users', to: 'users#index'
 
+  get 'admin/dashboard', to: 'admin#dashboard'
+  get 'admin/users', to: 'admin#users'
+  get 'admin/database', to: 'admin#database'
+  post 'admin/invite_admin', to: 'admin#invite_admin'
+
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
