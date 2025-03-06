@@ -1,9 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
-  describe "GET /index" do
+  before do
+    @user = User.create!(
+      first_name: 'firstname',
+      last_name: 'lastname',
+      email: 'email@provider.com',
+      password: 'mypassword',
+      password_confirmation: 'mypassword',
+      DOB: Date.new(2025,1,1),
+      phone_number: '999999999',
+      profile_image_url: 'profile.image.link',
+      isProfessional: false
+    )
+  end
+
+  describe "GET /users" do
     it "returns http success" do
-      get "/users/index"
+      get users_path
       expect(response).to have_http_status(:success)
     end
   end
@@ -17,7 +31,7 @@ RSpec.describe "Users", type: :request do
 
   describe "GET /edit" do
     it "returns http success" do
-      get "/users/edit"
+      get edit_user_path(@user)
       expect(response).to have_http_status(:success)
     end
   end

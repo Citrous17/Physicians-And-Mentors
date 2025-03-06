@@ -37,7 +37,6 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
         content: "This is post content #{i}",
         title: "Post Title #{i}",
         sending_user: User.all.sample, # Ensure users exist
-        time_sent: Time.now
     )
     posts << post
   end
