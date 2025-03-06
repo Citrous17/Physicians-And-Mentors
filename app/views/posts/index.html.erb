@@ -2,6 +2,18 @@
 
 <%= link_to "Create New Post", new_post_path %>
 
+<% if @specialties.any? %>
+  <%= form_with url: posts_path, method: :get, local: true do %>
+    <label for="specialty_id">Filter by Specialty:</label>
+    <%= select_tag :specialty_id, 
+          options_from_collection_for_select(@specialties, :id, :name, params[:specialty_id]), 
+          include_blank: "All Specialties" %>
+    <%= submit_tag "Filter", class: "btn btn-primary" %>
+  <% end %>
+<% else %>
+  <p>No specialties available for filtering.</p>
+<% end %>
+
 <% if @posts.any? %>
   <ul>
     <% @posts.each do |post| %>
@@ -11,15 +23,15 @@
         <p><strong>Posted by:</strong> <%= post.sending_user.full_name %></p>
         <p><small>Posted on: <%= post.created_at.strftime("%B %d, %Y %I:%M %p") %></small></p>
 
-        <h3>Specialties:</h3>
-        <% if post.specialties&.any? %> 
-        <ul>
+        <% if post.specialties.any? %> 
+          <h3>Specialties:</h3>
+          <ul>
             <% post.specialties.each do |specialty| %>
-            <li><%= specialty.name %></li>
+              <li><%= specialty.name %></li>
             <% end %>
-        </ul>
+          </ul>
         <% else %>
-        <p>No specialties assigned.</p>
+          <p>No specialties assigned.</p>
         <% end %>
       </li>
     <% end %>

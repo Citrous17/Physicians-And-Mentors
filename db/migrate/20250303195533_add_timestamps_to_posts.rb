@@ -1,5 +1,7 @@
-class AddTimestampsToPosts < ActiveRecord::Migration[6.0]
+class AddTimestampsToPosts < ActiveRecord::Migration[7.0]
   def change
-    add_timestamps :posts, default: -> { 'CURRENT_TIMESTAMP' }, null: false
+    unless column_exists?(:posts, :created_at)
+      add_timestamps :posts, default: -> { 'NOW()' }, null: false
+    end
   end
 end

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-    before_action :require_login, only: [:new, :create]
+    before_action :require_login
   
     def new
       @post = Post.new
@@ -7,8 +7,21 @@ class PostsController < ApplicationController
     end
   
     def index
-      @posts = Post.all.order(created_at: :desc) # Fetch all posts, newest first
-    end    
+      if current_user&.isProfessional?
+        @specialties = current_user.specialties # Professionals can only filter by their own specialties
+      else
+        @specialties = Specialty.all # Regular users can filter by any specialty
+      end
+    
+      # Filter posts if a specialty is selected
+      if params[:specialty_id].present?
+        @posts = Post.joins(:specialties).where(specialties: { id: params[:specialty_id] }).distinct
+      else
+        @posts = Post.all
+      end
+    end
+    
+    
   
     def create
       @post = Post.new(post_params)
@@ -26,11 +39,13 @@ class PostsController < ApplicationController
     end
   
     def show
-      @post = Post.find_by(id: params[:id])
-  
-      if @post.nil?
-        flash[:alert] = "Post not found"
-        redirect_to posts_path
+      @post = Post.find(params[:id])
+      # Check if the user is a professional and has matching specialties
+      if current_user.isProfessional?
+        user_specialty_ids = current_user.specialties.pluck(:id)
+        unless @post.specialties.where(id: user_specialty_ids).exists?
+          redirect_to posts_path, alert: "You are not authorized to view this post."
+        end
       end
     end
   
