@@ -19,8 +19,8 @@
 # Physicians-and-Mentors - LOCAL TESTING AND DEVELOPMENT:
 ## TO MAKE SURE SCRIPTS CAN BE RAN, RUN the following with dos2unix installed:
 ```
-chmod +x build_local.sh connect_local.sh pull_heroku_db.sh
-dos2unix build_local.sh connect_local.sh pull_heroku_db.sh
+chmod +x *.sh
+dos2unix *.sh
 ```
 ### Make sure .env file exists and is populated with the following variables before running scripts; replace "<any ...>" && "<exact ...>" from below with actual values:
 ```

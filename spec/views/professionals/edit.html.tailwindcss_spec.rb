@@ -1,40 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe "professionals/edit", type: :view do
-  let(:professional) {
-    Professional.create!(
-      last_name: "MyString",
-      first_name: "MyString",
-      email: "MyString",
-      password_digest: "MyString",
-      phone_number: "MyString",
-      profile_image_url: "MyString",
-      isProfessional: false
+  let(:user) {
+    User.create!(
+      first_name: "John", last_name: "Doe", email: "john@example.com", password: "password", phone_number: "1234567890", isProfessional: true, DOB: "2000-01-01"
     )
   }
 
   before(:each) do
-    assign(:professional, professional)
+    assign(:professional, user)  # Change @user to @professional
   end
 
   it "renders the edit professional form" do
     render
 
-    assert_select "form[action=?][method=?]", professional_path(professional), "post" do
-
-      assert_select "input[name=?]", "professional[last_name]"
-
-      assert_select "input[name=?]", "professional[first_name]"
-
-      assert_select "input[name=?]", "professional[email]"
-
-      assert_select "input[name=?]", "professional[password_digest]"
-
-      assert_select "input[name=?]", "professional[phone_number]"
-
-      assert_select "input[name=?]", "professional[profile_image_url]"
-
-      assert_select "input[name=?]", "professional[isProfessional]"
+    assert_select "form[action=?][method=?]", professional_path(user), "patch" do
+      assert_select "input[name=?]", "user[last_name]"
+      assert_select "input[name=?]", "user[first_name]"
+      assert_select "input[name=?]", "user[email]"
+      assert_select "input[name=?]", "user[password]"
+      assert_select "input[name=?]", "user[phone_number]"
+      assert_select "input[name=?]", "user[profile_image_url]"
+      assert_select "input[name=?]", "user[isProfessional]"
     end
   end
 end
+

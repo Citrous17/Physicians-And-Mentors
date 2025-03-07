@@ -15,7 +15,8 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
         phone_number: i.even? ? "123-456-789#{i}" : nil,
         profile_image_url: "https://example.com/profile#{i}.jpg",
         isProfessional: [true, false].sample,
-        user_id: i
+        user_id: i,
+        isAdmin: false
       )
   end
   
@@ -36,7 +37,6 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
         content: "This is post content #{i}",
         title: "Post Title #{i}",
         sending_user: User.all.sample, # Ensure users exist
-        time_sent: Time.now
     )
     posts << post
   end

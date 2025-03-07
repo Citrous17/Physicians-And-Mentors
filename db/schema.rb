@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_27_200235) do
-  create_schema "_heroku"
-
+ActiveRecord::Schema[8.0].define(version: 2025_03_04_071420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -28,6 +26,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_200235) do
     t.text "content", null: false
     t.bigint "sending_user_id", null: false
     t.datetime "time_sent", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["parent_post_id"], name: "index_comments_on_parent_post_id"
     t.index ["sending_user_id"], name: "index_comments_on_sending_user_id"
   end
@@ -51,6 +51,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_200235) do
     t.text "content"
     t.bigint "sending_user_id"
     t.datetime "time_sent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "post_id"
     t.index ["sending_user_id"], name: "index_posts_on_sending_user_id"
   end
@@ -204,6 +206,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_200235) do
   create_table "users", force: :cascade do |t|
     t.string "provider"
     t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "last_name"
     t.string "first_name"
     t.string "password_digest"
@@ -212,7 +216,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_27_200235) do
     t.string "phone_number"
     t.string "profile_image_url"
     t.boolean "isProfessional"
-    t.bigint "user_id"
+    t.string "user_id"
+    t.boolean "isAdmin", default: false, null: false
   end
 
   add_foreign_key "admins", "users"

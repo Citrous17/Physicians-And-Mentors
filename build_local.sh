@@ -121,6 +121,8 @@ docker run --name $APP_HOST \
     -d $IMAGE_NAME:latest sleep infinity
     #-d $IMAGE_NAME:latest bash -c "rails db:create && rails db:migrate && rails server -b '0.0.0.0'"
 
+docker exec -it $APP_HOST bash -c "sed -i 's/\r$//' bin/rails"
+
 echo "✅ Docker container setup complete!"
 chmod +x ./connect_local.sh
 ./connect_local.sh

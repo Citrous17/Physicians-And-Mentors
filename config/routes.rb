@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get 'confirm_destroy'
     end
   end
+  resources :posts, only: [:index, :new, :create, :show]
   # get "users/index"
   # get "users/new"
   # get "users/edit"
@@ -24,6 +25,11 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete '/logout', to: 'sessions#destroy'
   get 'users', to: 'users#index'
+
+  get 'admin/dashboard', to: 'admin#dashboard'
+  get 'admin/users', to: 'admin#users'
+  get 'admin/database', to: 'admin#database'
+  post 'admin/invite_admin', to: 'admin#invite_admin'
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
