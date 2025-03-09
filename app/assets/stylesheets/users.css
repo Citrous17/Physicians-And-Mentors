@@ -2,7 +2,6 @@
 th,td {
   padding: 15px;
   text-align: left;
-  background-color: #544a57;
 }
 
 /* Table header */
@@ -16,11 +15,44 @@ th {
   padding: 5px
 }
 
-/* tr:hover {
-  background-color: #A97FC9
-} */
+/* Row and header hover color */
+.users-table-rows, .sortable-header {
+  background-color: #D878CB00;
+}
 
-/* Action button */
-/* .action-button:hover {
-  background-color: #BE9ED6
-} */
+.users-table-rows:hover, .sortable-header:hover {
+  background-color: #D878CBff;
+}
+
+.users-table-rows:not(:hover), .sortable-header:not(:hover) {
+  background-color: #D878CB00;
+  transition: background-color 1s;
+}
+
+/* Show, edit button */
+.blue-button {
+  background-color: #7883d800;
+}
+
+.blue-button:hover {
+  background-color: #7883d8ff;
+}
+
+.blue-button:not(:hover) {
+  background-color: #7883d800;
+  transition: background-color 1s;
+}
+
+/* Destroy button */
+.red-button {
+  background-color: #d8787800;
+}
+
+.red-button:hover {
+  background-color: #d87878ff;
+}
+
+.red-button:not(:hover) {
+  background-color: #d8787800;
+  transition: background-color 1s;
+}
