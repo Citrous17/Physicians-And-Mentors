@@ -15,46 +15,48 @@
   </form>
 
   <div class="flex justify-center">
-    <table id="users-table" class="w-80/100">
-      <thead>
-        <tr>
-          <th onclick="sortTable(0)" class="w-5/100"></th>
-          <th onclick="sortTable(0)" class="w-20/100">First name</th>
-          <th onclick="sortTable(1)" class="w-20/100">Last name</th>
-          <th onclick="sortTable(2)">Email</th>
-          <th onclick="sortTable(3)">Birthday</th>
-          <th onclick="sortTable(4)">Phone</th>
-          <th onclick="sortTable(5)">Professional</th>
+    <div class="w-80/100 pl-3 pr-3 bg-[#544a57] rounded-md">
+      <table id="users-table" class="w-full">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)" class="w-5/100"></th>
+            <th onclick="sortTable(0)" class="w-20/100">First name</th>
+            <th onclick="sortTable(1)" class="w-20/100">Last name</th>
+            <th onclick="sortTable(2)">Email</th>
+            <th onclick="sortTable(3)">Birthday</th>
+            <th onclick="sortTable(4)">Phone</th>
+            <th onclick="sortTable(5)">Professional</th>
 
-          <th colspan="3">Actions</th>
-        </tr>
-      </thead>
+            <th colspan="3">Actions</th>
+          </tr>
+        </thead>
 
-      <tbody>
+        <tbody>
 
-        <% if @users.nil? %>
-        <tr>
-          <td colspan="2">No users found.</td>
-        </tr>
-        <% else %>
-          <% @users.each do |user| %>
-            <tr>
-              <td class="profile-td"><%= image_tag(user.profile_image_url, alt: "Profile image", class: "w-full h-full object-cover aspect-square rounded-md") %></td>
-              <td><%= user.first_name %></td>
-              <td><%= user.last_name %></td>
-              <td><%= user.email %></td>
-              <td><%= user.DOB %></td>
-              <td><%= user.phone_number %></td>
-              <td><%= user.isProfessional %></td>
-              <td class="action-button"><%= link_to 'Show', user %></td>
-              <td class="action-button"><%= link_to 'Edit', edit_user_path(user) %></td>
-              <td class="action-button"><%= link_to 'Destroy', confirm_destroy_user_path(user) %></td>
+          <% if @users.nil? %>
+          <tr>
+            <td colspan="2">No users found.</td>
+          </tr>
+          <% else %>
+            <% @users.each do |user| %>
+              <tr>
+                <td class="profile-td"><%= image_tag(user.profile_image_url, alt: "Profile image", class: "w-full h-full object-cover aspect-square rounded-md") %></td>
+                <td><%= user.first_name %></td>
+                <td><%= user.last_name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.DOB %></td>
+                <td><%= user.phone_number %></td>
+                <td><%= user.isProfessional %></td>
+                <td class="action-button"><%= link_to 'Show', user %></td>
+                <td class="action-button"><%= link_to 'Edit', edit_user_path(user) %></td>
+                <td class="action-button"><%= link_to 'Destroy', confirm_destroy_user_path(user) %></td>
 
-            </tr>
+              </tr>
+            <% end %>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <br>
