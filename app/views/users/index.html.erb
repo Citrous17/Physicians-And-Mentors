@@ -44,9 +44,8 @@
               <td><%= user.email %></td>
               <td><%= user.DOB %></td>
               <td><%= user.phone_number %></td>
-              <td><%= user.profile_image_url %></td>
+              <td><%= image_tag(user.profile_image_url, alt: "Profile image", class: "w-10 h-10 rounded-md") %></td>
               <td><%= user.isProfessional %></td>
-              
               <td class="action-button"><%= link_to 'Show', user %></td>
               <td class="action-button"><%= link_to 'Edit', edit_user_path(user) %></td>
               <td class="action-button"><%= link_to 'Destroy', confirm_destroy_user_path(user) %></td>
