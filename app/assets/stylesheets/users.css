@@ -12,9 +12,9 @@ th {
   color: white;
 }
 
-/* Striped table rows */
-tr:nth-child(even) {
-  background-color: #f2f2f255;
+/* Profile td has less padding */
+.profile-td {
+  padding: 5px
 }
 
 /* tr:hover {
