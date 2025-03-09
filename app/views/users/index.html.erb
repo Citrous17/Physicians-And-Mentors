@@ -7,7 +7,11 @@
   <h1>All Users</h1>
   <p>Find me in app/views/users/index.html.erb</p>
 
-  <p id="notice"><%= notice %></p>
+  <% if notice.present? %>
+  <div class="flex items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[#D878CB]">
+    <h1 id="notice"><%= notice %></p>
+  </div>
+  <% end %>
 
   <div class="flex flex-row justify-between m-4 w-80/100 mx-auto">
     <div class="flex flex-col">
