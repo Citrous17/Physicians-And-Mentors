@@ -12,7 +12,10 @@ th {
 
 /* Profile td has less padding */
 .profile-td {
-  padding: 5px
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  padding-left: calc(var(--spacing) * 2);
 }
 
 /* Row and header hover color */
