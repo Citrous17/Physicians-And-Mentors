@@ -1,3 +1,16 @@
+/* Colors
+  TODO: Add global css variables
+
+  Main: #544a57
+  Main highlight: #D878CBff
+
+  Blue button highlight: #7883d8
+  Faded blue: #736493
+  Red button highlight: #d87878
+  Faded red: #966179
+
+*/
+
 /* General table style */
 th,td {
   padding: 15px;
