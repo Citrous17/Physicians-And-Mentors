@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   root "home#index"
 
+  get 'clear', to: 'users#clear'
+
   get '/auth/:provider/callback', to: 'login#omniauth'
   get 'home', to: 'home#index'
   get 'login', to: 'login#new'
