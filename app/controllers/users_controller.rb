@@ -3,6 +3,8 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all 
+    session[:filter] = params[:filter] if params[:filter].present?
+    session[:filter_option] = params[:filter_option] if params[:filter_option].present?
     initialize_search
     handle_search_name
     handle_filters
@@ -56,6 +58,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def clear_session(*args)
+    args.each do |session_key|
+      session[session_key] = nil
+    end
+  end
+
+  def clear
+    clear_session(:search_name, :filter_name, :filter)
+    redirect_to users_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -83,6 +96,13 @@ class UsersController < ApplicationController
         # params[:filter_option] = nil if params[:filter_option] == ""
         # session[:filter_option] = params[:filter_option]
       end
+      if params[:filter].present?
+        session[:filter] = params[:filter]
+      end
+    
+      if params[:filter_option].present?
+        session[:filter_option] = params[:filter_option]
+      end
     end
     
     def handle_search_name
@@ -95,7 +115,8 @@ class UsersController < ApplicationController
     
     def handle_filters
       if session[:filter_option] && session[:filter] == "isProfessional"
-        @users = @users.where(isProfessional: session[:filter_option])
+        is_professional_value = session[:filter_option] == "True"
+        @users = @users.where(isProfessional: is_professional_value)
       end
     end   
 

@@ -28,6 +28,24 @@
     <%= link_to 'New User', new_user_path, class: "flex items-center justify-center blue-button p-2 w-10/100 rounded-md bg-[#544a57]" %>
   </div>
 
+<form action="/users" method="GET">
+  <label for="filter">Filter Options</label>
+  <select id="filter" name="filter" onchange="this.form.submit()">
+    <option value="">Pick a Filter Option</option>
+    <option value="isProfessional" <%= "selected" if session[:filter] == "isProfessional" %>>Filter by Professional</option>
+  </select>
+
+  <% if session[:filter] == "isProfessional" %>
+    <select name="filter_option" onchange="this.form.submit()">
+      <option value="">Pick professional</option>
+      <option value="True" <%= "selected" if session[:filter_option] == "True" %>>Professional</option>
+      <option value="False" <%= "selected" if session[:filter_option] == "False" %>>Not professional</option>
+    </select>
+  <% end %>
+</form>
+
+<%= link_to "Clear Filter Options", clear_path %>
+
   <div class="flex flex-col items-center justify-center">
     <div class="w-80/100 bg-[#544a57] rounded-md">
       <table id="users-table" class="w-full">
