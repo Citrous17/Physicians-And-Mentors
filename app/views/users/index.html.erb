@@ -1,7 +1,6 @@
 <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= stylesheet_link_tag 'users', media: 'all', data: { turbolinks: false } %>
 
-<img src="/images/background02.jpeg" alt="Physicians and Mentors Home Image" class="fixed absolute w-screen h-screen object-cover brightness-20 z-[-1] pointer-events-none bg-[var(--background-color)]" />
 
 <div class="text-white">
 
@@ -67,7 +66,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr class="users-table-rows">
-              <td class="profile-td"><%= image_tag(user.profile_image_url, alt: "Profile image", class: "w-full h-full object-cover aspect-square rounded-md") %></td>
+              <td class="profile-td"><%= image_tag(user.profile_image_url, alt: "Profile image", class: "w-full h-full object-cover aspect-square rounded-md",  onerror: "this.onerror=null; this.src='#{asset_path('profile-placeholder.png')}';") %></td>
               <td><%= user.first_name %></td>
               <td><%= user.last_name %></td>
               <td><%= user.email %></td>
