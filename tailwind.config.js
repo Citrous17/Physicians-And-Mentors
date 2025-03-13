@@ -12,6 +12,7 @@ module.exports = {
         accent: 'var(--accent-color)', 
         surface: 'var(--surface-color)', 
         text: 'var(--text-color)', 
+        background: 'var(--background-color)',
         okHighlight: 'var(--ok-highlight-color)',
         okHighlightFaded: 'var(--ok-highlight-faded-color)',
         warnHighlight: 'var(--warn-highlight-color)',
