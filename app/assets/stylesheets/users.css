@@ -1,16 +1,3 @@
-/* Colors
-  TODO: Add global css variables
-
-  Main: #544a57
-  Main highlight: #D878CBff
-
-  Blue button highlight: #7883d8
-  Faded blue: #736493
-  Red button highlight: #d87878
-  Faded red: #966179
-
-*/
-
 /* General table style */
 th,td {
   padding: 15px;
@@ -20,7 +7,7 @@ th,td {
 /* Table header */
 th {
   border-bottom: 1px solid #ddd;
-  color: white;
+  color: var(--text-color);
 }
 
 /* Profile td has less padding */
@@ -33,7 +20,7 @@ th {
 
 /* Row and header hover color */
 .users-table-rows:hover, .sortable-header:hover {
-  background-color: #D878CBff;
+  background-color: var(--accent-color);
 }
 
 .users-table-rows:not(:hover), .sortable-header:not(:hover) {
@@ -42,7 +29,7 @@ th {
 
 /* Show, edit button */
 .blue-button:hover {
-  background-color: #7883d8ff;
+  background-color: var(--ok-highlight-color);
 }
 
 .blue-button:not(:hover) {
@@ -51,7 +38,7 @@ th {
 
 /* Destroy button */
 .red-button:hover {
-  background-color: #d87878ff;
+  background-color: var(--warn-highlight-color);
 }
 
 .red-button:not(:hover) {

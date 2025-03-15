@@ -16,11 +16,17 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <img src="/images/background02.jpeg" alt="Physicians and Mentors Home Image" class="fixed absolute w-screen h-screen object-cover brightness-20 z-[-1] pointer-events-none bg-[var(--background-color)]" />
+    
+    <%= render 'layouts/header' %> <!-- Include the header partial -->
+
     <%= yield %>
+
+    <%= render 'layouts/footer' %> <!-- Include the footer partial -->
   </body>
 </html>
