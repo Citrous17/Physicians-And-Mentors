@@ -2,7 +2,7 @@
 <%= stylesheet_link_tag 'users', media: 'all', data: { turbolinks: false } %>
 
 <% if user.errors.any? %>
-  <div id="error_explanation">
+  <div id="error_explanation" class="flex flex-col items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[var(--accent-color)]">
     <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
     <ul>
