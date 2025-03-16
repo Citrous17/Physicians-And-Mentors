@@ -44,3 +44,17 @@ th {
 .red-button:not(:hover) {
   transition: background-color 1s;
 }
+
+/* Forms */
+.field {
+  padding: 5px;
+}
+
+input {
+  border: 2px solid var(--accent-color);
+  border-radius: 4px;
+}
+
+input:focus {
+  background-color: var(--accent-color);
+}
