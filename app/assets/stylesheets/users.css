@@ -58,3 +58,7 @@ input {
 input:focus {
   background-color: var(--accent-color);
 }
+
+.submit-button {
+  border: none;
+}

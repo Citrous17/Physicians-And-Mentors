@@ -14,14 +14,14 @@
 <% end %>
 
 <div class="flex flex-col items-center justify-center">
-  <div class="w-80/100 bg-[var(--surface-color)] rounded-md">
+  <div class="w-60/100 bg-[var(--surface-color)] rounded-md">
     <%= form_with(model: user) do |form| %>
 
-      <table>
+      <table class="m-auto">
 
         <tr class="field">
           <td>
-            <%= form.label :last_name %>
+            <%= form.label :last_name, "Last Name" %>
           </td>
           <td>
             <%= form.text_field :last_name %>
@@ -30,7 +30,7 @@
 
         <tr class="field">
           <td>
-            <%= form.label :first_name %>
+            <%= form.label :first_name, "First Name" %>
           </td>
           <td>
             <%= form.text_field :first_name %>
@@ -39,7 +39,7 @@
 
         <tr class="field">
           <td>
-            <%= form.label :email %>
+            <%= form.label :email, "Email Address" %>
           </td>
           <td>
             <%= form.text_field :email %>
@@ -49,7 +49,7 @@
 
         <tr class="field">
           <td>
-            <%= form.label :password %>
+            <%= form.label :password, "Password" %>
           </td>
           <td>
             <%= form.password_field :password %>
@@ -58,7 +58,7 @@
 
         <tr class="field">
           <td>
-            <%= form.label :password_confirmation %>
+            <%= form.label :password_confirmation, "Re-enter Password" %>
           </td>
           <td>
             <%= form.password_field :password_confirmation %>
@@ -67,7 +67,7 @@
 
         <tr class="field">
           <td>
-            <%= form.label :DOB %>
+            <%= form.label :DOB, "Date of Birth" %>
           </td>
           <td>
             <%= form.date_select :DOB %>
@@ -76,7 +76,7 @@
 
         <tr class="field">
           <td>
-            <%= form.label :phone_number %>
+            <%= form.label :phone_number, "Phone Number" %>
           </td>
           <td>
             <%= form.telephone_field :phone_number %>
@@ -85,7 +85,7 @@
 
         <tr class="field">
           <td>
-            <%= form.label :profile_image_url %>
+            <%= form.label :profile_image_url, "Profile Image URL" %>
           </td>
           <td>
             <%= form.text_field :profile_image_url %>
@@ -95,7 +95,7 @@
         <%# TODO: Change isProfessional to is_professional when database is modified %>
         <tr class="field">
           <td>
-            <%= form.label :isProfessional %>
+            <%= form.label :isProfessional, "Professional User" %>
           </td>
           <td>
             <%= form.check_box :isProfessional%>
@@ -106,9 +106,13 @@
 
   </div>
 </div>
+<%# End surface color %>
 
-  <div class="actions">
-    <%= form.submit %>
+<div class="flex flex-col items-center justify-center">
+  <div class="actions blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]">
+    <%= form.submit class: "submit-button" %>
   </div>
+</div>
+
 <% end %>
 
