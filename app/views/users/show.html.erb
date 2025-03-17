@@ -20,23 +20,23 @@
       <!-- User Info -->
       <div class="profile-card-header">
         <div class="text-left md:text-left">
-          <h1 class="font-semibold text-3xl text-gray-800"><%= @user.first_name %> <%= @user.last_name %></h1>
-          <p class="text-gray-500 text-md mt-1">
+          <h1 class="font-semibold text-3xl text-white"><%= @user.first_name %> <%= @user.last_name %></h1>
+          <p class="text-gray-200 text-md mt-1">
             <%= mail_to @user.email %>
           </p>
-          <p class="text-gray-700 font-medium mt-2">📞 <%= @user.phone_number %></p>
+          <p class="text-gray-200 font-medium mt-2">📞 <%= @user.phone_number %></p>
         </div>
       </div>
     </div>
     
-    <div class="profile-card-header flex justify-center mt-6 text-gray-700 border-t pt-4 space-x-2">
-      <p class="mb-1 profile-td"><strong class="text-gray-800">DOB:</strong> <%= @user.DOB %></p>
-      <p class="mb-1 profile-td"><strong class="text-gray-800">Professional:</strong> <%= @user.isProfessional ? 'Yes' : 'No' %></p>
+    <div class="profile-card-header flex justify-center mt-6 text-gray-300 border-t pt-4 space-x-2">
+      <p class="mb-1 profile-td"><strong class="text-gray-200">DOB:</strong> <%= @user.DOB %></p>
+      <p class="mb-1 profile-td"><strong class="text-gray-200">Professional:</strong> <%= @user.isProfessional ? 'Yes' : 'No' %></p>
     </div>
     
     <div class="flex justify-center space-x-6 mt-6">
-      <%= link_to "Edit Profile", edit_user_path(@user), class: "px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition blue-button" %>
-      <%= link_to "Back", users_path, class: "px-5 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 font-medium transition gray-button" %>
+      <%= link_to "Edit Profile", edit_user_path(@user), class: "px-5 py-2 text-white rounded-lg bg-[var(--ok-highlight-faded-color)] font-medium blue-button" %>
+      <%= link_to "Back", users_path, class: "px-5 py-2 bg-gray-300 text-black rounded-lg font-medium blue-button" %>
     </div>
   </div>
 </div>
