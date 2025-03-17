@@ -97,3 +97,13 @@ input:focus {
 .profile-card .gray-button:not(:hover) {
   transition: background-color 1s;
 }
+
+.profile-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-card-link:hover .profile-card {
+  background-color: var(--accent-color);
+}
