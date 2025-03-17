@@ -11,7 +11,7 @@
     
     <div class="grid grid-cols-2 gap-6 items-center">
       <!-- Profile Image -->
-      <div class="flex mr-auto">
+      <div class="flex justify-end mt-6">
         <div class="w-32 h-32">
           <img src="<%= asset_path('profile-placeholder.png') %>" alt="Profile Picture" class="rounded-full w-full h-full object-cover shadow-md border border-gray-200">
         </div>
@@ -24,7 +24,7 @@
           <p class="text-gray-500 text-md mt-1">
             <%= mail_to @user.email %>
           </p>
-          <p class="text-gray-700 font-medium mt-2">📞 <%= @user.phone_number %>📞</p>
+          <p class="text-gray-700 font-medium mt-2">📞 <%= @user.phone_number %></p>
         </div>
       </div>
     </div>
