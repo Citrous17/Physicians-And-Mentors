@@ -1,6 +1,12 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'users', media: 'all', data: { turbolinks: false } %>
+
+<div class="flex flex-col items-center justify-center">
+  <h1 class="text-2xl m-auto font-bold p-4">Editing an Existing User</h1>
+</div>
 
 <%= render 'form', user: @user %>
 
-<%= link_to 'Back', users_path %>
+<div class="flex flex-col items-center justify-center">
+  <%= link_to 'Cancel', users_path, class: "blue-button p-4 mb-4 rounded-md bg-[var(--surface-color)]" %>
+</div>
