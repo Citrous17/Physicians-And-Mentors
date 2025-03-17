@@ -42,7 +42,9 @@
         <tr class="bg-white text-black">
           <td class="border px-4 py-2"><%= professional.first_name %></td>
           <td class="border px-4 py-2"><%= professional.last_name %></td>
-          <td class="border px-4 py-2"><%= professional.email %></td>
+          <td class="border px-4 py-2">
+            <%= link_to professional.email, "mailto:#{professional.email}?subject=Hello%20#{professional.first_name}&body=Dear%20#{professional.first_name},%20" , class: "text-blue-500 hover:text-blue-700" %>
+          </td>
           <td class="border px-4 py-2"><%= professional.phone_number %></td>
           <td class="border px-4 py-2">
             <%= link_to 'Show', professional, class: "text-blue-500 hover:text-blue-700" %>
