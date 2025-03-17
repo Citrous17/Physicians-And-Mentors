@@ -1,7 +1,7 @@
 <% content_for :title, "User Profile" %>
 
-<div class="flex justify-center items-center min-h-screen">
-  <div class="shadow-lg rounded-xl p-6 w-full md:w-2/3 lg:w-1/2 border border-gray-300 relative">
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+  <div class="profile-card shadow-lg rounded-xl p-6 w-full md:w-2/3 lg:w-1/2 relative">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-100 text-green-700 font-medium rounded-md mb-4 text-center" id="notice"><%= notice %></p>
     <% end %>
@@ -15,7 +15,7 @@
       </div>
       
       <!-- User Info -->
-      <div class="text-left md:text-left">
+      <div class="text-left md:text-left profile-card-header">
         <h1 class="font-semibold text-3xl text-gray-800"><%= @user.first_name %> <%= @user.last_name %></h1>
         <p class="text-gray-500 text-md mt-1"><%= @user.email %></p>
         <p class="text-gray-700 font-medium mt-2">📞 <%= @user.phone_number %></p>
@@ -29,7 +29,7 @@
     
     <div class="flex justify-center space-x-6 mt-6">
       <%= link_to "Edit Profile", edit_user_path(@user), class: "px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition blue-button" %>
-      <%= link_to "Back", users_path, class: "px-5 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 font-medium transition" %>
+      <%= link_to "Back", users_path, class: "px-5 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 font-medium transition gray-button" %>
     </div>
   </div>
 </div>
