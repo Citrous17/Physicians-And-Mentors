@@ -5,8 +5,6 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :password, presence: true, on: :create  # Only required on creation
-  validates :isProfessional, inclusion: { in: [true, false] }
-  validates :isAdmin, inclusion: { in: [true, false] }
 
   scope :professionals, -> { where(isProfessional: true) }
   

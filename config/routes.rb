@@ -34,6 +34,10 @@ Rails.application.routes.draw do
   post "/admin/invite_admin", to: "admin#invite_admin", as: :admin_invite_admin
   post "/admin/create_invite_code", to: "admin#create_invite_code", as: :admin_create_invite_code
 
+  get "/signup", to: "login#signup"       # Show signup form
+  post "/signup", to: "login#create"   # Handle form submission
+
+
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
