@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  resources :professionals, only: [:index, :show, :new, :create, :destroy]
+
+  resources :professionals
   resources :users do
     # get 'index', on: :collection
     member do 

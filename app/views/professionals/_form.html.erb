@@ -1,5 +1,5 @@
-<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-<%= stylesheet_link_tag 'users', media: 'all', data: { turbolinks: false } %>
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+<%= stylesheet_link_tag 'users', media: 'all', 'data-turbo-track': 'reload' %>
 
 <% if @professional.errors.any? %>
   <div id="error_explanation" class="flex flex-col items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[var(--accent-color)]">
@@ -16,6 +16,8 @@
 <div class="flex flex-col items-center justify-center">
   <div class="w-60/100 bg-[var(--surface-color)] rounded-md">
     <%= form_with(model: @professional) do |form| %>
+
+      <%= form.hidden_field :isProfessional, value:true %>
 
       <table class="m-auto">
 
@@ -92,24 +94,20 @@
           </td>
         </tr>
 
-        <%# TODO: Change isProfessional to is_professional when database is modified %>
-        <tr class="field">
-          <td>
-            <%= form.hidden_field :isProfessional, value:true %>
-          </td>
-        </tr>
-
       </table>
+
+      <div class="flex flex-col items-center justify-center">
+        <div class="actions blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]">
+          <%= form.submit class: "submit-button" %>
+        </div>
+      </div>
+
+      <% end %>
+      
 
   </div>
 </div>
 <%# End surface color %>
 
-<div class="flex flex-col items-center justify-center">
-  <div class="actions blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]">
-    <%= form.submit class: "submit-button" %>
-  </div>
-</div>
 
-<% end %>
 

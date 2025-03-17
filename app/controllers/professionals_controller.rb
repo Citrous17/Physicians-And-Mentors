@@ -18,7 +18,7 @@ class ProfessionalsController < ApplicationController
     @professional.isProfessional = true  # Ensure they are marked as professionals
 
     if @professional.save
-      redirect_to professionals_path, notice: "Professional was successfully created."
+      redirect_to @professional, notice: "Professional was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
