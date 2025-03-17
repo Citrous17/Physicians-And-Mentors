@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :professionals
+
+  resources :professionals do
+    member do
+      get 'confirm_destroy'
+    end
+  end
   resources :users do
     # get 'index', on: :collection
     member do 
@@ -23,15 +28,23 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'login#omniauth'
   get 'home', to: 'home#index'
+  get 'help', to: 'home#help'
   get 'login', to: 'login#new'
   post "/login", to: "sessions#create"
   delete '/logout', to: 'sessions#destroy'
   get 'users', to: 'users#index'
+  get 'professionals', to: 'professionals#index'
 
   get 'admin/dashboard', to: 'admin#dashboard'
   get 'admin/users', to: 'admin#users'
   get 'admin/database', to: 'admin#database'
-  post 'admin/invite_admin', to: 'admin#invite_admin'
+  post "/admin/invite_admin", to: "admin#invite_admin", as: :admin_invite_admin
+  post "/admin/create_invite_code", to: "admin#create_invite_code", as: :admin_create_invite_code
+
+  get "/signup", to: "login#signup"       # Show signup form
+  post "/signup", to: "login#create"   # Handle form submission
+
+
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
