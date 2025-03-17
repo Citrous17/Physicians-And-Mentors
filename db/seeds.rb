@@ -9,7 +9,7 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
         last_name: "Last#{i}",
         first_name: "First#{i}",
         email: "user#{i}@example.com",
-        password_digest: "password#{i}",
+        password: "password#{i}",
         location: "City#{i}",
         DOB: Date.parse("199#{i}-01-01"),
         phone_number: i.even? ? "123-456-789#{i}" : nil,
