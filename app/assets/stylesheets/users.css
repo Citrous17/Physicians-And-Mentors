@@ -62,3 +62,34 @@ input:focus {
 .submit-button {
   border: none;
 }
+
+/* Profile card */
+.profile-card {
+  background-color: var(--surface-color);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: background-color 1s;
+}
+
+/* Profile card header hover effect */
+.profile-card-header:hover {
+  background-color: var(--accent-color);
+}
+
+/* Profile card button hover effects */
+.profile-card .blue-button:hover {
+  background-color: var(--ok-highlight-color);
+}
+
+.profile-card .blue-button:not(:hover) {
+  transition: background-color 1s;
+}
+
+.profile-card .gray-button:hover {
+  background-color: var(--gray-highlight-color);
+}
+
+.profile-card .gray-button:not(:hover) {
+  transition: background-color 1s;
+}
