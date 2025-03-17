@@ -10,25 +10,19 @@ else
     exit 1
 fi
 
-# Check for the '-s' (save) flag
-SAVE_DUMPS=false
-while getopts "s" opt; do
-  case ${opt} in
-    s ) SAVE_DUMPS=true ;;  # If -s is provided, we save dump files
-    * ) echo "Usage: $0 [-s]"; exit 1 ;;  # Invalid option handling
-  esac
-done
-
 # Check that required variables are set
 REQUIRED_VARS=("DATABASE_USERNAME" "DATABASE_PASSWORD" "DATABASE_NAME" "DATABASE_HOST" "HEROKU_APP" "APP_HOST")
+# once env file has all variables loaded, then check if we have all the right variables
 MISSING_VARS=()
 
+# find missing variables
 for VAR in "${REQUIRED_VARS[@]}"; do
   if [ -z "${!VAR}" ]; then
     MISSING_VARS+=("$VAR")
   fi
 done
 
+# print out missing variables
 if [ ${#MISSING_VARS[@]} -ne 0 ]; then
   echo "❌ Error: The following environment variables are missing:"
   for VAR in "${MISSING_VARS[@]}"; do
@@ -50,19 +44,23 @@ get_new_heroku_api_key() {
 
     echo "🔐 Storing new Heroku API key in .env..."
     
+    # Ensure a newline before appending, and avoid duplicate entries
     if grep -q "^HEROKU_API_KEY=" .env; then
         sed -i "/^HEROKU_API_KEY=/d" .env  # Remove existing entry
     fi
     echo -e "\nHEROKU_API_KEY=$HEROKU_API_KEY" >> .env
 }
 
+# Check if HEROKU_API_KEY exists and is valid
 if [ -z "$HEROKU_API_KEY" ] || ! HEROKU_API_KEY=$HEROKU_API_KEY heroku auth:whoami >/dev/null 2>&1; then
     echo "⚠️ Heroku API key is missing, invalid, or expired."
     get_new_heroku_api_key
 fi
 
+# Export the Heroku API key for CLI authentication
 export HEROKU_API_KEY
 
+# Ensure Heroku authentication is set up
 docker exec -it $APP_HOST bash -c "
 echo 'machine api.heroku.com login $HEROKU_APP password $HEROKU_API_KEY' > ~/.netrc
 chmod 600 ~/.netrc"
@@ -75,12 +73,6 @@ echo "✅ Database exists locally."
 cat latest.dump | docker exec -i $DATABASE_HOST pg_restore --clean --if-exists --no-owner -U $DATABASE_USERNAME -d $DATABASE_NAME
 
 echo "✅ Database successfully pulled from Heroku to '$DATABASE_NAME' table!"
-
-# Cleanup dump files unless -s (save) flag is set
-if [ "$SAVE_DUMPS" = false ]; then
-    echo -ne "🧹 Cleaning up backup files...\r"
-    rm -f latest.dump latest.dump.*
-    echo "✅ Cleaned backup files.          "
-else
-    echo "💾 Save flag detected. Keeping dump files."
-fi
+echo -ne "🧹 Cleaning up backup files...\r"
+rm -f latest.dump
+echo "✅ Cleaned backup files."
