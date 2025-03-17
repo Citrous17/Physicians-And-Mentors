@@ -16,20 +16,20 @@
       
       <!-- User Info -->
       <div class="text-left md:text-left">
-        <h1 class="font-semibold text-3xl text-gray-800"><%= @user.first_name %> <%= @user.last_name %></h1>
-        <p class="text-gray-500 text-md mt-1"><%= @user.email %></p>
-        <p class="text-gray-700 font-medium mt-2">📞 <%= @user.phone_number %></p>
+        <h1 class="font-semibold text-3xl text-gray-800"><%= @professional.first_name %> <%= @professional.last_name %></h1>
+        <p class="text-gray-500 text-md mt-1"><%= @professional.email %></p>
+        <p class="text-gray-700 font-medium mt-2">📞 <%= @professional.phone_number %></p>
       </div>
     </div>
     
     <div class="flex justify-center mt-6 text-gray-700 border-t pt-4 space-x-2">
-      <p class="mb-1"><strong class="text-gray-800">DOB:</strong> <%= @user.DOB %></p>
-      <p class="mb-1"><strong class="text-gray-800">Professional:</strong> <%= @user.isProfessional ? 'Yes' : 'No' %></p>
+      <p class="mb-1"><strong class="text-gray-800">DOB:</strong> <%= @professional.DOB %></p>
+      <p class="mb-1"><strong class="text-gray-800">Professional:</strong> <%= @professional.isProfessional ? 'Yes' : 'No' %></p>
     </div>
     
     <div class="flex justify-center space-x-6 mt-6">
-      <%= link_to "Edit Profile", edit_user_path(@user), class: "px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition" %>
-      <%= link_to "Back", users_path, class: "px-5 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 font-medium transition" %>
+      <%= link_to "Edit Profile", edit_professional_path(@professional), class: "px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition" %>
+      <%= link_to "Back", professionals_path, class: "px-5 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 font-medium transition" %>
     </div>
   </div>
 </div>

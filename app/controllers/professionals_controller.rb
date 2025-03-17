@@ -47,10 +47,6 @@ class ProfessionalsController < ApplicationController
   def confirm_destroy
     @professional = User.find(params[:id])
 
-    respond_to do |format|
-      format.html { redirect_to professionals_path, status: :see_other, notice: "Professional was successfully destroyed." }
-      format.json { head :no_content }
-    end
   end
 
   private

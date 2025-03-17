@@ -68,10 +68,10 @@
 </div>
 
 <div class="flex flex-col items-center justify-center">
-  <%= button_to 'Destroy user', @professional, method: :delete, data: { confirm: 'Are you sure?' }, class: "red-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %></td>
+  <%= button_to 'Destroy Professional', professional_path(@professional), method: :delete, data: { confirm: 'Are you sure?' }, class: "red-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %></td>
 
   <div class="flex flex-row items-center justify-center">
-    <%= link_to 'Edit', edit_user_path(@professional), class: "blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %>
+    <%= link_to 'Edit', edit_professional_path(@professional), class: "blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %>
     <%= link_to 'Cancel', professionals_path, class: "blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %>
   </div>
 </div>
