@@ -1,117 +1,61 @@
-<%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
-<%= stylesheet_link_tag 'users', media: 'all', 'data-turbo-track': 'reload' %>
+<%= form_with(model: @professional, url: professionals_path(@professional), method: :patch, local: true, class: "contents") do |form| %>
+  <% if @professional.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+      <h2><%= pluralize(@professional.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul class="list-disc ml-6">
+        <% @professional.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<% if @professional.errors.any? %>
-  <div id="error_explanation" class="flex flex-col items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[var(--accent-color)]">
-    <h2><%= pluralize(@professional.errors.count, "error") %> prohibited this user from being saved:</h2>
+  <div class="my-5">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if @professional.errors[:last_name].any?}" %>
+  </div>
 
-    <ul>
-      <% @professional.errors.each do |error| %>
-        <li><%= error.full_message %></li>
-      <% end %>
-    </ul>
+  <div class="my-5">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if @professional.errors[:first_name].any?}" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :email %>
+    <%= form.email_field :email, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if @professional.errors[:email].any?}" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :password %>
+    <%= form.password_field :password, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if @professional.errors[:password].any?}" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if @professional.errors[:password_confirmation].any?}" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :DOB, "Date of Birth" %>
+    <%= form.date_field :DOB, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if professional.errors[:DOB].any?}" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :phone_number %>
+    <%= form.text_field :phone_number, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if professional.errors[:phone_number].any?}" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :profile_image_url %>
+    <%= form.text_field :profile_image_url, class: "block shadow-sm rounded-md border px-3 py-2 mt-2 w-full #{'border-red-400' if professional.errors[:profile_image_url].any?}" %>
+  </div>
+
+  <div class="my-5 flex items-center">
+    <%= form.check_box :isProfessional, { class: "mr-2 h-5 w-5" }, true, false %>
+    <%= form.label :isProfessional, "Sign up as a Professional" %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit "Create Account", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium cursor-pointer" %>
   </div>
 <% end %>
-
-<div class="flex flex-col items-center justify-center">
-  <div class="w-60/100 bg-[var(--surface-color)] rounded-md">
-    <%= form_with(model: @professional, url: professionals_path) do |form| %>
-
-      <%= form.hidden_field :isProfessional, value:true %>
-
-      <table class="m-auto">
-
-        <tr class="field">
-          <td>
-            <%= form.label :last_name, "Last Name" %>
-          </td>
-          <td>
-            <%= form.text_field :last_name %>
-          </td>
-        </tr>
-
-        <tr class="field">
-          <td>
-            <%= form.label :first_name, "First Name" %>
-          </td>
-          <td>
-            <%= form.text_field :first_name %>
-          </td>
-        </tr>
-
-        <tr class="field">
-          <td>
-            <%= form.label :email, "Email Address" %>
-          </td>
-          <td>
-            <%= form.text_field :email %>
-          </td>
-
-        </tr>
-
-        <tr class="field">
-          <td>
-            <%= form.label :password, "Password" %>
-          </td>
-          <td>
-            <%= form.password_field :password %>
-          </td>
-        </tr>
-
-        <tr class="field">
-          <td>
-            <%= form.label :password_confirmation, "Re-enter Password" %>
-          </td>
-          <td>
-            <%= form.password_field :password_confirmation %>
-          </td>
-        </tr>
-
-        <tr class="field">
-          <td>
-            <%= form.label :DOB, "Date of Birth" %>
-          </td>
-          <td>
-            <%= form.date_select :DOB %>
-          </td>
-        </tr>
-
-        <tr class="field">
-          <td>
-            <%= form.label :phone_number, "Phone Number" %>
-          </td>
-          <td>
-            <%= form.telephone_field :phone_number %>
-          </td>
-        </tr>
-
-        <tr class="field">
-          <td>
-            <%= form.label :profile_image_url, "Profile Image URL" %>
-          </td>
-          <td>
-            <%= form.text_field :profile_image_url %>
-          </td>
-        </tr>
-
-        <tr class="field">
-          <td>
-            <%= form.label :specialty_ids, "Select Specialty" %> (Hold Ctrl + click for multiple).
-          </td>
-          <td>
-            <%= form.collection_select :specialty_ids, Specialty.all, :id, :name, {multiple: true, size: 5, style: "background-color: #f0f0f0; color: #000;" } %>
-          </td>
-        </tr>
-      </table>
-
-      <div class="flex flex-col items-center justify-center">
-        <div class="actions blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]">
-          <%= form.submit class: "submit-button" %>
-        </div>
-      </div>
-
-      <% end %>
-
-  </div>
-</div>
-<%# End surface color %>

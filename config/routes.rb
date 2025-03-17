@@ -27,7 +27,6 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'login#omniauth'
   get 'home', to: 'home#index'
-  get 'help', to: 'home#help'
   get 'login', to: 'login#new'
   post "/login", to: "sessions#create"
   delete '/logout', to: 'sessions#destroy'
@@ -37,13 +36,7 @@ Rails.application.routes.draw do
   get 'admin/dashboard', to: 'admin#dashboard'
   get 'admin/users', to: 'admin#users'
   get 'admin/database', to: 'admin#database'
-  post "/admin/invite_admin", to: "admin#invite_admin", as: :admin_invite_admin
-  post "/admin/create_invite_code", to: "admin#create_invite_code", as: :admin_create_invite_code
-
-  get "/signup", to: "login#signup"       # Show signup form
-  post "/signup", to: "login#create"   # Handle form submission
-
-
+  post 'admin/invite_admin', to: 'admin#invite_admin'
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest

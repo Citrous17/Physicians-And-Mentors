@@ -1,14 +1,10 @@
 <% content_for :title, "Editing professional" %>
 
-<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-<%= stylesheet_link_tag 'users', media: 'all', data: { turbolinks: false } %>
+<div class="md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">Editing professional</h1>
 
-<div class="flex flex-col items-center justify-center">
-  <h1 class="text-2xl m-auto font-bold p-4">Editing an Existing Professional</h1>
-</div>
+  <%= render "form", professional: @professional %>
 
-<%= render 'form', professional: @professional %>
-
-<div class="flex flex-col items-center justify-center">
-  <%= link_to 'Cancel',  professionals_path, class: "blue-button p-4 mb-4 rounded-md bg-[var(--surface-color)]" %>
+  <%= link_to "Show this professional", @professional, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= link_to "Back to professionals", professionals_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
 </div>

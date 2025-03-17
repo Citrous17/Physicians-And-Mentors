@@ -2,7 +2,7 @@ class AdminController < ApplicationController
     before_action :authenticate_admin
 
     def dashboard
-      @invite_codes = InviteCode.all.order(created_at: :desc)
+      # Dashboard logic
     end
 
     def users
@@ -11,18 +11,6 @@ class AdminController < ApplicationController
 
     def database
       @tables = ActiveRecord::Base.connection.tables
-    end
-
-    def index
-      @invite_codes = InviteCode.all.order(created_at: :desc)
-    end
-  
-    def create_invite_code
-      email = params[:email]
-      invite_code = InviteCode.create!(user_email: email, expires_at: 7.days.from_now, used: false)
-    
-      flash[:notice] = "Invite code #{invite_code.code} created for #{email}!"
-      redirect_to admin_dashboard_path
     end
 
     def invite_admin

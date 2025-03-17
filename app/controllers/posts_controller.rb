@@ -7,7 +7,11 @@ class PostsController < ApplicationController
     end
   
     def index
-      @specialties = Specialty.all # Regular users can filter by any specialty
+      if current_user&.isProfessional?
+        @specialties = current_user.specialties # Professionals can only filter by their own specialties
+      else
+        @specialties = Specialty.all # Regular users can filter by any specialty
+      end
     
       # Filter posts if a specialty is selected
       if params[:specialty_id].present?
