@@ -31,6 +31,11 @@
           <%= f.label :password %>
           <%= f.password_field :password, class: "border p-2 w-full my-2" %>
         </div>
+
+        <div class="field">
+          <%= f.label :invite_code, "Invite Code" %>
+          <%= f.text_field :invite_code, required: true %>
+        </div>
       
         <div>
           <%= f.submit "Submit", class: "bg-transparent border-white border text-white px-4 py-2 ml-64 rounded mt-4" %>
@@ -44,6 +49,10 @@
     <div class="flex justify-center text-white">
     <%= button_to "Log in with Google", '/auth/google_oauth2', method: :post, data: { turbo: "false" }, class: "hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 text-3xl border border-white rounded" %>
     </div>
+
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key %>"><%= message %></div>
+    <% end %>
 
   </div>
 

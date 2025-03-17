@@ -30,4 +30,18 @@ class User < ApplicationRecord
     user.save! if user.new_record?  # Save only if the user was newly created
     user
   end
+
+  private
+
+  def validate_invite_code
+    invite = InviteCode.find_by(code: invite_code, used: false)
+
+    if invite&.expires_at&.> Time.current
+      invite.update(used: true, user_id: self.id)
+      self.isProfessional = true # Mark user as professional
+    else
+      errors.add(:invite_code, "is invalid or expired")
+      throw(:abort)
+    end
+  end
 end
