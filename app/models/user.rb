@@ -4,10 +4,9 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :DOB, presence: true
   validates :password, presence: true, on: :create  # Only required on creation
-  validates :phone_number, presence: true
   validates :isProfessional, inclusion: { in: [true, false] }
+  validates :isAdmin, inclusion: { in: [true, false] }
 
   scope :professionals, -> { where(isProfessional: true) }
   
@@ -24,7 +23,8 @@ class User < ApplicationRecord
       new_user.user_id = auth.uid.to_s
       new_user.provider = auth.provider
       new_user.password = SecureRandom.hex(16)  # Generate a random password for OAuth users
-
+      new_user.isProfessional = false
+      new_user.isAdmin = true
     end
 
     user.save! if user.new_record?  # Save only if the user was newly created
