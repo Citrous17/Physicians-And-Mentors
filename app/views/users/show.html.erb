@@ -1,7 +1,7 @@
 <% content_for :title, "User Profile" %>
 
-<div class="flex justify-center items-center min-h-screen bg-gray-100">
-  <div class="bg-white shadow-lg rounded-xl p-6 w-full md:w-2/3 lg:w-1/2 border border-gray-300 relative">
+<div class="flex justify-center items-center min-h-screen">
+  <div class="shadow-lg rounded-xl p-6 w-full md:w-2/3 lg:w-1/2 border border-gray-300 relative">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-100 text-green-700 font-medium rounded-md mb-4 text-center" id="notice"><%= notice %></p>
     <% end %>
@@ -28,7 +28,7 @@
     </div>
     
     <div class="flex justify-center space-x-6 mt-6">
-      <%= link_to "Edit Profile", edit_user_path(@user), class: "px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition" %>
+      <%= link_to "Edit Profile", edit_user_path(@user), class: "px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition blue-button" %>
       <%= link_to "Back", users_path, class: "px-5 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 font-medium transition" %>
     </div>
   </div>
