@@ -1,5 +1,11 @@
 class User < ApplicationRecord
   has_secure_password # Enables password hashing
+
+  has_and_belongs_to_many :specialties, join_table: "physician_specialties"
+
+
+  # ONLY PROFESSIONALS CAN HAVE SPECIALTIES
+  before_save :clear_specialties_if_not_professional
   
   validates :email, presence: true, uniqueness: true
   validates :first_name, presence: true
@@ -13,6 +19,10 @@ class User < ApplicationRecord
   
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def clear_specialties_if_not_professional
+    self.specialties.clear unless isProfessional?
   end
 
   def self.from_omniauth(auth)
