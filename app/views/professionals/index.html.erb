@@ -46,7 +46,7 @@
               <td class="profile-td"><%= image_tag(professional.profile_image_url, alt: "Profile image", class: "w-full h-full object-cover aspect-square rounded-md", onerror: "this.onerror=null; this.src='#{asset_path('profile-placeholder.png')}';") %></td>
               <td><%= professional.first_name %></td>
               <td><%= professional.last_name %></td>
-              <td><%= professional.email %></td>
+              <td><%= mail_to professional.email, professional.email %></td>
               <td><%= professional.DOB %></td>
               <td><%= professional.phone_number %></td>
               <td><%= link_to 'Show', professional, class: "blue-button p-2 rounded-md" %></td>
