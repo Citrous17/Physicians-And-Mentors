@@ -94,6 +94,16 @@
           </td>
         </tr>
 
+        <tr class="field">
+          <td>
+            <%= form.label :specialty_ids, "Select Specialty" %>
+          </td>
+          <td>
+            <%= form.collection_select :specialty_ids, Specialty.all, :id, :name, {multiple: true, size: 5, style: "background-color: #f0f0f0; color: #000;" } %>
+          </td>
+        </tr>
+        
+
       </table>
 
       <div class="flex flex-col items-center justify-center">
@@ -107,6 +117,3 @@
   </div>
 </div>
 <%# End surface color %>
-
-
-

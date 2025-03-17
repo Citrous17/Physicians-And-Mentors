@@ -26,6 +26,19 @@
       <p class="mb-1"><strong class="text-gray-800">DOB:</strong> <%= @professional.DOB %></p>
       <p class="mb-1"><strong class="text-gray-800">Professional:</strong> <%= @professional.isProfessional ? 'Yes' : 'No' %></p>
     </div>
+
+    <!-- Display Specialties -->
+    <div class="flex justify-center">
+      <% if @professional.specialties.any? %>
+            <% @professional.specialties.each do |specialty| %>
+              <li><%= specialty.name %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% else %>
+        <p class="mt-4 text-gray-500">No specialties listed.</p>
+      <% end %>
+    </div>
     
     <div class="flex justify-center space-x-6 mt-6">
       <%= link_to "Edit Profile", edit_professional_path(@professional), class: "px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition" %>
