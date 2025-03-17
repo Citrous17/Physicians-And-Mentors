@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   get '/auth/:provider/callback', to: 'login#omniauth'
   get 'home', to: 'home#index'
+  get 'help', to: 'home#help'
   get 'login', to: 'login#new'
   post "/login", to: "sessions#create"
   delete '/logout', to: 'sessions#destroy'
