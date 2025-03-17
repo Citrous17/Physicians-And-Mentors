@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :professionals
+  resources :professionals do
+    member do
+      get 'confirm_destroy'
+    end
+  end
   resources :users do
     # get 'index', on: :collection
     member do 
@@ -27,6 +31,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete '/logout', to: 'sessions#destroy'
   get 'users', to: 'users#index'
+  get 'professionals', to: 'professionals#index'
 
   get 'admin/dashboard', to: 'admin#dashboard'
   get 'admin/users', to: 'admin#users'

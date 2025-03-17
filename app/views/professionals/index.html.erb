@@ -47,9 +47,9 @@
               <td><%= professional.last_name %></td>
               <td><a href="mailto:<%= professional.email %>" class="text-blue-500 hover:text-blue-700"><%= professional.email %></a></td>
               <td><%= professional.phone_number %></td>
-              <td><%= link_to 'Show', professional, class: "blue-button p-2 rounded-md" %></td>
+              <td><%= link_to 'Show', professional_path(professional), class: "blue-button p-2 rounded-md" %></td>
               <td><%= link_to 'Edit', edit_professional_path(professional), class: "blue-button p-2 rounded-md" %></td>
-              <td><%= link_to 'Destroy', professional, method: :delete, data: { confirm: 'Are you sure?' }, class: "red-button p-2 rounded-md" %></td>
+              <td><%= link_to 'Destroy', confirm_destroy_professional_path(professional), method: :delete, data: { confirm: 'Are you sure?' }, class: "red-button p-2 rounded-md" %></td>
             </tr>
           <% end %>
         </tbody>
