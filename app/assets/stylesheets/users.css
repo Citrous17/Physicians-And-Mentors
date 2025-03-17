@@ -64,6 +64,10 @@ input:focus {
 }
 
 /* Profile card */
+.profile-container {
+  background-color: transparent;
+}
+
 .profile-card {
   background-color: var(--surface-color);
   padding: 20px;
