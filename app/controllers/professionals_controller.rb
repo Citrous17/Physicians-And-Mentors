@@ -15,12 +15,15 @@ class ProfessionalsController < ApplicationController
 
   def create
     @professional = User.new(professional_params)
-    @professional.isProfessional = true  # Ensure they are marked as professionals
 
-    if @professional.save
-      redirect_to professionals_path, notice: "Professional was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @professional.save
+        format.html { redirect_to professionals_path, notice: "Professional was successfully created." }
+        format.json { render :show, status: :created, location: @professional }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @professional.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -36,13 +39,18 @@ class ProfessionalsController < ApplicationController
     @professional.destroy
 
     respond_to do |format|
-      format.html { redirect_to professionals_path, status: :see_other, notice: "User was successfully destroyed." }
+      format.html { redirect_to professionals_path, status: :see_other, notice: "Professional was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   def confirm_destroy
     @professional = User.find(params[:id])
+
+    respond_to do |format|
+      format.html { redirect_to professionals_path, status: :see_other, notice: "Professional was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   private
@@ -52,8 +60,6 @@ class ProfessionalsController < ApplicationController
   end
 
   def professional_params
-    allowed_params = [:first_name, :last_name, :email, :DOB, :phone_number]
-    allowed_params += [:password, :password_confirmation] if params[:user][:password].present?
-    params.require(:user).permit(allowed_params)
+    params.require(:user).permit(:last_name, :first_name, :email, :password, :DOB, :phone_number, :profile_image_url, :isProfessional)
   end
 end
