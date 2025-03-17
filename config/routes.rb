@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :professionals
+  resources :professionals do
+    member do
+      get 'confirm_destroy'
+    end
+  end
   resources :users do
     # get 'index', on: :collection
     member do 

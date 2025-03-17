@@ -18,7 +18,7 @@ class ProfessionalsController < ApplicationController
     @professional.isProfessional = true  # Ensure they are marked as professionals
 
     if @professional.save
-      redirect_to @professional, notice: "Professional was successfully created."
+      redirect_to professionals_path, notice: "Professional was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -34,7 +34,15 @@ class ProfessionalsController < ApplicationController
 
   def destroy
     @professional.destroy
-    redirect_to professionals_url, notice: "Professional was successfully deleted."
+
+    respond_to do |format|
+      format.html { redirect_to professionals_path, status: :see_other, notice: "User was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
+  def confirm_destroy
+    @professional = User.find(params[:id])
   end
 
   private
