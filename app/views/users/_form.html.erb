@@ -1,65 +1,118 @@
-<%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'users', media: 'all', data: { turbolinks: false } %>
 
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<% if user.errors.any? %>
+  <div id="error_explanation" class="flex flex-col items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[var(--accent-color)]">
+    <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-
-  </div>
-
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-  </div>
-
-  <div class="field">
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation %>
-  </div>
-
-  <div class="field">
-    <%= form.label :DOB %>
-    <%= form.date_select :DOB %>
-  </div>
-
-  <div class="field">
-    <%= form.label :phone_number %>
-    <%= form.telephone_field :phone_number %>
-  </div>
-
-  <div class="field">
-    <%= form.label :profile_image_url %>
-    <%= form.text_field :profile_image_url %>
-  </div>
-
-  <%# TODO: Change isProfessional to is_professional when database is modified %>
-  <div class="field">
-    <%= form.label :isProfessional %>
-    <%= form.check_box :isProfessional%>
-  </div>
-
-
-  <div class="actions">
-    <%= form.submit %>
+    <ul>
+      <% user.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
+
+<div class="flex flex-col items-center justify-center">
+  <div class="w-60/100 bg-[var(--surface-color)] rounded-md">
+    <%= form_with(model: user) do |form| %>
+
+      <table class="m-auto">
+
+        <tr class="field">
+          <td>
+            <%= form.label :last_name, "Last Name" %>
+          </td>
+          <td>
+            <%= form.text_field :last_name %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :first_name, "First Name" %>
+          </td>
+          <td>
+            <%= form.text_field :first_name %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :email, "Email Address" %>
+          </td>
+          <td>
+            <%= form.text_field :email %>
+          </td>
+
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :password, "Password" %>
+          </td>
+          <td>
+            <%= form.password_field :password %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :password_confirmation, "Re-enter Password" %>
+          </td>
+          <td>
+            <%= form.password_field :password_confirmation %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :DOB, "Date of Birth" %>
+          </td>
+          <td>
+            <%= form.date_select :DOB %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :phone_number, "Phone Number" %>
+          </td>
+          <td>
+            <%= form.telephone_field :phone_number %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :profile_image_url, "Profile Image URL" %>
+          </td>
+          <td>
+            <%= form.text_field :profile_image_url %>
+          </td>
+        </tr>
+
+        <%# TODO: Change isProfessional to is_professional when database is modified %>
+        <tr class="field">
+          <td>
+            <%= form.label :isProfessional, "Professional User" %>
+          </td>
+          <td>
+            <%= form.check_box :isProfessional%>
+          </td>
+        </tr>
+
+      </table>
+
+  </div>
+</div>
+<%# End surface color %>
+
+<div class="flex flex-col items-center justify-center">
+  <div class="actions blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]">
+    <%= form.submit class: "submit-button" %>
+  </div>
+</div>
+
+<% end %>
+
