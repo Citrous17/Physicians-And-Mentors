@@ -1,5 +1,13 @@
 #!/bin/bash
 
+echo "🚀 Starting local Docker build script..."
+
+# Check for required tools
+if ! command -v docker &>/dev/null; then
+  echo "❌ Docker is not installed. Please install Docker and try again."
+  exit 1
+fi
+
 IMAGE_NAME="$IMAGE_NAME"
 ENV_FILE=".env"
 DOCKERIGNORE_FILE=".dockerignore"
@@ -12,7 +20,7 @@ REQUIRED_VARS=("GOOGLE_CLIENT_ID" "GOOGLE_CLIENT_SECRET" "DATABASE_USERNAME" "DA
 # Function to check if a port is in use
 is_port_in_use() {
     local port=$1
-    if lsof -i :$port >/dev/null 2>&1 || netstat -tuln | grep -q ":$port "; then
+    if ss -tuln | grep -q ":$port "; then
         return 0  # Port is in use
     else
         return 1  # Port is available
@@ -31,13 +39,13 @@ if is_port_in_use $APP_PORT; then
 fi
 
 # Load environment variables
-echo -ne "🔄 Loading environment variables from .env file...\r"
 if [ -f .env ]; then
-    export $(grep -v '^#' .env | xargs)
-    echo "✅ Environment variables loaded."
+  echo "🔄 Loading environment variables from .env file..."
+  export $(grep -v '^#' .env | xargs)
+  echo "✅ Environment variables loaded."
 else
-    echo "❌ Error: .env file not found. Please create it before running this script."
-    exit 1
+  echo "❌ Error: .env file not found. Please create it before running this script."
+  exit 1
 fi
 
 # Check for missing environment variables
@@ -53,6 +61,7 @@ if [ ${#MISSING_VARS[@]} -ne 0 ]; then
     for VAR in "${MISSING_VARS[@]}"; do
         echo "   - $VAR"
     done
+    echo "💡 Please update your .env file and try again."
     exit 1
 fi
 
@@ -75,7 +84,7 @@ for CONTAINER in $APP_HOST $DATABASE_HOST; do
 done
 
 # Build the new Docker image
-echo "🔄 Building new Docker image $IMAGE_NAME..."
+echo "🔄 Building Docker image: $IMAGE_NAME..."
 if docker build -t $IMAGE_NAME -f Dockerfile.local .; then
     echo "✅ Successfully built Docker image: $IMAGE_NAME"
 else
@@ -84,6 +93,7 @@ else
 fi
 
 # Run the new containers
+echo "🔄 Starting containers..."
 echo -ne "🔄 Starting new container for database: $DATABASE_HOST...\r"
 docker run --name $DATABASE_HOST \
   --network rails-net \
@@ -101,6 +111,6 @@ docker run --name $APP_HOST \
 
 docker exec -it $APP_HOST bash -c "sed -i 's/\r$//' bin/rails"
 
-echo "✅ Docker container setup complete!"
+echo "✅ Local Docker setup complete!"
 chmod +x ./connect_local.sh
 ./connect_local.sh
