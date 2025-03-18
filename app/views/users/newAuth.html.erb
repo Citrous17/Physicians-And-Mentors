@@ -1,0 +1,45 @@
+<!-- app/views/users/newAuth.html.erb -->
+<%= form_for @user do |form| %>
+
+    <div class="field">
+        <%= form.label :email %>
+        <%= form.text_field :email, value: @user.email, readonly: true %>  <!-- Email is pre-filled and read-only -->
+    </div>
+
+    <div class="field">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name %>
+    </div>
+
+    <div class="field">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name %>
+    </div>
+
+    <div class="field">
+        <%= form.label :DOB %>
+        <%= form.date_select :DOB %>
+    </div>
+
+    <div class="field">
+        <%= form.label :phone_number %>
+        <%= form.text_field :phone_number %>
+    </div>
+
+    <div class="field">
+        <%= form.label :password %>
+        <%= form.password_field :password %>
+    </div>
+
+    <div class="field">
+        <%= form.label :password_confirmation %>
+        <%= form.password_field :password_confirmation %>
+    </div>
+
+    <div class="field">
+        <%= form.label :isProfessional %>
+        <%= form.check_box :isProfessional, checked: @user.isProfessional, disabled: true %> <!-- Set to false by default, disabled -->
+    </div>
+
+    <%= form.submit "Complete Profile" %>
+<% end %>

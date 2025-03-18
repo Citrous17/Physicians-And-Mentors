@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: [:edit, :update]
+  before_action :require_login, only: [:complete_profile, :update_complete_profile]
 
   def index
     @users = User.all 
@@ -8,6 +9,35 @@ class UsersController < ApplicationController
     initialize_search
     handle_search_name
     handle_filters
+  end
+
+  def newAuth # for a user created via google authentication
+    @user = current_user || User.new(isProfessional: false) # by default, set to false
+
+    if request.post? && @user.invalid?
+      render :newAuth
+    end
+  end
+
+  def complete_profile # you must be "logged in" to complete a profile
+    @user = current_user
+
+    unless @user
+      redirect_to login_path, alert: "You must be logging in to complete your profile."
+      return
+    end
+  end
+
+  def update_complete_profile
+    # This is the method that will handle the form submission for profile completion
+    @user = current_user
+
+    if @user.update(user_params)  # Check if the profile gets updated
+      redirect_to root_path, notice: "Profile completed successfully!"
+    else
+      # If validation fails, render the `complete_profile` form again with errors
+      render :complete_profile
+    end
   end
 
   def new
@@ -20,10 +50,17 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
+  
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_path, notice: "User was successfully created." }
+        # Check if the user is from OAuth
+        if @user.oauth_uid.present?
+          # Redirect OAuth users to the profile completion form
+          format.html { redirect_to new_auth_path, notice: "Welcome! Please complete your profile." }
+        else
+          # For regular users, redirect to the user index page
+          format.html { redirect_to users_path, notice: "User was successfully created." }
+        end
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -31,6 +68,7 @@ class UsersController < ApplicationController
       end
     end
   end
+  
 
   def update
     @user = User.find(params[:id])
@@ -77,7 +115,11 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:last_name, :first_name, :email, :password, :DOB, :phone_number, :profile_image_url, :isProfessional)
+      params.require(:user).permit(:last_name, :first_name, :email, :password, :password_confirmation, :DOB, :phone_number, :profile_image_url, :isProfessional)
+    end
+
+    def oauth_params
+      params.require(:user).permit(:last_name, :first_name, :password, :password_confirmation, :DOB, :phone_number)
     end
 
     def initialize_search
