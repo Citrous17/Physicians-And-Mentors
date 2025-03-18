@@ -6,14 +6,14 @@ class User < ApplicationRecord
 
   # ONLY PROFESSIONALS CAN HAVE SPECIALTIES
   before_save :clear_specialties_if_not_professional
-  
+
   validates :email, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :password, presence: true, on: :create  # Only required on creation
 
   scope :professionals, -> { where(isProfessional: true) }
-  
+
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -25,7 +25,7 @@ class User < ApplicationRecord
   def has_password?
     password_digest.present?
   end
-  
+
 
 
   def self.from_omniauth(auth)
@@ -34,7 +34,7 @@ class User < ApplicationRecord
       new_user.first_name = auth.info.first_name || ""
       new_user.last_name = auth.info.last_name || ""
       new_user.email = auth.info.email
-      new_user.profile_image_url = auth.info.image
+      new_user.profile_image_url = auth.info.image ||
       new_user.oauth_uid = auth.uid.to_s
       new_user.provider = auth.provider
       new_user.password = SecureRandom.hex(16)  # Generate a random password for OAuth users
@@ -44,11 +44,11 @@ class User < ApplicationRecord
       new_user.phone_number = nil
       new_user.isProfessional = false
     end
-  
+
     is_new_user = user.new_record?  # Check if it's a new oauth user before saving
     user.save! if is_new_user # If it is an oauth user with no previous profile, save
-  
-    return { user: user, new_user: is_new_user } # Return both user and status, as a Hash
+
+    { user: user, new_user: is_new_user } # Return both user and status, as a Hash
   end
 
   private

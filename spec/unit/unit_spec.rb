@@ -8,7 +8,7 @@ RSpec.describe User, type: :model do
       email: 'email@provider.com',
       password: 'mypassword',
       password_confirmation: 'mypassword',
-      DOB: Date.new(2025,1,1),
+      DOB: Date.new(2025, 1, 1),
       phone_number: '999999999',
       profile_image_url: 'profile.image.link',
       isProfessional: false
@@ -43,7 +43,7 @@ RSpec.describe User, type: :model do
     subject.DOB = nil
     expect(subject).not_to be_valid
   end
-  
+
   it 'is not valid without a phone number' do
     subject.phone_number = nil
     expect(subject).not_to be_valid
@@ -53,5 +53,4 @@ RSpec.describe User, type: :model do
     subject.isProfessional = nil
     expect(subject).not_to be_valid
   end
-
 end

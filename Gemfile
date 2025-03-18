@@ -21,9 +21,9 @@ gem "jbuilder"
 
 # OAuth Gems
 gem "dotenv-rails"
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -82,4 +82,4 @@ gem "tailwindcss-rails", "~> 4.0"
 # Tests
 gem "rexml"
 # Passwords
-gem 'bcrypt'
+gem "bcrypt"

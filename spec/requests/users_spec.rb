@@ -8,7 +8,7 @@ RSpec.describe "Users", type: :request do
       email: 'email@provider.com',
       password: 'mypassword',
       password_confirmation: 'mypassword',
-      DOB: Date.new(2025,1,1),
+      DOB: Date.new(2025, 1, 1),
       phone_number: '999999999',
       profile_image_url: 'profile.image.link',
       isProfessional: false
@@ -35,5 +35,4 @@ RSpec.describe "Users", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
-
 end

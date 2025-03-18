@@ -16,11 +16,11 @@ class AdminController < ApplicationController
     def index
       @invite_codes = InviteCode.all.order(created_at: :desc)
     end
-  
+
     def create_invite_code
       email = params[:email]
       invite_code = InviteCode.create!(user_email: email, expires_at: 7.days.from_now, used: false)
-    
+
       flash[:notice] = "Invite code #{invite_code.code} created for #{email}!"
       redirect_to admin_dashboard_path
     end
@@ -41,4 +41,4 @@ class AdminController < ApplicationController
     def authenticate_admin
       redirect_to root_path, alert: "Access denied." unless current_user&.isAdmin?
     end
-  end
+end

@@ -8,9 +8,9 @@ RSpec.describe 'Creating a user', type: :feature do
     fill_in "user[email]", with: 'email@provider.com'
     fill_in "user[password]", with: 'mypassword'
     fill_in "user[password_confirmation]", with: 'mypassword'
-    select '2025', from: 'user[DOB(1i)]' 
-    select 'January', from: 'user[DOB(2i)]' 
-    select '1', from: 'user[DOB(3i)]' 
+    select '2025', from: 'user[DOB(1i)]'
+    select 'January', from: 'user[DOB(2i)]'
+    select '1', from: 'user[DOB(3i)]'
     fill_in "user[phone_number]", with: '999999999'
     fill_in "user[profile_image_url]", with: 'profile.image.link'
     check "user[isProfessional]"
