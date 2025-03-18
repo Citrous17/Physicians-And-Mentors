@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   resources :professionals do
     member do
       get 'confirm_destroy'
