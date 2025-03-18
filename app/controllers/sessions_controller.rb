@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
         session[:first_name] = user.first_name
         session[:last_name] = user.last_name
         session[:isProfessional] = user.isProfessional
+        session[:isAdmin] = user.isAdmin
         redirect_to root_path, notice: "Signed in successfully!"
       else
         redirect_to root_path, alert: "Authentication failed."
@@ -23,7 +24,7 @@ class SessionsController < ApplicationController
         session[:first_name] = user.first_name
         session[:last_name] = user.last_name
         session[:isProfessional] = user.isProfessional
-
+        session[:isAdmin] = user.isAdmin
         redirect_to root_path, notice: "Signed in successfully!"
       else
         redirect_to login_path, alert: "Invalid email or password."
@@ -36,7 +37,7 @@ class SessionsController < ApplicationController
       session[:first_name] = nil
       session[:last_name] = nil
       session[:isProfessional] = nil
-      
+      session[:isAdmin] = nil
       redirect_to root_path, notice: "Signed out successfully!"
     end
   end

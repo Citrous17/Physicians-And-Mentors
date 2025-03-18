@@ -1,0 +1,43 @@
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'help', media: 'all', data: { turbolinks: false } %>
+
+<div class="flex flex-col items-center justify-center">
+  <h1>Help page</h1>
+</div>
+
+<div class="p-8 w-95/100 m-auto">
+
+  <h2>Users Table</h2>
+
+  <h3>Admin View</h3>
+
+  <p>
+    The admin can view all users on the user table.  The admin can also edit user information, delete users, and add new users.  Each row in the user table correspond to a user.  There are actions for showing, editing, and deleting.  Clicking on the show button loads the user’s profile page.
+  </p>
+
+  <h3>Adding New Users</h3>
+
+  <p>
+    The admin can add new users from the user table’s page.  Click on “New User.”  Fill out all fields and click “Create” to make that user.
+  </p>
+
+  <h3>Deleting Users</h3>
+
+  <p>
+    The admin can delete users from the user table’s page.  Click on “Destroy” on a user.  A confirmation page will appear confirming the action.  After confirming deleting, the user is removed from the database.
+  </p>
+
+  <h3>Editing Users</h3>
+
+  <p>
+    The admin can edit users from the user table’s page.  Click on “Edit” on a user.  Edit the fields for the user and save to modify the user’s information.
+  </p>
+
+  <h3>Search Filters</h3>
+
+  <p>
+    You can manually type in a user’s first name and similar results will appear. For example, if you fill out “Kyl”, users with the names “Kyle”, “Kylie”, and “Kyla” will appear. You can also filter them based on whether they are professionals or not. First you click “Pick a Filter Option” then select “Filter by Professional” then you can select whether you want to filter by “Professional” or “Not professional”. In the future, a specialization filter will be added for professionals.
+  </p>
+</div>
+
+<%= link_to 'Home', home_path %>
