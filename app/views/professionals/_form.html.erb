@@ -15,7 +15,7 @@
 
 <div class="flex flex-col items-center justify-center">
   <div class="w-60/100 bg-[var(--surface-color)] rounded-md">
-    <%= form_with(model: @professional, url: professionals_path) do |form| %>
+    <%= form_with(model: @professional, url: @professional.new_record? ? professionals_path : professional_path(@professional), method: @professional.new_record? ? :post : :patch) do |form| %>
 
       <%= form.hidden_field :isProfessional, value:true %>
 

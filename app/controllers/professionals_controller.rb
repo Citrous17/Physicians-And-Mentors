@@ -11,7 +11,9 @@ class ProfessionalsController < ApplicationController
     @professional = User.new
   end
 
-  def edit; end
+  def edit
+    @professional = User.find(params[:id])
+  end
 
   def create
     @professional = User.new(professional_params)
@@ -33,10 +35,15 @@ class ProfessionalsController < ApplicationController
   end
 
   def update
-    if @professional.update(professional_params)
-      redirect_to @professional, notice: 'Professional was successfully updated.'
-    else
-      render :edit, status: :unprocessable_entity
+    @professional = User.find(params[:id])
+    respond_to do |format|
+      if @professional.update(professional_params)
+        format.html { redirect_to professionals_path, notice: "Professional was successfully updated." }
+        format.json { render :show, status: :ok, location: @professional }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @professional.errors, status: :unprocessable_entity }
+      end
     end
   end
 
