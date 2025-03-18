@@ -1,0 +1,13 @@
+<h1>All Users</h1>
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Role</th>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.isAdmin? ? "Admin" : "User" %></td>  <!-- Change `admin?` to `isAdmin?` -->
+    </tr>
+  <% end %>
+</table>

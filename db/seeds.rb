@@ -9,21 +9,36 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
         last_name: "Last#{i}",
         first_name: "First#{i}",
         email: "user#{i}@example.com",
-        password_digest: "password#{i}",
+        password: "password#{i}",
         location: "City#{i}",
         DOB: Date.parse("199#{i}-01-01"),
-        phone_number: i.even? ? "123-456-789#{i}" : nil,
+        phone_number: i.even? ? "123-456-789#{i}" : '123-456-7890',
         profile_image_url: "https://example.com/profile#{i}.jpg",
         isProfessional: [true, false].sample,
-        user_id: i.to_s
+        user_id: i,
+        isAdmin: false
       )
   end
+
+  # Create my user
+  User.create!(
+    last_name: "Last",
+    first_name: "First",
+    email: "citrous@tamu.edu",
+    password: "password",
+    location: "College Station",
+    DOB: Date.parse("1999-01-01"),
+    phone_number: "123-456-7890",
+    profile_image_url: "https://example.com/profile.jpg",
+    isProfessional: true,
+    user_id: 12,
+    isAdmin: true
+  )
   
   # Assigning Physician Specialties
   users.each do |user|
     if user.isProfessional
       PhysicianSpecialty.create!(
-        physician_specialty_id: user.id,
         user_id: user.id,
         specialty_id: specialties.sample.id
       )
@@ -37,40 +52,15 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
         content: "This is post content #{i}",
         title: "Post Title #{i}",
         sending_user: User.all.sample, # Ensure users exist
-        time_sent: Time.now
+        specialties: [Specialty.all.sample]
     )
     posts << post
-    end
-
-    # Now update parent_post_id safely
-    posts.each_with_index do |post, i|
-    post.update!(parent_post_id: i > 5 ? posts.sample.id : nil) if i > 5
-    end
-  
-  # Assigning Specialties to Posts
-  posts.each do |post|
-    PostSpecialty.create!(
-      post_id: post.id,
-      specialty_id: specialties.sample.id
-    )
-  end
-  
-  # Creating Messages
-  10.times do |i|
-    Message.create!(
-      content: "Message content #{i}",
-      title: "Message Title #{i}",
-      sending_user_id: users.sample.id,
-      receiving_user_id: users.sample.id,
-      time_sent: Time.now.to_s,
-      parent_message_id: i > 5 ? Message.order("RANDOM()").first.id : nil
-    )
   end
   
   # Creating Admins
   Admin.create!(
     user_id: users.sample.id,
-    permissions: "all"
+    canEditDatabase: true
   )
   
   puts "Seed data successfully created!"

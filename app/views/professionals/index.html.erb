@@ -1,0 +1,102 @@
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'professionals', media: 'all', data: { turbolinks: false } %>
+
+<div class="text-white">
+  <h1>Professionals</h1>
+
+  <% if notice.present? %>
+    <div class="flex flex-col items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[var(--accent-color)]">
+      <h1 id="notice"><%= notice %></p>
+    </div>
+  <% end %>
+
+  <div class="flex flex-row justify-between m-4 w-80/100 mx-auto">
+    <div class="flex flex-col">
+      <p class="mb-2">Search for professionals by first name:</p>
+      <div>
+        <form action="/professionals" method="GET">
+          <input type="text" name="search_name" class="p-2 rounded-sm bg-[var(--surface-color)]">
+          <input type="submit" value="Search" class="p-2 rounded-sm bg-[var(--ok-highlight-faded-color)] blue-button">
+          <%= link_to 'Reset', professionals_path, class: "p-2 rounded-sm bg-[var(--warn-highlight-faded-color)] red-button" %>
+        </form>
+      </div>
+    </div>
+
+    <%= link_to 'New Professional', new_professional_path, class: "flex items-center justify-center blue-button p-2 w-10/100 rounded-md bg-[var(--surface-color)]" %>
+  </div>
+
+  <div class="flex flex-col items-center justify-center">
+    <div class="w-80/100 bg-[var(--surface-color)] rounded-md">
+      <table id="professionals-table" class="w-full">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)" class="w-5/100"></th>
+            <th onclick="sortTable(0)" class="sortable-header w-20/100">First name</th>
+            <th onclick="sortTable(1)" class="sortable-header w-20/100">Last name</th>
+            <th onclick="sortTable(2)" class="sortable-header">Email</th>
+            <th onclick="sortTable(3)" class="sortable-header">Phone</th>
+            <th colspan="3">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @professionals.each do |professional| %>
+            <tr class="professionals-table-rows">
+              <td class="profile-td"><%= image_tag(professional.profile_image_url, alt: "Profile image", class: "w-full h-full object-cover aspect-square rounded-md",  onerror: "this.onerror=null; this.src='#{asset_path('profile-placeholder.png')}';") %></td>
+              <td><%= professional.first_name %></td>
+              <td><%= professional.last_name %></td>
+              <td><a href="mailto:<%= professional.email %>" class="text-blue-500 hover:text-blue-700"><%= professional.email %></a></td>
+              <td><%= professional.phone_number %></td>
+              <td><%= link_to 'Show', professional_path(professional), class: "blue-button p-2 rounded-md" %></td>
+              <td><%= link_to 'Edit', edit_professional_path(professional), class: "blue-button p-2 rounded-md" %></td>
+              <td><%= link_to 'Destroy', confirm_destroy_professional_path(professional), method: :delete, data: { confirm: 'Are you sure?' }, class: "red-button p-2 rounded-md" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    
+    <%= link_to 'New Professional', new_professional_path, class: "blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %>
+  </div>
+
+  <br>  
+</div>
+
+<script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("professionals-table");
+  switching = true;
+  dir = "asc";
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+    for (i = 1; i < (rows.length - 1); i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      switchcount ++;
+    } else {
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>

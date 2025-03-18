@@ -1,0 +1,117 @@
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+<%= stylesheet_link_tag 'users', media: 'all', 'data-turbo-track': 'reload' %>
+
+<% if @professional.errors.any? %>
+  <div id="error_explanation" class="flex flex-col items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[var(--accent-color)]">
+    <h2><%= pluralize(@professional.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+      <% @professional.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="flex flex-col items-center justify-center">
+  <div class="w-60/100 bg-[var(--surface-color)] rounded-md">
+    <%= form_with(model: @professional, url: @professional.new_record? ? professionals_path : professional_path(@professional), method: @professional.new_record? ? :post : :patch) do |form| %>
+
+      <%= form.hidden_field :isProfessional, value:true %>
+
+      <table class="m-auto">
+
+        <tr class="field">
+          <td>
+            <%= form.label :last_name, "Last Name" %>
+          </td>
+          <td>
+            <%= form.text_field :last_name %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :first_name, "First Name" %>
+          </td>
+          <td>
+            <%= form.text_field :first_name %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :email, "Email Address" %>
+          </td>
+          <td>
+            <%= form.text_field :email %>
+          </td>
+
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :password, "Password" %>
+          </td>
+          <td>
+            <%= form.password_field :password %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :password_confirmation, "Re-enter Password" %>
+          </td>
+          <td>
+            <%= form.password_field :password_confirmation %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :DOB, "Date of Birth" %>
+          </td>
+          <td>
+            <%= form.date_select :DOB %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :phone_number, "Phone Number" %>
+          </td>
+          <td>
+            <%= form.telephone_field :phone_number %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :profile_image_url, "Profile Image URL" %>
+          </td>
+          <td>
+            <%= form.text_field :profile_image_url %>
+          </td>
+        </tr>
+
+        <tr class="field">
+          <td>
+            <%= form.label :specialty_ids, "Select Specialty" %> (Hold Ctrl + click for multiple).
+          </td>
+          <td>
+            <%= form.collection_select :specialty_ids, Specialty.all, :id, :name, {multiple: true, size: 5, style: "background-color: #f0f0f0; color: #000;" } %>
+          </td>
+        </tr>
+      </table>
+
+      <div class="flex flex-col items-center justify-center">
+        <div class="actions blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]">
+          <%= form.submit class: "submit-button" %>
+        </div>
+      </div>
+
+      <% end %>
+
+  </div>
+</div>
+<%# End surface color %>

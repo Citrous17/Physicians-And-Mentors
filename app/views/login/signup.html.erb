@@ -1,0 +1,57 @@
+<div class="relative w-screen h-screen">
+  <div class="relative flex items-center justify-center h-full flex-col">
+    <h1 class="text-4xl md:text-6xl text-white font-bold mt-[32px]">
+      Sign Up
+    </h1>
+
+    <%= form_with model: @user, url: signup_path, method: :post do |f| %>
+        <div class="text-white">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name, class: "border p-2 w-full my-2" %>
+        </div>
+      
+        <div class="text-white">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, class: "border p-2 w-full my-2" %>
+        </div>
+      
+        <div class="text-white">
+          <%= f.label :email %>
+          <%= f.text_field :email, class: "border p-2 w-full my-2" %>
+        </div>
+      
+        <div class="text-white">
+          <%= f.label :password %>
+          <%= f.password_field :password, class: "border p-2 w-full my-2" %>
+        </div>
+      
+        <div class="text-white">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, class: "border p-2 w-full my-2" %>
+        </div>
+      
+        <div>
+          <%= f.submit "Sign Up", class: "bg-transparent border-white border text-white px-4 py-2 rounded mt-4" %>
+        </div>
+    <% end %>
+
+    <% if @user.errors.any? %>
+    <div class="text-red-500">
+        <ul>
+        <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+        </ul>
+    </div>
+    <% end %>
+
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key %>"><%= message %></div>
+    <% end %>
+
+    <div class="flex justify-center text-white mt-4">
+      <p>Already have an account?</p>
+      <%= link_to "Login", login_path, class: "text-blue-400 underline ml-2" %>
+    </div>
+  </div>
+</div>
