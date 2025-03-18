@@ -24,7 +24,7 @@
             <%= form.label :last_name, "Last Name" %>
           </td>
           <td>
-            <%= form.text_field :last_name %>
+            <%= form.text_field :last_name, readonly: readonly_fields %>
           </td>
         </tr>
 
@@ -33,7 +33,7 @@
             <%= form.label :first_name, "First Name" %>
           </td>
           <td>
-            <%= form.text_field :first_name %>
+            <%= form.text_field :first_name, readonly: readonly_fields %>
           </td>
         </tr>
 
@@ -42,7 +42,7 @@
             <%= form.label :email, "Email Address" %>
           </td>
           <td>
-            <%= form.text_field :email %>
+            <%= form.text_field :email, readonly: readonly_fields %>
           </td>
         </tr>
 
@@ -97,7 +97,7 @@
             <%= form.label :isProfessional, "Professional User" %>
           </td>
           <td>
-            <%= form.check_box :isProfessional%>
+            <%= form.check_box :isProfessional, disabled: is_new_auth %>
           </td>
         </tr>
 
@@ -112,11 +112,11 @@
 
       </table>
 
-<div class="flex flex-col items-center justify-center">
-  <div class="actions blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]">
-    <%= form.submit class: "submit-button" %>
-  </div>
-</div>
+      <div class="flex flex-col items-center justify-center">
+        <div class="actions blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]">
+          <%= form.submit class: "submit-button" %>
+        </div>
+      </div>
 
     <% end %>
   </div>

@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update]
-  before_action :require_login, only: [:complete_profile, :update_complete_profile]
+  before_action :set_user, only: [ :edit, :update, :destroy ] # Add :destroy here
+  before_action :require_login, only: [ :complete_profile, :update_complete_profile ]
 
   def index
-    @users = User.all 
+    @users = User.all
     session[:filter] = params[:filter] if params[:filter].present?
     session[:filter_option] = params[:filter_option] if params[:filter_option].present?
     initialize_search
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
     unless @user
       redirect_to login_path, alert: "You must be logging in to complete your profile."
-      return
+      nil
     end
   end
 
@@ -48,9 +48,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
+
   def create
     @user = User.new(user_params)
-  
+
     respond_to do |format|
       if @user.save
         # Check if the user is from OAuth
@@ -68,7 +72,7 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
 
   def update
     @user = User.find(params[:id])
@@ -141,12 +145,12 @@ class UsersController < ApplicationController
       if params[:filter].present?
         session[:filter] = params[:filter]
       end
-    
+
       if params[:filter_option].present?
         session[:filter_option] = params[:filter_option]
       end
     end
-    
+
     def handle_search_name
       if session[:search_name]
         @users = User.where("first_name LIKE ?", "%#{session[:search_name].titleize}%")
@@ -154,13 +158,11 @@ class UsersController < ApplicationController
         @users = User.all
       end
     end
-    
+
     def handle_filters
       if session[:filter_option] && session[:filter] == "isProfessional"
         is_professional_value = session[:filter_option] == "True"
         @users = @users.where(isProfessional: is_professional_value)
       end
-    end   
-
-
+    end
 end
