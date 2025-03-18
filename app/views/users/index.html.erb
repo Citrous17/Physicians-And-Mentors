@@ -1,6 +1,6 @@
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= stylesheet_link_tag 'users', media: 'all', data: { turbolinks: false } %>
 
-<img src="/images/background02.jpeg" alt="Physicians and Mentors Home Image" class="fixed absolute w-screen h-screen object-cover brightness-20 z-[-1] pointer-events-none bg-[#201c21]" />
 
 <div class="text-white">
 
@@ -8,9 +8,9 @@
   <p>Find me in app/views/users/index.html.erb</p>
 
   <% if notice.present? %>
-  <div class="flex items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[#D878CB]">
-    <h1 id="notice"><%= notice %></p>
-  </div>
+    <div class="flex flex-col items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[var(--accent-color)]">
+      <h1 id="notice"><%= notice %></p>
+    </div>
   <% end %>
 
   <div class="flex flex-row justify-between m-4 w-80/100 mx-auto">
@@ -18,14 +18,14 @@
       <p class="mb-2">Search for users by first name:</p>
       <div>
         <form action="/users" method="GET">
-          <input type="text" name="search_name" class="p-2 rounded-sm bg-[#544a57]">
-          <input type="submit" value="Search" class="p-2 rounded-sm bg-[#736493] blue-button">
-          <%= link_to 'Reset', users_path, class: "p-2 rounded-sm bg-[#966179] red-button" %>
+          <input type="text" name="search_name" class="p-2 rounded-sm bg-[var(--surface-color)]">
+          <input type="submit" value="Search" class="p-2 rounded-sm bg-[var(--ok-highlight-faded-color)] blue-button">
+          <%= link_to 'Reset', users_path, class: "p-2 rounded-sm bg-[var(--warn-highlight-faded-color)] red-button" %>
         </form>
       </div>
     </div>
 
-    <%= link_to 'New User', new_user_path, class: "flex items-center justify-center blue-button p-2 w-10/100 rounded-md bg-[#544a57]" %>
+    <%= link_to 'New User', new_user_path, class: "flex items-center justify-center blue-button p-2 w-10/100 rounded-md bg-[var(--surface-color)]" %>
   </div>
 
 <form action="/users" method="GET">
@@ -47,7 +47,7 @@
 <%= link_to "Clear Filter Options", clear_path %>
 
   <div class="flex flex-col items-center justify-center">
-    <div class="w-80/100 bg-[#544a57] rounded-md">
+    <div class="w-80/100 bg-[var(--surface-color)] rounded-md">
       <table id="users-table" class="w-full">
         <thead>
           <tr>
@@ -66,7 +66,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr class="users-table-rows">
-              <td class="profile-td"><%= image_tag(user.profile_image_url, alt: "Profile image", class: "w-full h-full object-cover aspect-square rounded-md") %></td>
+              <td class="profile-td"><%= image_tag(user.profile_image_url, alt: "Profile image", class: "w-full h-full object-cover aspect-square rounded-md",  onerror: "this.onerror=null; this.src='#{asset_path('profile-placeholder.png')}';") %></td>
               <td><%= user.first_name %></td>
               <td><%= user.last_name %></td>
               <td><%= user.email %></td>
@@ -82,7 +82,7 @@
       </table>
     </div>
     
-    <%= link_to 'New User', new_user_path, class: "blue-button p-4 m-4 rounded-md bg-[#544a57]" %>
+    <%= link_to 'New User', new_user_path, class: "blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %>
   </div>
 
   <br>  

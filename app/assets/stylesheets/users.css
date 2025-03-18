@@ -1,18 +1,5 @@
-/* Colors
-  TODO: Add global css variables
-
-  Main: #544a57
-  Main highlight: #D878CBff
-
-  Blue button highlight: #7883d8
-  Faded blue: #736493
-  Red button highlight: #d87878
-  Faded red: #966179
-
-*/
-
 /* General table style */
-th,td {
+th, td {
   padding: 15px;
   text-align: left;
 }
@@ -20,7 +7,7 @@ th,td {
 /* Table header */
 th {
   border-bottom: 1px solid #ddd;
-  color: white;
+  color: var(--text-color);
 }
 
 /* Profile td has less padding */
@@ -33,7 +20,7 @@ th {
 
 /* Row and header hover color */
 .users-table-rows:hover, .sortable-header:hover {
-  background-color: #D878CBff;
+  background-color: var(--accent-color);
 }
 
 .users-table-rows:not(:hover), .sortable-header:not(:hover) {
@@ -42,7 +29,7 @@ th {
 
 /* Show, edit button */
 .blue-button:hover {
-  background-color: #7883d8ff;
+  background-color: var(--ok-highlight-color);
 }
 
 .blue-button:not(:hover) {
@@ -51,9 +38,72 @@ th {
 
 /* Destroy button */
 .red-button:hover {
-  background-color: #d87878ff;
+  background-color: var(--warn-highlight-color);
 }
 
 .red-button:not(:hover) {
   transition: background-color 1s;
+}
+
+/* Forms */
+.field {
+  padding: 5px;
+}
+
+input {
+  border: 2px solid var(--accent-color);
+  border-radius: 4px;
+}
+
+input:focus {
+  background-color: var(--accent-color);
+}
+
+.submit-button {
+  border: none;
+}
+
+/* Profile card */
+.profile-container {
+  background-color: transparent;
+}
+
+.profile-card {
+  background-color: var(--surface-color);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: background-color 1s;
+}
+
+/* Profile card header hover effect */
+.profile-card-header:hover {
+  background-color: var(--accent-color);
+}
+
+/* Profile card button hover effects */
+.profile-card .blue-button:hover {
+  background-color: var(--ok-highlight-color);
+}
+
+.profile-card .blue-button:not(:hover) {
+  transition: background-color 1s;
+}
+
+.profile-card .gray-button:hover {
+  background-color: var(--gray-highlight-color);
+}
+
+.profile-card .gray-button:not(:hover) {
+  transition: background-color 1s;
+}
+
+.profile-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.profile-card-link:hover .profile-card {
+  background-color: var(--accent-color);
 }

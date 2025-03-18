@@ -17,49 +17,49 @@
       <tr>
         <td>First Name</td>
         <td>
-          <%= @user.first_name %>
+          <%= @professional.first_name %>
         </td>
       </tr>
 
       <tr>
         <td>Last Name</td>
         <td>
-          <%= @user.last_name %>
+          <%= @professional.last_name %>
         </td>
       </tr>
 
       <tr>
         <td>Email</td>
         <td>
-          <%= @user.email %>
+          <%= @professional.email %>
         </td>
       </tr>
 
       <tr>
         <td>Date of Birth</td>
         <td>
-          <%= @user.DOB %>
+          <%= @professional.DOB %>
         </td>
       </tr>
 
       <tr>
         <td>Phone Number</td>
         <td>
-          <%= @user.phone_number %>
+          <%= @professional.phone_number %>
         </td>
       </tr>
 
       <tr>
         <td>Profile Image URL</td>
         <td>
-          <%= @user.profile_image_url %>
+          <%= @professional.profile_image_url %>
         </td>
       </tr>
 
       <tr>
         <td>Professional</td>
         <td>
-          <%= @user.isProfessional %>
+          <%= @professional.isProfessional %>
         </td>
       </tr>
     </table>
@@ -68,11 +68,11 @@
 </div>
 
 <div class="flex flex-col items-center justify-center">
-  <%= button_to 'Destroy user', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: "red-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %></td>
+  <%= button_to 'Destroy Professional', professional_path(@professional), method: :delete, data: { confirm: 'Are you sure?' }, class: "red-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %></td>
 
   <div class="flex flex-row items-center justify-center">
-    <%= link_to 'Edit', edit_user_path(@user), class: "blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %>
-    <%= link_to 'Cancel', users_path, class: "blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %>
+    <%= link_to 'Edit', edit_professional_path(@professional), class: "blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %>
+    <%= link_to 'Cancel', professionals_path, class: "blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %>
   </div>
 </div>
 

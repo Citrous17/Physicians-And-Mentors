@@ -1,11 +1,16 @@
 class User < ApplicationRecord
   has_secure_password # Enables password hashing
+
+  has_and_belongs_to_many :specialties, join_table: "physician_specialties"
+
+
+  # ONLY PROFESSIONALS CAN HAVE SPECIALTIES
+  before_save :clear_specialties_if_not_professional
   
   validates :email, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :password_digest, presence: true, on: :create  # Only required on creation
-  validates :isProfessional, inclusion: { in: [true, false] }
+  validates :password, presence: true, on: :create  # Only required on creation
 
   scope :professionals, -> { where(isProfessional: true) }
   
@@ -13,11 +18,15 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def clear_specialties_if_not_professional
+    self.specialties.clear unless isProfessional?
+  end
+
   def has_password?
     password_digest.present?
   end
   
-  
+
 
   def self.from_omniauth(auth)
     # if signing in with google oauth, and for the first time, create a new user, which is NON PROFESSIONAL BY DEFAULT
@@ -29,7 +38,8 @@ class User < ApplicationRecord
       new_user.oauth_uid = auth.uid.to_s
       new_user.provider = auth.provider
       new_user.password = SecureRandom.hex(16)  # Generate a random password for OAuth users
-
+      new_user.isProfessional = false
+      new_user.isAdmin = false
       new_user.DOB = nil
       new_user.phone_number = nil
       new_user.isProfessional = false
@@ -40,5 +50,18 @@ class User < ApplicationRecord
   
     return { user: user, new_user: is_new_user } # Return both user and status, as a Hash
   end
-  
+
+  private
+
+  def validate_invite_code
+    invite = InviteCode.find_by(code: invite_code, used: false)
+
+    if invite&.expires_at&.> Time.current
+      invite.update(used: true, user_id: self.id)
+      self.isProfessional = true # Mark user as professional
+    else
+      errors.add(:invite_code, "is invalid or expired")
+      throw(:abort)
+    end
+  end
 end
