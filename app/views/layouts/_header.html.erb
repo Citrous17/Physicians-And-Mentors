@@ -1,0 +1,80 @@
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<% if session[:user_id] && session[:isAdmin] %>
+
+<header id="header" class="text-white p-4 flex justify-between items-center sticky top-0 left-0 w-full z-10 bg-transparent transition-all duration-300 overflow-hidden max-w-full">
+  <div class="text-xl font-bold flex items-center">
+    <img src="/images/logo-1.png" alt="Physicians and Mentors Logo" class="w-16 h-16 mr-4" />
+    <h1 class="text-2xl truncate">Physicians and Mentors (Test Build)(Admin View)</h1>
+  </div>
+
+  <div class="flex justify-center text-white flex-wrap gap-2">
+    <%= link_to "Admin Dashboard", admin_dashboard_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white p-2 mx-2 border border-white rounded" %>
+    <%= link_to "View Users", admin_users_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white p-2 mx-2 border border-white rounded" %>
+    <%= link_to "View Profile", user_path(session[:user_id]), class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white p-2 mx-2 border border-white rounded" %>
+    <%= link_to "View Posts", posts_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white p-2 mx-2 border border-white rounded" %>
+    <%= button_to "Log Out", logout_path, method: :delete, class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white p-2 border border-white rounded" %>
+  </div>
+</header>
+
+<% elsif session[:user_id] && session[:isProfessional] %>
+
+  <header id="header" class="text-white p-4 flex justify-between items-center sticky top-0 left-0 w-full z-10 bg-transparent transition-all duration-300">
+    <div class="text-xl font-bold flex items-center">
+      <img src="/images/logo-1.png" alt="Physicians and Mentors Logo" class="w-16 h-16 mr-4" />
+      <h1 class="text-3xl">Physicians and Mentors (Test Build)(Professional View)</h1>
+    </div>
+
+    <div class="flex justify-center text-white">
+        <%= link_to "View Profile", user_path(session[:user_id]), class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 mx-4 text-3xl border border-white rounded" %>
+    <%= link_to "View Posts", posts_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 text-3xl border border-white rounded" %>
+    <%= button_to "Log Out", logout_path, method: :delete, class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 text-3xl border border-white rounded" %>
+    </div>
+  </header>
+  
+<% elsif session[:user_id] %>
+
+  <header id="header" class="text-white p-4 flex justify-between items-center sticky top-0 left-0 w-full z-10 bg-transparent transition-all duration-300">
+    <div class="text-xl font-bold flex items-center">
+      <img src="/images/logo-1.png" alt="Physicians and Mentors Logo" class="w-16 h-16 mr-4" />
+      <h1 class="text-3xl">Physicians and Mentors (User View)</h1>
+    </div>
+
+    <div class="flex justify-center text-white">
+    <%= link_to "View Profile", user_path(session[:user_id]), class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 mx-4 text-3xl border border-white rounded" %>
+    <%= link_to "View Posts", posts_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 mx-4 text-3xl border border-white rounded" %>
+    <%= button_to "Log Out", logout_path, method: :delete, class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 mx-4 text-3xl border border-white rounded" %>
+    </div>
+  
+  </header>
+
+<% else %>
+
+  <header id="header" class="text-white p-4 flex justify-between items-center sticky top-0 left-0 w-full z-10 bg-transparent transition-all duration-300">
+    <div class="text-xl font-bold flex items-center">
+    <img src="/images/logo-1.png" alt="Physicians and Mentors Logo" class="w-16 h-16 mr-4" />
+      <h1 class="text-3xl">Physicians and Mentors (Test Build)</h1>
+    </div>
+
+    <nav>
+      <%= link_to "Home", home_path, class: "hover:text-gray-300 text-lg bg-transparent  text-white-900 font-semibold hover:text-white mt-8 p-4 text-3xl border border-white-900 rounded" %>
+      <%= link_to "Login", login_path, class: "hover:text-gray-300 text-lg bg-transparent  text-white-900 font-semibold hover:text-white mt-8 p-4 text-3xl border border-gray-500 rounded" %>
+    </nav>
+  
+  </header>
+
+<% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('#header');
+    
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 50) {  // Scroll threshold
+        header.classList.add('shrink');
+      } else {
+        header.classList.remove('shrink');
+      }
+    });
+  });
+</script>

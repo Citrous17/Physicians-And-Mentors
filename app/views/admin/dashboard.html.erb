@@ -1,0 +1,46 @@
+<h1>Admin Dashboard</h1>
+<p>Welcome, <%= current_user.email %></p>
+
+<h2>Admin Actions</h2>
+<ul>
+  <li><%= link_to "View Users", admin_users_path %></li>
+  <li><%= link_to "View Database", admin_database_path %></li>
+</ul>
+
+<% flash.each do |key, message| %>
+  <div class="alert alert-<%= key %>">
+    <%= message %>
+  </div>
+<% end %>
+
+<h3>Invite a New Admin</h3>
+<%= form_with url: admin_invite_admin_path, method: :post do |form| %>
+  <%= form.label :email, "User Email:" %>
+  <%= form.text_field :email %>
+  <%= form.submit "Make Admin" %>
+<% end %>
+
+<hr>
+
+<h3>Generate an Invite Code for a Professional</h3>
+<%= form_with url: admin_create_invite_code_path, method: :post do |form| %>
+  <%= form.label :email, "Professional's Email:" %>
+  <%= form.text_field :email %>
+  <%= form.submit "Generate Invite Code" %>
+<% end %>
+
+<h3>Generated Invite Codes</h3>
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Email</th>
+    <th>Used?</th>
+  </tr>
+  <% @invite_codes.each do |invite_code| %>
+    <tr>
+      <td><%= invite_code.code %></td>
+      <td><%= invite_code.user_email %></td>
+      <td><%= invite_code.used ? "Yes" : "No" %></td>
+    </tr>
+  <% end %>
+</table>

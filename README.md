@@ -1,103 +1,67 @@
-# Physicians and Mentors
+# Physicians-and-Mentors - HEROKU INSTRUCTIONS
+## How to deploy app on Heroku:
+1. Login to heroku.com.
+2. Navigate to your dashboard.
+3. Click on the p-a-m-pipeline.
+4. Click on the NAME "p-a-m-test-app".
+5. Click on the "deploy" tab.
+6. Scroll down to the "Manual deploy" section and choose the "test" branch to deploy
+7. Click "Deploy Branch" (and wait a few minutes for the app to start up).
 
-## Docker instructions
-* Make a new directory and copy the Dockerfile to it
+## HOW TO pause/stop app on Heroku
+1. Login on heroku.
+2. Navigate to the p-a-m-pipeline
+3. Click on the name "p-a-m-test-app".
+4. Click on the "settings" tab.
+5. Scroll down until you see the "maintenance mode" section, then turn it on.
+* To turn the app back on, simply turn maintenance mode off.
 
-Docker file for local:
-
+# Physicians-and-Mentors - LOCAL TESTING AND DEVELOPMENT:
+## TO MAKE SURE SCRIPTS CAN BE RAN, RUN the following with dos2unix installed:
 ```
-# Dockerfile
-FROM ruby:3.3.6
-# Install essential Linux packages
-RUN apt-get update -qq && apt-get install -y \
-    build-essential \
-    libpq-dev \
-    postgresql-client \
-    nodejs \
-    npm
-# Install Yarn
-RUN npm install -g yarn
-# Install Rails
-RUN gem install rails
-# Set working directory
-WORKDIR /app
-
-COPY Gemfile* /app/
-RUN bundle install
-RUN bundle exec rails assets:precompile
-EXPOSE 3000
-RUN chmod +x bin/rails
-RUN bin/rails db:create
-RUN bin/rails db:migrate
-
-# Keep container running for interactive use
-CMD [“/bin/bash”]
+chmod +x *.sh
+dos2unix *.sh
 ```
-
-* Run the command to build the dockerfile
+### Make sure .env file exists and is populated with the following variables before running scripts; replace "<any ...>" && "<exact ...>" from below with actual values:
 ```
-docker build -t 502_fem_docker .
+GOOGLE_CLIENT_ID=[exact as found on heroku app config]
+GOOGLE_CLIENT_SECRET=[exact as found on heroku app config]
+IMAGE_NAME=[any given name different to pre-existing images]
+HEROKU_APP=[exact app name as shown on heroku]
+APP_HOST=[any given name]
+DATABASE_HOST=[any given name different from APP_HOST]
+DATABASE_PASSWORD=[any given password; only used locally]
+DATABASE_USERNAME=[any given username; only used locally]
+DATABASE_NAME=physicians_and_mentors_development
 ```
 
-* Copy the contents from database.yml to config/database.yml
-* Run the following commands to run start the database and the container
-
-### Create network
+## First Time Setup or missing image/containers, run the following script with docker desktop up and running:
 ```
-docker network create rails-net
+./build_local.sh
 ```
-
-### Start PostgreSQL
+### NEXT STEP IS TO INITIALIZE DATABASE (as given by the two choices below)
+#### Option 1: (IN CONTAINER BASH) run this to set up database locally:
 ```
-docker run --name postgres \
-  --network rails-net \
-  -e POSTGRES_PASSWORD=password \
-  -e POSTGRES_USER=postgres \
-  -d postgres:latest
+rails db:create
+rails db:migrate
 ```
 
-### Env file
-In the `.env` file, add variables `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `SECRET_KEY_BASE`.  Do not add any other variables.
-
-Remove `/.env*` from `.dockerignore`.
-
-### Start Rails
+#### Option 2: (OUTSIDE OF CONTAINER BASH) OR run this to pull to local db from the heroku database
 ```
-docker run -it \
-  --name rails-app \
-  --network rails-net \
-  -p 3000:3000 \
-  -v $(pwd):/app \
-  502_fem_docker bash
+./pull_heroku_db.sh
 ```
 
-* Inside the container run the following commands
-
+## To connect to existing container's command line / bash, wether its running or not, run this script:
 ```
-rails server -b 0.0.0.0
-```
-
-### Run existing
-
-Make sure that `postgres` and `rails-app` are already started:
-
-```
-docker start rails-app  
-docker start postgres 
+./connect_local.sh
 ```
 
-Start
-
+## (IN CONTAINER BASH) To locally host app, make a rails server with the command:
 ```
-docker exec -it rails-app /bin/bash 
-```
-
-## Pull database from Heroku
-
-Pull from Heroku Postgres database to local:
-
-```
-heroku pg:pull DATABASE_URL mylocaldb --app example-app
+rails s -b 0.0.0.0
 ```
 
-The database url can be found in Heroku config variables under the test app.
+## (IN CONTAINER BASH) to run tests:
+```
+bundle exec rspec
+```

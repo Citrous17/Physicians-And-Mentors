@@ -61,6 +61,7 @@ group :development, :test do
 
   # rubocop
   gem "rubocop", require: false
+  gem "rails-controller-testing"
 end
 
 group :development do
@@ -80,3 +81,5 @@ gem "tailwindcss-ruby", "~> 4.0"
 gem "tailwindcss-rails", "~> 4.0"
 # Tests
 gem "rexml"
+# Passwords
+gem 'bcrypt'

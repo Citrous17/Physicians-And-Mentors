@@ -1,0 +1,19 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+
+<p><strong>Posted by:</strong> <%= @post.sending_user.full_name %></p>
+
+<h3>Specialties:</h3>
+<% if @post.specialties.any? %>
+  <ul>
+    <% @post.specialties.each do |specialty| %>
+      <li><%= specialty.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No specialties assigned.</p>
+<% end %>
+
+<p><strong>Posted on:</strong> <%= @post.created_at.strftime("%B %d, %Y %I:%M %p") %></p>
+
+<%= link_to "Back to Posts", posts_path %>

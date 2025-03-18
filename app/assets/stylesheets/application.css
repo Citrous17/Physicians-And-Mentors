@@ -10,3 +10,30 @@
  */
 
  /* Custom styles */
+ @import "tailwindcss/base";
+ @import "tailwindcss/components";
+ @import "tailwindcss/utilities";
+
+:root {
+  --primary-color: #714098;
+  --secondary-color: #e0e549;  /* complement primary color */
+  --accent-color: #d878cb;
+  --surface-color: #544a57;
+  --text-color: #ffffff;
+  --background-color: #201c21;
+
+  --ok-highlight-color: #7883d8;
+  --ok-highlight-faded-color: #736493;  /* midpoint between surface and ok-highlight */
+  --warn-highlight-color: #d87878;
+  --warn-highlight-faded-color: #966179;  /* midpoint between surface and warn-highlight */
+}
+
+#header {
+  height: 100px;
+  transition: background-color 0.3s, height 0.3s;
+}
+
+#header.shrink {
+  height: 60px;
+  background-color: var(--background-color);
+}

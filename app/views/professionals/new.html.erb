@@ -1,0 +1,12 @@
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'users', media: 'all', data: { turbolinks: false } %>
+
+<div class="flex flex-col items-center justify-center">
+  <h1 class="text-2xl m-auto font-bold p-4">Creating a New User</h1>
+</div>
+
+<%= render 'form', professional: @professional %>
+
+<div class="flex flex-col items-center justify-center">
+  <%= link_to 'Cancel', professionals_path, class: "blue-button p-4 mb-4 rounded-md bg-[var(--surface-color)]" %>
+</div>
