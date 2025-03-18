@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete '/logout', to: 'sessions#destroy'
   get 'users', to: 'users#index'
+  get '/newAuth', to: 'users#newAuth', as: 'new_auth'
 
   get 'admin/dashboard', to: 'admin#dashboard'
   get 'admin/users', to: 'admin#users'
