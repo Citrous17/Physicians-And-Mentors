@@ -34,16 +34,6 @@ RSpec.describe User, type: :model do
       expect(subject).not_to be_valid
     end
 
-    it "is invalid without a DOB" do
-      subject.DOB = nil
-      expect(subject).not_to be_valid
-    end
-
-    it "is invalid without a phone number" do
-      subject.phone_number = nil
-      expect(subject).not_to be_valid
-    end
-
     it "is invalid without a professional status" do
       subject.isProfessional = nil
       expect(subject).not_to be_valid

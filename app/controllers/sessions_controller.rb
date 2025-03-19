@@ -20,6 +20,8 @@ class SessionsController < ApplicationController
 
   def register
     @user = User.new(user_params) # Use strong parameters
+    @user.isProfessional = false
+    @user.isAdmin = false
 
     if @user.save
       set_session(@user)
