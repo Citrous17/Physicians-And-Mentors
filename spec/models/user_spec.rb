@@ -25,8 +25,9 @@ RSpec.describe User, type: :model do
 
     it "is invalid with a duplicate email" do
       create(:user, email: "email@provider.com")
-      duplicate_user = subject.dup
-      expect(duplicate_user).not_to be_valid
+      expect {
+        create(:user, email: "email@provider.com")
+    }.to raise_error(ActiveRecord::RecordNotUnique)
     end
 
     it "is invalid without a password" do

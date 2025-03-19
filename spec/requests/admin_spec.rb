@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "Admins", type: :request do
+  # SIMULATE an admin user for the tests
+  let!(:admin_user) {create(:user, isAdmin:true)}
+
+  before do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_user)
+  end
+
   describe "GET /dashboard" do
     it "returns http success" do
       get "/admin/dashboard"

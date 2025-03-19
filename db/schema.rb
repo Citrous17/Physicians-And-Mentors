@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_14_145323) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_19_204944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
@@ -229,6 +229,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_14_145323) do
     t.string "user_id"
     t.boolean "isAdmin", default: false, null: false
     t.string "oauth_uid"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "admins", "users"

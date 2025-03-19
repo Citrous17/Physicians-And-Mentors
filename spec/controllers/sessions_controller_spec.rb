@@ -9,7 +9,7 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe "POST #create" do
-    let!(:user) { User.create!(email: "test@example.com", password: "password") }
+    let!(:user) { create(:user, email: "test@example.com", password: "password") }
 
     context "with valid credentials" do
       it "logs in the user" do

@@ -3,12 +3,7 @@ require 'rails_helper'
 RSpec.describe Post, type: :model do
   describe "validations" do
     it "is valid with a title, content, and sending_user_id" do
-      user = User.create!(
-        first_name: "Test",
-        last_name: "User",
-        email: "test@example.com",
-        password: "password"
-      )
+      user = create(:user)
       post = Post.new(
         title: "Test Post",
         content: "This is a test post.",
