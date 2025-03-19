@@ -8,7 +8,7 @@ RSpec.describe "professionals/show", type: :view do
       email: "Email",
       password: "Password Digest",
       phone_number: "Phone Number",
-      profile_image_url: "Profile Image Url",
+      profile_image_url: nil,
       isProfessional: true,
       DOB: Date.new(1990, 5, 15)
     ))
@@ -20,7 +20,9 @@ RSpec.describe "professionals/show", type: :view do
     expect(rendered).to match(/First Name/)
     expect(rendered).to match(/Email/)
     expect(rendered).to match(/Phone Number/)
-    expect(rendered).to match(/Profile Image Url/)
     expect(rendered).to match(/true/)
+  end
+  it "renders the professional's profile image" do
+    expect(rendered).to have_css("img[src*='profile-placeholder.png']")
   end
 end

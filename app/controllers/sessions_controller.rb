@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
 
-    if user && user.authenticate(params[:password]) # Use `has_secure_password` for password authentication
+    if user && user.authenticate(params[:password]) # Ensure `has_secure_password` is set up
       set_session(user)
       redirect_to root_path, notice: "Signed in successfully!"
     else

@@ -42,7 +42,13 @@
         <tbody>
           <% @professionals.each do |professional| %>
             <tr class="professionals-table-rows">
-              <td class="profile-td"><%= image_tag(professional.profile_image_url, alt: "Profile image", class: "w-full h-full object-cover aspect-square rounded-md",  onerror: "this.onerror=null; this.src='#{asset_path('profile-placeholder.png')}';") %></td>
+              <td class="profile-td">
+                <%= image_tag(
+                  professional.profile_image_url.presence || asset_path('profile-placeholder.png'),
+                  alt: "Profile image",
+                  class: "w-full h-full object-cover aspect-square rounded-md"
+                ) %>
+              </td>
               <td><%= professional.first_name %></td>
               <td><%= professional.last_name %></td>
               <td><a href="mailto:<%= professional.email %>" class="text-blue-500 hover:text-blue-700"><%= professional.email %></a></td>
