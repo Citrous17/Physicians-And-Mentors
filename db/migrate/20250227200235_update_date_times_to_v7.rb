@@ -6,6 +6,5 @@ class UpdateDateTimesToV7 < ActiveRecord::Migration[8.0]
 
     remove_column :specialties, :created_at, :datetime
     remove_column :specialties, :updated_at, :datetime
-
   end
 end

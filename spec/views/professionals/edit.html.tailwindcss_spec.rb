@@ -25,4 +25,3 @@ RSpec.describe "professionals/edit", type: :view do
     end
   end
 end
-

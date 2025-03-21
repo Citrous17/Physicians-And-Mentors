@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "Posts", type: :request do
   let(:user) { User.create!(first_name: "Test", last_name: "User", email: "test@example.com", password: "password", DOB: "2000-01-01", phone_number: "1234567890", isProfessional: false) }
   let(:specialty) { Specialty.create!(name: "Cardiology") }
-  let(:valid_attributes) { { title: "Test Post", content: "This is a test post.", sending_user_id: user.id, specialty_ids: [specialty.id]} }
-  let(:invalid_attributes) { { title: "", content: ""} }
+  let(:valid_attributes) { { title: "Test Post", content: "This is a test post.", sending_user_id: user.id, specialty_ids: [ specialty.id ] } }
+  let(:invalid_attributes) { { title: "", content: "" } }
 
   before do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)

@@ -2,16 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "professionals/show", type: :view do
   before(:each) do
-    assign(:professional, User.create!(
-      last_name: "Last Name",
-      first_name: "First Name",
-      email: "Email",
-      password: "Password Digest",
-      phone_number: "Phone Number",
-      profile_image_url: "Profile Image Url",
-      isProfessional: true,
-      DOB: Date.new(1990, 5, 15)
-    ))
+    assign(:professional, create(:user, isProfessional: true, profile_image: "profile-placeholder.png", first_name: "First Name", last_name: "Last Name", email: "Email", phone_number: "Phone Number"))
   end
 
   it "renders attributes in <p>" do
@@ -20,7 +11,9 @@ RSpec.describe "professionals/show", type: :view do
     expect(rendered).to match(/First Name/)
     expect(rendered).to match(/Email/)
     expect(rendered).to match(/Phone Number/)
-    expect(rendered).to match(/Profile Image Url/)
     expect(rendered).to match(/true/)
+  end
+  it "renders the professional's profile image" do
+    expect(rendered).to have_css("img[src*='profile-placeholder.png']")
   end
 end

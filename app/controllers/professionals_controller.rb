@@ -58,7 +58,6 @@ class ProfessionalsController < ApplicationController
 
   def confirm_destroy
     @professional = User.find(params[:id])
-
   end
 
   private

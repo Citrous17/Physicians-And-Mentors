@@ -25,6 +25,10 @@
     
     <%= render 'layouts/header' %> <!-- Include the header partial -->
 
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key %>"><%= message %></div>
+    <% end %>
+
     <%= yield %>
 
     <%= render 'layouts/footer' %> <!-- Include the footer partial -->

@@ -29,6 +29,9 @@
           <%= f.label :password_confirmation %>
           <%= f.password_field :password_confirmation, class: "border p-2 w-full my-2" %>
         </div>
+
+        <%= f.hidden_field :is_professional, value: false %>
+        
       
         <div>
           <%= f.submit "Sign Up", class: "bg-transparent border-white border text-white px-4 py-2 rounded mt-4" %>

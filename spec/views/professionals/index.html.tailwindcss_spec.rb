@@ -2,28 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "professionals/index", type: :view do
   before(:each) do
-    assign(:professionals, [
-      User.create!(
-        last_name: "Last Name",
-        first_name: "First Name",
-        email: "Email",
-        password: "Password Digest",
-        phone_number: "Phone Number",
-        profile_image_url: "Profile Image Url",
-        isProfessional: true,
-        DOB: Date.parse("2024-07-07")
-      ),
-      User.create!(
-        last_name: "Last Name",
-        first_name: "First Name",
-        email: "Email2",
-        password: "Password Digest",
-        phone_number: "Phone Number",
-        profile_image_url: "Profile Image Url",
-        isProfessional: true,
-        DOB: Date.parse("2024-07-07")
-      )
-    ])
+    assign(:professionals, create_list(:user, 2, last_name: "Last Name", first_name: "First Name", isProfessional: true, DOB: Date.parse("2024-07-07")))
   end
 
   it "renders a list of professionals" do

@@ -42,8 +42,7 @@ DATABASE_NAME=physicians_and_mentors_development
 ### NEXT STEP IS TO INITIALIZE DATABASE (as given by the two choices below)
 #### Option 1: (IN CONTAINER BASH) run this to set up database locally:
 ```
-rails db:create
-rails db:migrate
+rails db:create db:migrate
 ```
 
 #### Option 2: (OUTSIDE OF CONTAINER BASH) OR run this to pull to local db from the heroku database
