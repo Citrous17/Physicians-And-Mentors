@@ -2,16 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "professionals/show", type: :view do
   before(:each) do
-    assign(:professional, User.create!(
-      last_name: "Last Name",
-      first_name: "First Name",
-      email: "Email",
-      password: "Password Digest",
-      phone_number: "Phone Number",
-      profile_image_url: nil,
-      isProfessional: true,
-      DOB: Date.new(1990, 5, 15)
-    ))
+    assign(:professional, create(:user, isProfessional: true, profile_image: "profile-placeholder.png", first_name: "First Name", last_name: "Last Name", email: "Email", phone_number: "Phone Number"))
   end
 
   it "renders attributes in <p>" do
