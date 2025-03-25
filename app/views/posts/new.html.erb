@@ -1,7 +1,12 @@
-<h1>New Post</h1>
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'posts', media: 'all', data: { turbolinks: false } %>
+
+<div class="flex flex-col items-center justify-center">
+  <h1 class="text-2xl m-auto font-bold p-4">Creating a New Post</h1>
+</div>
 
 <% if @post.errors.any? %>
-  <div id="error_explanation">
+  <div id="error_explanation" class="flex flex-col items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[var(--accent-color)]">
     <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
     <ul>
       <% @post.errors.full_messages.each do |message| %>
@@ -11,35 +16,51 @@
   </div>
 <% end %>
 
-
-<%= form_with model: @post, local: true do |form| %>
-  <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :content %>
-    <%= form.text_area :content %>
-  </div>
-
-  <div>
-    <h3>Select Specialties:</h3>
-    <% if @specialties.present? %>
-      <% @specialties.each do |specialty| %>
-        <div>
-          <%= check_box_tag "post[specialty_ids][]", specialty.id, @post.specialty_ids.include?(specialty.id) %>
-          <%= label_tag "post_specialty_#{specialty.id}", specialty.name %>
-        </div>
-      <% end %>
-    <% else %>
-      <p>No specialties available.</p>
+<div class="flex flex-col items-center justify-center">
+  <div class="w-60/100 bg-[var(--surface-color)] rounded-md">
+    <%= form_with model: @post, local: true do |form| %>
+      <table class="m-auto">
+        <tr class="field">
+          <td>
+            <%= form.label :title %>
+          </td>
+          <td>
+            <%= form.text_field :title %>
+          </td>
+        </tr>
+        <tr class="field">
+          <td>
+            <%= form.label :content %>
+          </td>
+          <td>
+            <%= form.text_area :content %>
+          </td>
+        </tr>
+        <tr class="field">
+          <td>
+            <h3>Select Specialties:</h3>
+          </td>
+          <td>
+            <% if @specialties.present? %>
+              <% @specialties.each do |specialty| %>
+                <div>
+                  <%= check_box_tag "post[specialty_ids][]", specialty.id, @post.specialty_ids.include?(specialty.id) %>
+                  <%= label_tag "post_specialty_#{specialty.id}", specialty.name %>
+                </div>
+              <% end %>
+            <% else %>
+              <p>No specialties available.</p>
+            <% end %>
+            </td>
+        </tr>
+      </table>
+      <div class="flex flex-col items-center justify-center">
+        <%= form.submit "Create Post", class: "blue-button p-4 mb-4 rounded-md bg-[var(--ok-highlight-faded-color)]" %>
+      </div>
     <% end %>
   </div>
+</div>
 
-  <div>
-    <%= form.submit "Create Post" %>
-  </div>
-<% end %>
-
-<%= link_to "Back to Posts", posts_path %>
+<div class="flex flex-col items-center justify-center mb-4 p-8">
+  <%= link_to 'Cancel', posts_path, class: "blue-button p-4 mb-4 rounded-md bg-[var(--surface-color)]" %>
+</div>
