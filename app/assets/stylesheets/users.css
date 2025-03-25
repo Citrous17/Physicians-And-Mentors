@@ -32,17 +32,13 @@ th {
   padding: 5px;
 }
 
-input {
+input[type=text] {
   border: 2px solid var(--accent-color);
   border-radius: 4px;
 }
 
-input:focus {
-  background-color: var(--accent-color);
-}
-
-.submit-button {
-  border: none;
+input[type=text]:focus {
+  background-color: var(--accent-color-weak);
 }
 
 /* Profile card */
