@@ -27,8 +27,6 @@ is_port_in_use() {
     fi
 }
 
-
-
 # Load environment variables
 if [ -f .env ]; then
   echo "🔄 Loading environment variables from .env file..."

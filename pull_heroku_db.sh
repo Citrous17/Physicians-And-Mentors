@@ -75,12 +75,28 @@ if grep -q docker /proc/1/cgroup || [ -f /.dockerenv ]; then
     echo "🔄 Downloading the latest Heroku database backup..."
     HEROKU_API_KEY=$HEROKU_API_KEY heroku pg:backups:download --app $HEROKU_APP
 
-    echo "🔄 Ensuring the database exists locally..."
-    rails db:create
-    echo "✅ Database exists locally."
+    echo "🔄 Dropping the existing database (if it exists)..."
+    if PGPASSWORD=$DATABASE_PASSWORD dropdb --if-exists -h $DATABASE_HOST -p ${DATABASE_PORT:-5432} -U $DATABASE_USERNAME $DATABASE_NAME; then
+        echo "✅ Existing database dropped."
+    else
+        echo "⚠️ No existing database to drop."
+    fi
+
+    echo "🔄 Creating a new database..."
+    if PGPASSWORD=$DATABASE_PASSWORD createdb -h $DATABASE_HOST -p ${DATABASE_PORT:-5432} -U $DATABASE_USERNAME $DATABASE_NAME; then
+        echo "✅ Database created."
+    else
+        echo "❌ Failed to create the database. Please check your PostgreSQL configuration."
+        exit 1
+    fi
 
     echo "🔄 Restoring the database from the Heroku backup..."
-    cat latest.dump | pg_restore --clean --if-exists --no-owner -U $DATABASE_USERNAME -d $DATABASE_NAME
+    if cat latest.dump | PGPASSWORD=$DATABASE_PASSWORD pg_restore --clean --if-exists --no-owner -h $DATABASE_HOST -p ${DATABASE_PORT:-5432} -U $DATABASE_USERNAME -d $DATABASE_NAME; then
+        echo "✅ Database restored successfully."
+    else
+        echo "❌ Failed to restore the database. Please check the dump file and PostgreSQL configuration."
+        exit 1
+    fi
 
 else
     echo "💻 Running on the host machine."
@@ -96,12 +112,28 @@ else
     echo "🔄 Downloading the latest Heroku database backup..."
     docker exec -it $APP_HOST bash -c "HEROKU_API_KEY=$HEROKU_API_KEY heroku pg:backups:download --app $HEROKU_APP"
 
-    echo "🔄 Ensuring the database exists locally..."
-    docker exec -it $APP_HOST rails db:create
-    echo "✅ Database exists locally."
+    echo "🔄 Dropping the existing database (if it exists)..."
+    if docker exec -it $APP_HOST bash -c "PGPASSWORD=$DATABASE_PASSWORD dropdb --if-exists -h $DATABASE_HOST -p ${DATABASE_PORT:-5432} -U $DATABASE_USERNAME $DATABASE_NAME"; then
+        echo "✅ Existing database dropped."
+    else
+        echo "⚠️ No existing database to drop."
+    fi
+
+    echo "🔄 Creating a new database..."
+    if docker exec -it $APP_HOST bash -c "PGPASSWORD=$DATABASE_PASSWORD createdb -h $DATABASE_HOST -p ${DATABASE_PORT:-5432} -U $DATABASE_USERNAME $DATABASE_NAME"; then
+        echo "✅ Database created."
+    else
+        echo "❌ Failed to create the database. Please check your PostgreSQL configuration."
+        exit 1
+    fi
 
     echo "🔄 Restoring the database from the Heroku backup..."
-    cat latest.dump | docker exec -i $DATABASE_HOST pg_restore --clean --if-exists --no-owner -U $DATABASE_USERNAME -d $DATABASE_NAME
+    if cat latest.dump | docker exec -i $DATABASE_HOST bash -c "PGPASSWORD=$DATABASE_PASSWORD pg_restore --clean --if-exists --no-owner -h $DATABASE_HOST -p ${DATABASE_PORT:-5432} -U $DATABASE_USERNAME -d $DATABASE_NAME"; then
+        echo "✅ Database restored successfully."
+    else
+        echo "❌ Failed to restore the database. Please check the dump file and PostgreSQL configuration."
+        exit 1
+    fi
 fi
 
 echo "✅ Database successfully pulled from Heroku to '$DATABASE_NAME'!"
