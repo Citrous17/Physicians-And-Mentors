@@ -61,20 +61,48 @@ fi
 # Export the Heroku API key for CLI authentication
 export HEROKU_API_KEY
 
-echo "🔄 Setting up Heroku authentication in the container..."
-docker exec -it $APP_HOST bash -c "
-echo 'machine api.heroku.com login $HEROKU_APP password $HEROKU_API_KEY' > ~/.netrc
-chmod 600 ~/.netrc"
+# Detect if running inside a Docker container
+if grep -q docker /proc/1/cgroup || [ -f /.dockerenv ]; then
+    echo "🐳 Running inside a Docker container."
 
-echo "🔄 Downloading the latest Heroku database backup..."
-docker exec -it $APP_HOST bash -c "HEROKU_API_KEY=$HEROKU_API_KEY heroku pg:backups:download --app $HEROKU_APP"
+    echo "🔄 Setting up Heroku authentication in the container..."
+    echo 'machine api.heroku.com login $HEROKU_APP password $HEROKU_API_KEY' > ~/.netrc
+    chmod 600 ~/.netrc
 
-echo "🔄 Ensuring the database exists locally..."
-docker exec -it $APP_HOST rails db:create
-echo "✅ Database exists locally."
+    echo "🔄 Capturing a new Heroku database backup..."
+    HEROKU_API_KEY=$HEROKU_API_KEY heroku pg:backups:capture --app $HEROKU_APP
 
-echo "🔄 Restoring the database from the Heroku backup..."
-cat latest.dump | docker exec -i $DATABASE_HOST pg_restore --clean --if-exists --no-owner -U $DATABASE_USERNAME -d $DATABASE_NAME
+    echo "🔄 Downloading the latest Heroku database backup..."
+    HEROKU_API_KEY=$HEROKU_API_KEY heroku pg:backups:download --app $HEROKU_APP
+
+    echo "🔄 Ensuring the database exists locally..."
+    rails db:create
+    echo "✅ Database exists locally."
+
+    echo "🔄 Restoring the database from the Heroku backup..."
+    cat latest.dump | pg_restore --clean --if-exists --no-owner -U $DATABASE_USERNAME -d $DATABASE_NAME
+
+else
+    echo "💻 Running on the host machine."
+
+    echo "🔄 Setting up Heroku authentication in the container..."
+    docker exec -it $APP_HOST bash -c "
+    echo 'machine api.heroku.com login $HEROKU_APP password $HEROKU_API_KEY' > ~/.netrc
+    chmod 600 ~/.netrc"
+
+    echo "🔄 Capturing a new Heroku database backup..."
+    docker exec -it $APP_HOST bash -c "HEROKU_API_KEY=$HEROKU_API_KEY heroku pg:backups:capture --app $HEROKU_APP"
+
+    echo "🔄 Downloading the latest Heroku database backup..."
+    docker exec -it $APP_HOST bash -c "HEROKU_API_KEY=$HEROKU_API_KEY heroku pg:backups:download --app $HEROKU_APP"
+
+    echo "🔄 Ensuring the database exists locally..."
+    docker exec -it $APP_HOST rails db:create
+    echo "✅ Database exists locally."
+
+    echo "🔄 Restoring the database from the Heroku backup..."
+    cat latest.dump | docker exec -i $DATABASE_HOST pg_restore --clean --if-exists --no-owner -U $DATABASE_USERNAME -d $DATABASE_NAME
+fi
 
 echo "✅ Database successfully pulled from Heroku to '$DATABASE_NAME'!"
 echo "🧹 Cleaning up backup files..."

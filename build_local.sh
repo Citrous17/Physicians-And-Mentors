@@ -27,16 +27,7 @@ is_port_in_use() {
     fi
 }
 
-# Check if required ports are open
-if is_port_in_use $DB_PORT; then
-    echo "❌ Error: Port $DB_PORT is already in use. Stop the process/container using it before continuing."
-    exit 1
-fi
 
-if is_port_in_use $APP_PORT; then
-    echo "❌ Error: Port $APP_PORT is already in use. Stop the process/container using it before continuing."
-    exit 1
-fi
 
 # Load environment variables
 if [ -f .env ]; then
@@ -82,6 +73,17 @@ for CONTAINER in $APP_HOST $DATABASE_HOST; do
         echo "ℹ️ No existing container named $CONTAINER found."
     fi
 done
+
+# Check if required ports are open
+if is_port_in_use $DB_PORT; then
+    echo "❌ Error: Port $DB_PORT is already in use. Stop the process/container using it before continuing."
+    exit 1
+fi
+
+if is_port_in_use $APP_PORT; then
+    echo "❌ Error: Port $APP_PORT is already in use. Stop the process/container using it before continuing."
+    exit 1
+fi
 
 # Build the new Docker image
 echo "🔄 Building Docker image: $IMAGE_NAME..."
