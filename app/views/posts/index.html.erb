@@ -5,8 +5,6 @@
   <h1 class="text-2xl m-auto font-bold p-4">All Posts</h1>
 </div>
 
-<%= link_to "Create New Post", new_post_path, class: "bg-[var(--surface-color)] blue-button p-4 rounded-md" %>
-
 <% if @specialties.any? %>
   <%= form_with url: posts_path, method: :get, local: true do %>
     <label for="specialty_id">Filter by Specialty:</label>
@@ -19,32 +17,43 @@
   <p>No specialties available for filtering.</p>
 <% end %>
 
-<% if @posts.any? %>
-  <ul>
-    <div class="flex flex-col items-center justify-center">
-      <% @posts.each do |post| %>
-        <div class="bg-[var(--surface-color)] p-8 m-2 rounded-md w-80/100">
-          <li>
-            <h2><%= link_to post.title, post_path(post) %></h2>
-            <p><%= post.content.truncate(100) %></p> <!-- Show preview of content -->
-            <p><strong>Posted by:</strong> <%= post.sending_user.full_name %></p>
-            <p><small>Posted on: <%= post.created_at.strftime("%B %d, %Y %I:%M %p") %></small></p>
+<div class="flex flex-row justify-end m-4 w-80/100 mx-auto">
+  <%= link_to "Create New Post", new_post_path, class: "bg-[var(--surface-color)] blue-button p-4 rounded-md" %>
+</div>
 
-            <% if post.specialties.any? %> 
-              <h3>Specialties:</h3>
-              <ul>
-                <% post.specialties.each do |specialty| %>
-                  <li><%= specialty.name %></li>
+<div class="pb-8">
+  <% if @posts.any? %>
+    <ul>
+      <div class="flex flex-col items-center justify-center">
+        <% @posts.each do |post| %>
+          <div class="bg-[var(--surface-color)] p-8 m-2 rounded-md w-80/100">
+            <li>
+              
+              <h2 class="pb-2 textxl font-bold"><%= link_to post.title, post_path(post) %></h2>
+              <p class="pb-2"><%= post.content.truncate(100) %></p> <!-- Show preview of content -->
+              <div class="pb-2">
+                <% if post.specialties.any? %> 
+                  <h3>Specialties:</h3>
+                  <ul>
+                    <% post.specialties.each do |specialty| %>
+                      <li><%= specialty.name %></li>
+                    <% end %>
+                  </ul>
+                <% else %>
+                  <p>No specialties assigned.</p>
                 <% end %>
-              </ul>
-            <% else %>
-              <p>No specialties assigned.</p>
-            <% end %>
-          </li>
-        </div>
-      <% end %>
-    </div>
-  </ul>
-<% else %>
-  <p>No posts available. Be the first to <%= link_to "create a new post", new_post_path %>!</p>
-<% end %>
+              </div>
+              <div class="flex flex-row items-center justify-between">
+                <p><strong>Posted by:</strong> <%= post.sending_user.full_name %></p>
+                <p><small>Posted on: <%= post.created_at.strftime("%B %d, %Y %I:%M %p") %></small></p>
+              </div>
+
+            </li>
+          </div>
+        <% end %>
+      </div>
+    </ul>
+  <% else %>
+    <p>No posts available. Be the first to <%= link_to "create a new post", new_post_path %>!</p>
+  <% end %>
+</div>
