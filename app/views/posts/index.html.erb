@@ -29,7 +29,7 @@
           <div class="bg-[var(--surface-color)] p-8 m-2 rounded-md w-80/100">
             <li>
               
-              <h2 class="pb-2 textxl font-bold"><%= link_to post.title, post_path(post) %></h2>
+              <h2 class="pb-2 textxl font-bold hover:underline"><%= link_to post.title, post_path(post) %></h2>
               <p class="pb-2"><%= post.content.truncate(100) %></p> <!-- Show preview of content -->
               <div class="pb-2">
                 <% if post.specialties.any? %> 

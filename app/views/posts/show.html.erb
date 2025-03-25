@@ -1,19 +1,30 @@
-<h1><%= @post.title %></h1>
-<p><%= @post.content %></p>
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag 'posts', media: 'all', data: { turbolinks: false } %>
 
-<p><strong>Posted by:</strong> <%= @post.sending_user.full_name %></p>
 
-<h3>Specialties:</h3>
-<% if @post.specialties.any? %>
-  <ul>
-    <% @post.specialties.each do |specialty| %>
-      <li><%= specialty.name %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No specialties assigned.</p>
-<% end %>
+<div class="flex flex-col items-center justify-center">
+  <div class="bg-[var(--surface-color)] p-8 m-2 rounded-md w-80/100">
+    <h1 class="pb-2 textxl font-bold"><%= @post.title %></h1>
+    <p class="pb-2"><%= @post.content %></p>
 
-<p><strong>Posted on:</strong> <%= @post.created_at.strftime("%B %d, %Y %I:%M %p") %></p>
+    <div class="pb-2">
+      <h3>Specialties:</h3>
+      <% if @post.specialties.any? %>
+        <ul>
+          <% @post.specialties.each do |specialty| %>
+            <li><%= specialty.name %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>No specialties assigned.</p>
+      <% end %>
+    </div>
 
-<%= link_to "Back to Posts", posts_path %>
+    <div class="flex flex-row items-center justify-between">
+      <p><strong>Posted by:</strong> <%= @post.sending_user.full_name %></p>
+      <p><small>Posted on: <%= @post.created_at.strftime("%B %d, %Y %I:%M %p") %></small></p>
+    </div>
+  </div>
+
+  <%= link_to "Back to Posts", posts_path, class: "bg-[var(--surface-color)] blue-button p-4 rounded-md" %>
+</div>
