@@ -27,24 +27,6 @@ th {
   transition: background-color 1s;
 }
 
-/* Show, edit button */
-.blue-button:hover {
-  background-color: var(--ok-highlight-color);
-}
-
-.blue-button:not(:hover) {
-  transition: background-color 1s;
-}
-
-/* Destroy button */
-.red-button:hover {
-  background-color: var(--warn-highlight-color);
-}
-
-.red-button:not(:hover) {
-  transition: background-color 1s;
-}
-
 /* Forms */
 .field {
   padding: 5px;
