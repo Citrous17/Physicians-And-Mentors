@@ -2,7 +2,7 @@
 <%= stylesheet_link_tag 'posts', media: 'all', data: { turbolinks: false } %>
 
 
-<div class="flex flex-col items-center justify-center">
+<div class="flex flex-col items-center justify-center p-8">
   <div class="bg-[var(--surface-color)] p-8 m-2 rounded-md w-80/100">
     <h1 class="pb-2 textxl font-bold"><%= @post.title %></h1>
     <p class="pb-2"><%= @post.content %></p>
@@ -26,5 +26,5 @@
     </div>
   </div>
 
-  <%= link_to "Back to Posts", posts_path, class: "bg-[var(--surface-color)] blue-button p-4 rounded-md" %>
+  <%= link_to "Back to Posts", posts_path, class: "bg-[var(--surface-color)] blue-button p-4 m-4 rounded-md" %>
 </div>
