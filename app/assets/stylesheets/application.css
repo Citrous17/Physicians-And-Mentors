@@ -39,15 +39,20 @@
   background-color: var(--background-color);
 }
 
-.btn {
+.header-button {
   padding: calc(var(--spacing)*4);
   margin-top: calc(var(--spacing) * 8);
-  transition: padding 0.3s, margin-top 0.3s;
+  transition: padding 0.3s, margin-top 0.3s, background-color 1s;
 }
 
-.btn.shrink {
+.header-button.shrink {
   padding: calc(var(--spacing)*2);
   margin-top: calc(var(--spacing) * 0);
+}
+
+.header-button:hover {
+  background-color: var(--accent-color);
+  transition: background-color 0s;
 }
 
 .blue-button:hover {
