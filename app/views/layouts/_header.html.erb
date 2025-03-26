@@ -5,15 +5,15 @@
 <header id="header" class="text-white p-4 flex justify-between items-center sticky top-0 left-0 w-full z-10 bg-transparent transition-all duration-300 overflow-hidden max-w-full">
   <div class="text-xl font-bold flex items-center">
     <%= link_to image_tag("/images/logo-1.png", alt: "Physicians and Mentors Logo", class: "w-16 h-16 mr-4"), home_path %>
-    <%= link_to "Physicians and Mentors (Test Build)(Admin View)", home_path, class: "text-3xl" %>
+    <%= link_to "Physicians and Mentors (Test Build)(Admin View)", home_path, class: "text-3xl hover:underline" %>
   </div>
 
   <div class="flex justify-center text-white flex-wrap gap-2">
-    <%= link_to "Admin Dashboard", admin_dashboard_path, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white mx-2 border border-white rounded" %>
-    <%= link_to "View Users", admin_users_path, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white mx-2 border border-white rounded" %>
-    <%= link_to "View Profile", user_path(session[:user_id]), class: "header-button hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white mx-2 border border-white rounded" %>
-    <%= link_to "View Posts", posts_path, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white mx-2 border border-white rounded" %>
-    <%= button_to "Log Out", logout_path, method: :delete, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white border border-white rounded" %>
+    <%= link_to "Admin Dashboard", admin_dashboard_path, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white mx-2 rounded" %>
+    <%= link_to "View Users", admin_users_path, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white mx-2 rounded" %>
+    <%= link_to "View Profile", user_path(session[:user_id]), class: "header-button hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white mx-2 rounded" %>
+    <%= link_to "View Posts", posts_path, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white mx-2 rounded" %>
+    <%= button_to "Log Out", logout_path, method: :delete, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white rounded" %>
   </div>
 </header>
 
@@ -22,13 +22,13 @@
   <header id="header" class="text-white p-4 flex justify-between items-center sticky top-0 left-0 w-full z-10 bg-transparent transition-all duration-300">
     <div class="text-xl font-bold flex items-center">
       <%= link_to image_tag("/images/logo-1.png", alt: "Physicians and Mentors Logo", class: "w-16 h-16 mr-4"), home_path %>
-      <%= link_to "Physicians and Mentors (Test Build)(Professional View)", home_path, class: "text-3xl" %>
+      <%= link_to "Physicians and Mentors (Test Build)(Professional View)", home_path, class: "text-3xl hover:underline" %>
     </div>
 
     <div class="flex justify-center text-white">
-        <%= link_to "View Profile", user_path(session[:user_id]), class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl border border-white rounded" %>
-    <%= link_to "View Posts", posts_path, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white text-3xl border border-white rounded" %>
-    <%= button_to "Log Out", logout_path, method: :delete, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white text-3xl border border-white rounded" %>
+        <%= link_to "View Profile", user_path(session[:user_id]), class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl rounded" %>
+    <%= link_to "View Posts", posts_path, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white text-3xl rounded" %>
+    <%= button_to "Log Out", logout_path, method: :delete, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white text-3xl rounded" %>
     </div>
   </header>
   
@@ -37,13 +37,13 @@
   <header id="header" class="text-white p-4 flex justify-between items-center sticky top-0 left-0 w-full z-10 bg-transparent transition-all duration-300">
     <div class="text-xl font-bold flex items-center">
       <%= link_to image_tag("/images/logo-1.png", alt: "Physicians and Mentors Logo", class: "w-16 h-16 mr-4"), home_path %>
-      <%= link_to "Physicans and Mentors (User View)", home_path, class: "text-3xl" %>
+      <%= link_to "Physicans and Mentors (User View)", home_path, class: "text-3xl hover:underline" %>
     </div>
 
     <div class="flex justify-center text-white">
-    <%= link_to "View Profile", user_path(session[:user_id]), class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl border border-white rounded" %>
-    <%= link_to "View Posts", posts_path, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl border border-white rounded" %>
-    <%= button_to "Log Out", logout_path, method: :delete, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl border border-white rounded" %>
+    <%= link_to "View Profile", user_path(session[:user_id]), class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl rounded" %>
+    <%= link_to "View Posts", posts_path, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl rounded" %>
+    <%= button_to "Log Out", logout_path, method: :delete, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl rounded" %>
     </div>
   
   </header>
@@ -53,12 +53,12 @@
   <header id="header" class="text-white p-4 flex justify-between items-center sticky top-0 left-0 w-full z-10 bg-transparent transition-all duration-300">
     <div class="text-xl font-bold flex items-center">
       <%= link_to image_tag("/images/logo-1.png", alt: "Physicians and Mentors Logo", class: "w-16 h-16 mr-4"), home_path %>
-      <%= link_to "Physicians and Mentors (Test Build)", home_path, class: "text-3xl" %>
+      <%= link_to "Physicians and Mentors (Test Build)", home_path, class: "text-3xl hover:underline" %>
     </div>
 
     <nav>
-      <%= link_to "Home", home_path, class: "header-button hover:text-gray-300 text-lg bg-transparent  text-white-900 font-semibold hover:text-white text-3xl border border-white-900 rounded" %>
-      <%= link_to "Login", login_path, class: "header-button hover:text-gray-300 text-lg bg-transparent  text-white-900 font-semibold hover:text-white text-3xl border border-gray-500 rounded" %>
+      <%= link_to "Home", home_path, class: "header-button hover:text-gray-300 text-lg bg-transparent  text-white-900 font-semibold hover:text-white text-3xl border-white-900 rounded" %>
+      <%= link_to "Login", login_path, class: "header-button hover:text-gray-300 text-lg bg-transparent  text-white-900 font-semibold hover:text-white text-3xl border-gray-500 rounded" %>
     </nav>
   
   </header>

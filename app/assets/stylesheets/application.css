@@ -42,7 +42,8 @@
 .header-button {
   padding: calc(var(--spacing)*4);
   margin-top: calc(var(--spacing) * 8);
-  transition: padding 0.3s, margin-top 0.3s, background-color 1s;
+  border: 2px solid transparent;
+  transition: padding 0.3s, margin-top 0.3s, border-color 0.3s;
 }
 
 .header-button.shrink {
@@ -51,8 +52,7 @@
 }
 
 .header-button:hover {
-  background-color: var(--accent-color);
-  transition: background-color 0s;
+  border-color: white;
 }
 
 .blue-button:hover {
