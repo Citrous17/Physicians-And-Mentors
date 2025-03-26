@@ -9,11 +9,11 @@
   </div>
 
   <div class="flex justify-center text-white flex-wrap gap-2">
-    <%= link_to "Admin Dashboard", admin_dashboard_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white p-2 mx-2 border border-white rounded" %>
-    <%= link_to "View Users", admin_users_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white p-2 mx-2 border border-white rounded" %>
-    <%= link_to "View Profile", user_path(session[:user_id]), class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white p-2 mx-2 border border-white rounded" %>
-    <%= link_to "View Posts", posts_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white p-2 mx-2 border border-white rounded" %>
-    <%= button_to "Log Out", logout_path, method: :delete, class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white p-2 border border-white rounded" %>
+    <%= link_to "Admin Dashboard", admin_dashboard_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white mx-2 border border-white rounded" %>
+    <%= link_to "View Users", admin_users_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white mx-2 border border-white rounded" %>
+    <%= link_to "View Profile", user_path(session[:user_id]), class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white mx-2 border border-white rounded" %>
+    <%= link_to "View Posts", posts_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white mx-2 border border-white rounded" %>
+    <%= button_to "Log Out", logout_path, method: :delete, class: "btn hover:text-gray-300 text-lg bg-transparent text-white font-semibold hover:text-white border border-white rounded" %>
   </div>
 </header>
 
@@ -26,9 +26,9 @@
     </div>
 
     <div class="flex justify-center text-white">
-        <%= link_to "View Profile", user_path(session[:user_id]), class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 mx-4 text-3xl border border-white rounded" %>
-    <%= link_to "View Posts", posts_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 text-3xl border border-white rounded" %>
-    <%= button_to "Log Out", logout_path, method: :delete, class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 text-3xl border border-white rounded" %>
+        <%= link_to "View Profile", user_path(session[:user_id]), class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl border border-white rounded" %>
+    <%= link_to "View Posts", posts_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white text-3xl border border-white rounded" %>
+    <%= button_to "Log Out", logout_path, method: :delete, class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white text-3xl border border-white rounded" %>
     </div>
   </header>
   
@@ -41,9 +41,9 @@
     </div>
 
     <div class="flex justify-center text-white">
-    <%= link_to "View Profile", user_path(session[:user_id]), class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 mx-4 text-3xl border border-white rounded" %>
-    <%= link_to "View Posts", posts_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 mx-4 text-3xl border border-white rounded" %>
-    <%= button_to "Log Out", logout_path, method: :delete, class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mt-8 p-4 mx-4 text-3xl border border-white rounded" %>
+    <%= link_to "View Profile", user_path(session[:user_id]), class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl border border-white rounded" %>
+    <%= link_to "View Posts", posts_path, class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl border border-white rounded" %>
+    <%= button_to "Log Out", logout_path, method: :delete, class: "btn hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl border border-white rounded" %>
     </div>
   
   </header>
@@ -57,8 +57,8 @@
     </div>
 
     <nav>
-      <%= link_to "Home", home_path, class: "hover:text-gray-300 text-lg bg-transparent  text-white-900 font-semibold hover:text-white mt-8 p-4 text-3xl border border-white-900 rounded" %>
-      <%= link_to "Login", login_path, class: "hover:text-gray-300 text-lg bg-transparent  text-white-900 font-semibold hover:text-white mt-8 p-4 text-3xl border border-gray-500 rounded" %>
+      <%= link_to "Home", home_path, class: "hover:text-gray-300 text-lg bg-transparent  text-white-900 font-semibold hover:text-white text-3xl border border-white-900 rounded" %>
+      <%= link_to "Login", login_path, class: "hover:text-gray-300 text-lg bg-transparent  text-white-900 font-semibold hover:text-white text-3xl border border-gray-500 rounded" %>
     </nav>
   
   </header>
@@ -68,12 +68,19 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('#header');
+    const buttons = document.getElementsByClassName("btn")
     
     window.addEventListener('scroll', function() {
       if (window.scrollY > 50) {  // Scroll threshold
         header.classList.add('shrink');
+        for (let i = 0; i < buttons.length; i++) {
+          buttons[i].classList.add('shrink')
+        }
       } else {
         header.classList.remove('shrink');
+        for (let i = 0; i < buttons.length; i++) {
+          buttons[i].classList.remove('shrink')
+        }
       }
     });
   });

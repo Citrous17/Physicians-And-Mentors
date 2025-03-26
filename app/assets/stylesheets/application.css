@@ -39,6 +39,17 @@
   background-color: var(--background-color);
 }
 
+.btn {
+  padding: calc(var(--spacing)*4);
+  margin-top: calc(var(--spacing) * 8);
+  transition: padding 0.3s, margin-top 0.3s;
+}
+
+.btn.shrink {
+  padding: calc(var(--spacing)*2);
+  margin-top: calc(var(--spacing) * 0);
+}
+
 .blue-button:hover {
   background-color: var(--ok-highlight-color);
 }
