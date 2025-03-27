@@ -56,7 +56,7 @@ fi
 
 # Remove .env from .dockerignore
 if grep -q "^$ENV_FILE$" $DOCKERIGNORE_FILE; then
-    echo -ne "🔄 Removing .env from .dockerignore...\r"
+    echo "🔄 Removing .env from .dockerignore..."
     grep -v "^$ENV_FILE$" $DOCKERIGNORE_FILE > temp_dockerignore && mv temp_dockerignore $DOCKERIGNORE_FILE
 fi
 echo "✅ Removed .env from .dockerignore if it wasn't removed already."
@@ -64,7 +64,7 @@ echo "✅ Removed .env from .dockerignore if it wasn't removed already."
 # Stop and remove existing containers if they exist
 for CONTAINER in $APP_HOST $DATABASE_HOST; do
     if [ "$(docker ps -aq -f name=$CONTAINER)" ]; then
-        echo -ne "🔄 Stopping and removing container: $CONTAINER...\r"
+        echo "🔄 Stopping and removing container: $CONTAINER..."
         docker stop $CONTAINER >/dev/null 2>&1 && docker rm $CONTAINER >/dev/null 2>&1
         echo "✅ Container $CONTAINER stopped and removed."
     else
@@ -110,6 +110,10 @@ docker run --name $APP_HOST \
     -d $IMAGE_NAME:latest sleep infinity
 
 docker exec -it $APP_HOST bash -c "sed -i 's/\r$//' bin/rails"
+
+echo "🔄 Setting up initial database...\r"
+docker exec -it $APP_HOST bash -c "rails db:create db:migrate"
+echo "✅ Initial database setup complete."
 
 echo "✅ Local Docker setup complete!"
 chmod +x ./connect_local.sh

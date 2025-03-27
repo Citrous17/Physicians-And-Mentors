@@ -4,6 +4,36 @@ set -e  # Exit if any command fails
 
 echo "🚀 Starting Heroku database pull script..."
 
+# Function to check if a container is running
+check_container_running() {
+    local container_name=$1
+
+    # Check if running inside a Docker container
+    if grep -q docker /proc/1/cgroup || [ -f /.dockerenv ]; then
+        # Inside Docker, check if the container is accessible via Docker CLI
+        if docker ps --filter "name=$container_name" --filter "status=running" | grep -q "$container_name"; then
+            echo "✅ Container '$container_name' is running."
+        else
+            echo "❌ Container '$container_name' is not running. Please ensure it is started."
+            exit 1
+        fi
+    else
+        # On the host machine, check if the container is running
+        if docker ps --filter "name=$container_name" --filter "status=running" | grep -q "$container_name"; then
+            echo "✅ Container '$container_name' is running."
+        else
+            echo "⚠️ Container '$container_name' is not running. Starting it..."
+            docker start "$container_name"
+            if [ $? -eq 0 ]; then
+                echo "✅ Container '$container_name' started successfully."
+            else
+                echo "❌ Failed to start container '$container_name'. Please check your Docker setup."
+                exit 1
+            fi
+        fi
+    fi
+}
+
 # Load environment variables from .env
 if [ -f .env ]; then
     echo "🔄 Loading environment variables from .env file..."
@@ -32,6 +62,12 @@ if [ ${#MISSING_VARS[@]} -ne 0 ]; then
   echo "💡 Please update your .env file and try again."
   exit 1
 fi
+
+# Ensure both containers are running
+
+echo "🔍 Checking if containers are running..."
+check_container_running "$DATABASE_HOST"
+check_container_running "$APP_HOST"
 
 # Function to obtain a new Heroku API key
 get_new_heroku_api_key() {

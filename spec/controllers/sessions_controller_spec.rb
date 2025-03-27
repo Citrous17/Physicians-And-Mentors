@@ -72,7 +72,7 @@ RSpec.describe SessionsController, type: :controller do
     context "when the user is new" do
       it "creates a new user and redirects to the new_auth path" do
         expect {
-          get :omniauth
+          get :omniauth, params: { provider: 'google_oauth2' } # Include the provider parameter
         }.to change(User, :count).by(1)
 
         expect(response).to redirect_to(new_auth_path)
@@ -84,7 +84,7 @@ RSpec.describe SessionsController, type: :controller do
       let!(:existing_user) { create(:user, email: 'test@example.com') }
 
       it "logs in the existing user and redirects to the root path" do
-        get :omniauth
+        get :omniauth, params: { provider: 'google_oauth2' } # Include the provider parameter
 
         expect(session[:user_id]).to eq(existing_user.id)
         expect(response).to redirect_to(root_path)
@@ -96,7 +96,7 @@ RSpec.describe SessionsController, type: :controller do
       let!(:existing_user) { create(:user, oauth_uid: '123456789', provider: 'google_oauth2') }
 
       it "logs in the existing user and redirects to the root path" do
-        get :omniauth
+        get :omniauth, params: { provider: 'google_oauth2' }
 
         expect(session[:user_id]).to eq(existing_user.id)
         expect(response).to redirect_to(root_path)
@@ -110,7 +110,7 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it "redirects to the root path with an alert" do
-        get :omniauth
+        get :omniauth, params: { provider: 'google_oauth2' }
 
         expect(response).to redirect_to(root_path)
         expect(flash[:alert]).to eq('Authentication failed.')
@@ -123,7 +123,7 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it "redirects to the root path with an alert" do
-        get :omniauth
+        get :omniauth, params: { provider: 'google_oauth2' }
         expect(response).to redirect_to(root_path)
         expect(flash[:alert]).to eq("Authentication failed.")
       end
@@ -135,7 +135,7 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it "redirects to the root path with an alert" do
-        get :omniauth
+        get :omniauth, params: { provider: 'google_oauth2' }
         expect(response).to redirect_to(root_path)
         expect(flash[:alert]).to eq("Authentication failed.")
       end
