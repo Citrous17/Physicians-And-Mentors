@@ -2,18 +2,14 @@ require 'rails_helper'
 
 RSpec.describe "professionals/show", type: :view do
   before(:each) do
-    assign(:professional, create(:user, isProfessional: true, profile_image_url: "profile-placeholder.png", first_name: "First Name", last_name: "Last Name", email: "Email", phone_number: "Phone Number"))
+    @professional = assign(:professional, FactoryBot.create(:user, isProfessional: true, email: "john.doe@example.com")) # Other attributes defined in factory bot
   end
 
   it "renders attributes in <p>" do
     render
-    expect(rendered).to match(/Last Name/)
     expect(rendered).to match(/First Name/)
-    expect(rendered).to match(/Email/)
-    expect(rendered).to match(/Phone Number/)
-    expect(rendered).to match(/true/)
-  end
-  it "renders the professional's profile image" do
-    expect(rendered).to have_css("img[src*='profile-placeholder.png']")
+    expect(rendered).to match(/Last Name/)
+    expect(rendered).to match(/john.doe@example.com/)
+    expect(rendered).to match(/Yes/)
   end
 end

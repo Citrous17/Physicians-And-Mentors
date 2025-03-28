@@ -94,7 +94,7 @@ fi
 
 # Run the new containers
 echo "🔄 Starting containers..."
-echo -ne "🔄 Starting new container for database: $DATABASE_HOST...\r"
+echo "🔄 Starting new container for database: $DATABASE_HOST..."
 docker run --name $DATABASE_HOST \
   --network rails-net \
   -e POSTGRES_PASSWORD=$DATABASE_PASSWORD \
@@ -102,7 +102,7 @@ docker run --name $DATABASE_HOST \
   -p $DB_PORT:5432 \
   -d postgres:latest 
 
-echo -ne "🔄 Starting new container for app: $APP_HOST...\r"
+echo "🔄 Starting new container for app: $APP_HOST..."
 docker run --name $APP_HOST \
     --network rails-net \
     -p $APP_PORT:3000 \
@@ -111,7 +111,7 @@ docker run --name $APP_HOST \
 
 docker exec -it $APP_HOST bash -c "sed -i 's/\r$//' bin/rails"
 
-echo "🔄 Setting up initial database...\r"
+echo "🔄 Setting up initial database..."
 docker exec -it $APP_HOST bash -c "rails db:create db:migrate"
 echo "✅ Initial database setup complete."
 

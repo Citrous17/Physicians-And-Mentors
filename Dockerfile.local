@@ -27,13 +27,13 @@ RUN gem install rails
 # Install Heroku CLI
 RUN curl -fsSL https://cli-assets.heroku.com/install-ubuntu.sh | bash
 
-# Install Google Chrome (stable)
-RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
+# Install Google Chrome (specific stable version)
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
     apt-get update -qq && apt-get install -y google-chrome-stable
 
-# Install ChromeDriver
-RUN wget -q https://chromedriver.storage.googleapis.com/$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip && \
+# Install ChromeDriver (specific version)
+RUN wget -q "https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip" && \
     unzip chromedriver_linux64.zip && \
     mv chromedriver /usr/local/bin/ && \
     chmod +x /usr/local/bin/chromedriver && \
