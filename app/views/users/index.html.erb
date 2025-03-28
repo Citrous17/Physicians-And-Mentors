@@ -70,7 +70,7 @@
                 <%= image_tag(
                   user.profile_image_url.presence || asset_path('profile-placeholder.png'),
                   alt: "Profile image",
-                  class: "w-full h-full object-cover aspect-square rounded-md",
+                  class: "w-full object-cover aspect-square rounded-md",
                   onerror: "this.onerror=null; this.src='#{asset_path('profile-placeholder.png')}';"
                 ) %>
               </td>
