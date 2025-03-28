@@ -65,9 +65,7 @@ fi
 
 # Ensure both containers are running
 
-echo "🔍 Checking if containers are running..."
-check_container_running "$DATABASE_HOST"
-check_container_running "$APP_HOST"
+
 
 # Function to obtain a new Heroku API key
 get_new_heroku_api_key() {
@@ -136,6 +134,10 @@ if grep -q docker /proc/1/cgroup || [ -f /.dockerenv ]; then
 
 else
     echo "💻 Running on the host machine."
+
+    echo "🔍 Checking if containers are running..."
+    check_container_running "$DATABASE_HOST"
+    check_container_running "$APP_HOST"
 
     echo "🔄 Setting up Heroku authentication in the container..."
     docker exec -it $APP_HOST bash -c "
