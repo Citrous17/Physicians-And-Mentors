@@ -33,15 +33,33 @@ th {
   padding: 5px;
 }
 
-input {
+input[type=text] {
   border: 2px solid var(--accent-color);
   border-radius: 4px;
 }
 
-input:focus {
+input[type=text]:focus {
   background-color: var(--accent-color);
 }
 
 .submit-button {
   border: none;
+}
+
+/* Profile card */
+.profile-container {
+  background-color: transparent;
+}
+
+.profile-card {
+  background-color: var(--surface-color);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.profile-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
