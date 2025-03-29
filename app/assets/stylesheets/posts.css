@@ -1,27 +1,5 @@
-/* General table style */
-th,
-td {
-  padding: 15px;
-  text-align: left;
-}
-
-/* Table header */
-th {
-  border-bottom: 1px solid #ddd;
-  color: var(--text-color);
-}
-
 /* Forms */
 .field {
   padding: 5px;
-}
-
-input[type=text], textarea {
-  border: 2px solid var(--accent-color);
-  border-radius: 4px;
-}
-
-input[type=text]:focus, textarea:focus {
-  background-color: var(--accent-color-weak);
 }
 
