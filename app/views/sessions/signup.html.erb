@@ -4,6 +4,16 @@
       Sign Up
     </h1>
 
+    <% if @user.errors.any? %>
+      <div class="flex flex-col items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[var(--accent-color)]">
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+      </div>
+    <% end %>
+
     <%= form_with model: @user, url: signup_path, method: :post do |f| %>
         <div class="text-white">
           <%= f.label :first_name %>
@@ -36,20 +46,6 @@
         <div>
           <%= f.submit "Sign Up", class: "bg-transparent border-white border text-white px-4 py-2 rounded mt-4" %>
         </div>
-    <% end %>
-
-    <% if @user.errors.any? %>
-    <div class="text-red-500">
-        <ul>
-        <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-        <% end %>
-        </ul>
-    </div>
-    <% end %>
-
-    <% flash.each do |key, message| %>
-      <div class="alert alert-<%= key %>"><%= message %></div>
     <% end %>
 
     <div class="flex justify-center text-white mt-4">
