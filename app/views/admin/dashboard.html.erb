@@ -7,12 +7,6 @@
   <li><%= link_to "View Database", admin_database_path %></li>
 </ul>
 
-<% flash.each do |key, message| %>
-  <div class="alert alert-<%= key %>">
-    <%= message %>
-  </div>
-<% end %>
-
 <h3>Invite a New Admin</h3>
 <%= form_with url: admin_invite_admin_path, method: :post do |form| %>
   <%= form.label :email, "User Email:" %>

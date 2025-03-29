@@ -1,6 +1,8 @@
 <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 <%= stylesheet_link_tag 'users', media: 'all', data: { turbolinks: false } %>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=call" />
+
 <% content_for :title, "User Profile" %>
 
 <div class="flex justify-center items-center min-h-screen profile-container">
@@ -24,7 +26,7 @@
           <p class="text-gray-200 text-md mt-1">
             <%= mail_to @user.email %>
           </p>
-          <p class="text-gray-200 font-medium mt-2">📞 <%= @user.phone_number %></p>
+          <p class="text-gray-200 font-medium mt-2"><span class="material-symbols-outlined">call</span> <%= @user.phone_number %></p>
         </div>
       </div>
     </div>
