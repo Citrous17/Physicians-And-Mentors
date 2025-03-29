@@ -1,17 +1,11 @@
 # filepath: spec/factories/users.rb
 FactoryBot.define do
   factory :user do
-    first_name { "John" }
-    last_name { "Doe" }
-    email { "john.doe@example.com" }
+    sequence(:email) { |n| "user#{n}@example.com" }
+    first_name { "First Name" }
+    last_name { "Last Name" }
     password { "password" }
-    password_confirmation { "password" }
-    DOB { "1990-01-01" }
-    phone_number { "1234567890" }
-    profile_image_url { "http://example.com/image.jpg" }
     isProfessional { true }
-    isAdmin { false }
-    oauth_uid { nil }
-    provider { nil }
+    DOB { Date.parse("2024-07-07") }
   end
 end

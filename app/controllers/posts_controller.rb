@@ -9,15 +9,32 @@ class PostsController < ApplicationController
     def index
       @specialties = Specialty.all # Regular users can filter by any specialty
 
-      # Filter posts if a specialty is selected
-      if params[:specialty_id].present?
-        @posts = Post.joins(:specialties).where(specialties: { id: params[:specialty_id] }).distinct
+      if current_user.isProfessional?
+        # Get the IDs of the specialties associated with the current professional
+        user_specialty_ids = current_user.specialties.pluck(:id)
+
+        # Filter posts by the specialties of the professional
+        if params[:specialty_id].present?
+          @posts = Post.joins(:specialties)
+                       .where(specialties: { id: user_specialty_ids })
+                       .where(specialties: { id: params[:specialty_id] })
+                       .distinct
+        else
+          @posts = Post.joins(:specialties)
+                       .where(specialties: { id: user_specialty_ids })
+                       .distinct
+        end
       else
-        @posts = Post.all
+        # For non-professionals, allow filtering by any specialty
+        if params[:specialty_id].present?
+          @posts = Post.joins(:specialties)
+                       .where(specialties: { id: params[:specialty_id] })
+                       .distinct
+        else
+          @posts = Post.all
+        end
       end
     end
-
-
 
     def create
       @post = Post.new(post_params)

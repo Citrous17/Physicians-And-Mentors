@@ -32,18 +32,23 @@ class SessionsController < ApplicationController
   end
 
   def omniauth
-    result = User.from_omniauth(request.env["omniauth.auth"])
-    user = result[:user]
-    new_user = result[:new_user]
+    begin
+      result = User.from_omniauth(request.env["omniauth.auth"])
+      user = result[:user]
+      new_user = result[:new_user]
 
-    if user
-      set_session(user)
-      if new_user
-        redirect_to new_auth_path, notice: "Welcome! Please complete your profile."
+      if user
+        set_session(user)
+        if new_user
+          redirect_to new_auth_path, notice: "Welcome! Please complete your profile."
+        else
+          redirect_to root_path, notice: "Signed in successfully!"
+        end
       else
-        redirect_to root_path, notice: "Signed in successfully!"
+        redirect_to root_path, alert: "Authentication failed."
       end
-    else
+    rescue StandardError => e
+      Rails.logger.error("OmniAuth error: #{e.message}")
       redirect_to root_path, alert: "Authentication failed."
     end
   end

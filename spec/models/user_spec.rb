@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
       create(:user, email: "email@provider.com")
       expect {
         create(:user, email: "email@provider.com")
-    }.to raise_error(ActiveRecord::RecordNotUnique)
+      }.to raise_error(ActiveRecord::RecordInvalid, /Email has already been taken/)
     end
 
     it "is invalid without a password" do

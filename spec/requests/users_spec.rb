@@ -10,7 +10,7 @@ RSpec.describe "Users", type: :request do
       password_confirmation: 'mypassword',
       DOB: Date.new(2025, 1, 1),
       phone_number: '999999999',
-      profile_image_url: 'profile.image.link',
+      profile_image_url: nil,
       isProfessional: false
     )
   end
