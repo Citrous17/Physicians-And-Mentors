@@ -57,10 +57,11 @@
 
 .blue-button:hover {
   background-color: var(--ok-highlight-color);
+  color: var(--text-color);
 }
 
 .blue-button:not(:hover) {
-  transition: background-color 1s;
+  transition: background-color 1s, color 1s;
 }
 
 .red-button:hover {
@@ -76,5 +77,13 @@
 }
 
 .accent-button:not(:hover) {
+  transition: background-color 1s;
+}
+
+.gray-button:hover {
+  background-color: var(--gray-highlight-color);
+}
+
+.gray-button:not(:hover) {
   transition: background-color 1s;
 }
