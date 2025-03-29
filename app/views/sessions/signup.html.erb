@@ -14,71 +14,44 @@
   </div>
 <% end %>
 
-<div class="flex flex-col items-center justify-center p-8">
-  <div class="w-60/100 bg-[var(--surface-color)] rounded-md">
-    <%= form_with model: @user, url: signup_path, method: :post do |form| %>
-      <table class="m-auto">
-
-        <tr class="field">
-          <td>
-            <%= form.label :first_name %>
-          </td>
-          <td>
-          <%= form.text_field :first_name %>
-          </td>
-        </tr>
-      
-        <tr class="field">
-          <td>
-            <%= form.label :last_name %>
-          </td>
-          <td>
-            <%= form.text_field :last_name %>
-          </td>
-        </tr>
-      
-        <tr class="field">
-          <td>
-            <%= form.label :email %>
-          </td>
-          <td>
-            <%= form.text_field :email %>
-          </td>
-        </tr>
-      
-        <tr class="field">
-          <td>
-            <%= form.label :password %>
-          </td>
-          <td>
-            <%= form.password_field :password %>
-          </td>
-        </tr>
-      
-        <tr class="field">
-          <td>
-            <%= form.label :password_confirmation %>
-          </td>
-          <td>
-            <%= form.password_field :password_confirmation %>
-          </td>
-        </tr>
-
-        <%= form.hidden_field :is_professional, value: false %>
-      
-      </table>
-      <div class="flex flex-col items-center justify-center">
-        <div class="blue-button p-4 m-4 rounded-md bg-[var(--ok-highlight-faded-color)]">
-          <%= form.submit "Sign Up" %>
-        </div>
-      </div>
-
-    <% end %>
-
-    <div class="flex justify-center text-white mt-4 p-4">
-      <p>Already have an account?</p>
-      <%= link_to "Login", login_path, class: "text-blue-400 underline ml-2" %>
+<div class="relative flex items-center justify-center h-full flex-col bg-[var(--surface-color)] rounded-md w-60/100 m-auto p-8">
+  <%= form_with model: @user, url: signup_path, method: :post do |f| %>
+    <div class="text-white">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, class: "border p-2 w-full my-2" %>
+    </div>
+  
+    <div class="text-white">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, class: "border p-2 w-full my-2" %>
+    </div>
+  
+    <div class="text-white">
+      <%= f.label :email %>
+      <%= f.text_field :email, class: "border p-2 w-full my-2" %>
+    </div>
+  
+    <div class="text-white">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: "border p-2 w-full my-2" %>
+    </div>
+  
+    <div class="text-white">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: "border p-2 w-full my-2" %>
     </div>
 
+    <%= f.hidden_field :is_professional, value: false %>
+    
+  
+    <div class="flex justify-center">
+      <%= f.submit "Sign Up", class: "accent-button p-4 rounded-md bg-[var(--ok-highlight-faded-color)]" %>
+    </div>
+  <% end %>
+
+  <div class="flex justify-center text-white mt-4 p-4">
+    <p>Already have an account?</p>
+    <%= link_to "Login", login_path, class: "text-blue-400 underline ml-2" %>
   </div>
+
 </div>
