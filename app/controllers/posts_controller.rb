@@ -45,7 +45,7 @@ class PostsController < ApplicationController
       end
     end
 
-    def create_commend
+    def create_comment
       @post = Post.find(params[:id])
       @comment = @post.comments.build(comment_params)
       @comment.sending_user_id = current_user.id
