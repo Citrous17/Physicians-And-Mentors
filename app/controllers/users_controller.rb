@@ -164,5 +164,16 @@ class UsersController < ApplicationController
         is_professional_value = session[:filter_option] == "True"
         @users = @users.where(isProfessional: is_professional_value)
       end
+      if session[:filter_option] && session[:filter] == "isSpecialty"
+        if session[:filter_option] == "all"
+          is_professional_value = session[:isProfessional] == "True"
+          @users = @users.where(isProfessional: is_professional_value == false)
+        else
+          # is_professional_value = session[:filter_option] == "True"
+          # user_specialty_ids = current_user.specialties.pluck(:id)
+          is_professional_value = session[:isProfessional] == "True"
+          @users = @users.joins(:specialties).where(isProfessional: is_professional_value == false).where(specialties: { id: session[:filter_option] })
+        end
+      end
     end
-end
+  end
