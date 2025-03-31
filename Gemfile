@@ -21,9 +21,9 @@ gem "jbuilder"
 
 # OAuth Gems
 gem "dotenv-rails"
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -62,6 +62,15 @@ group :development, :test do
   # rubocop
   gem "rubocop", require: false
   gem "rails-controller-testing"
+
+  #Factory bot
+  gem 'factory_bot_rails'
+
+
+  gem 'webdrivers'
+  gem "capybara"
+  gem "selenium-webdriver"
+  
 end
 
 group :development do
@@ -71,9 +80,7 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
-  gem "webdrivers"
+  
 end
 
 gem "tailwindcss-ruby", "~> 4.0"
@@ -82,4 +89,4 @@ gem "tailwindcss-rails", "~> 4.0"
 # Tests
 gem "rexml"
 # Passwords
-gem 'bcrypt'
+gem "bcrypt"

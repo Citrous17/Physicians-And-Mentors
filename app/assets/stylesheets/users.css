@@ -1,15 +1,3 @@
-/* General table style */
-th, td {
-  padding: 15px;
-  text-align: left;
-}
-
-/* Table header */
-th {
-  border-bottom: 1px solid #ddd;
-  color: var(--text-color);
-}
-
 /* Profile td has less padding */
 .profile-td {
   padding-top: 5px;
@@ -27,42 +15,6 @@ th {
   transition: background-color 1s;
 }
 
-/* Show, edit button */
-.blue-button:hover {
-  background-color: var(--ok-highlight-color);
-}
-
-.blue-button:not(:hover) {
-  transition: background-color 1s;
-}
-
-/* Destroy button */
-.red-button:hover {
-  background-color: var(--warn-highlight-color);
-}
-
-.red-button:not(:hover) {
-  transition: background-color 1s;
-}
-
-/* Forms */
-.field {
-  padding: 5px;
-}
-
-input {
-  border: 2px solid var(--accent-color);
-  border-radius: 4px;
-}
-
-input:focus {
-  background-color: var(--accent-color);
-}
-
-.submit-button {
-  border: none;
-}
-
 /* Profile card */
 .profile-container {
   background-color: transparent;
@@ -73,29 +25,6 @@ input:focus {
   padding: 20px;
   border-radius: 8px;
   border: 1px solid #ddd;
-  transition: background-color 1s;
-}
-
-/* Profile card header hover effect */
-.profile-card-header:hover {
-  background-color: var(--accent-color);
-}
-
-/* Profile card button hover effects */
-.profile-card .blue-button:hover {
-  background-color: var(--ok-highlight-color);
-}
-
-.profile-card .blue-button:not(:hover) {
-  transition: background-color 1s;
-}
-
-.profile-card .gray-button:hover {
-  background-color: var(--gray-highlight-color);
-}
-
-.profile-card .gray-button:not(:hover) {
-  transition: background-color 1s;
 }
 
 .profile-card-link {
@@ -104,6 +33,3 @@ input:focus {
   color: inherit;
 }
 
-.profile-card-link:hover .profile-card {
-  background-color: var(--accent-color);
-}
