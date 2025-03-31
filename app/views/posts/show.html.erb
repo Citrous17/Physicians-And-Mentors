@@ -16,4 +16,28 @@
 
 <p><strong>Posted on:</strong> <%= @post.created_at.strftime("%B %d, %Y %I:%M %p") %></p>
 
+<h2>Comments</h2>
+<% if @comments.any? %>
+  <ul>
+    <% @comments.each do |comment| %>
+      <li>
+        <p><strong><%= comment.sending_user.full_name %>:</strong> <%= comment.content %></p>
+        <p><small>Posted on: <%= comment.created_at.strftime("%B %d, %Y %I:%M %p") %></small></p>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No comments yet. Be the first to comment!</p>
+<% end %>
+
+<h3>Add a Comment</h3>
+<%= form_with(model: [@post, @comment], url: create_comment_post_path(@post), local: true) do |form| %>
+  <div>
+    <%= form.text_area :content, placeholder: "Write comment here...", rows: 4, required: true %>
+  </div>
+  <div>
+    <%= form.submit "Post Comment" %>
+  </div>
+<% end %>
+
 <%= link_to "Back to Posts", posts_path %>

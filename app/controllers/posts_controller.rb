@@ -44,11 +44,28 @@ class PostsController < ApplicationController
         end
       end
     end
+
+    def create_commend
+      @post = Post.find(params[:id])
+      @comment = @post.comments.build(comment_params)
+      @comment.sending_user_id = current_user.id
+
+      if @comment.save
+        redirect_to post_path(@post), notice: "Comment created successfully!"
+      else
+        @comments = @posts.comments.order(created_at: :asc)
+        render :show, status: :unprocessable_entity
+      end
+    end
   
     private
   
     def post_params
       params.require(:post).permit(:title, :content, :sending_user_id, specialty_ids: []) # Removed :sending_user_id (we assign it)
+    end
+
+    def comment_params
+      params.require(:comment).permit(:content)
     end
 
 end
