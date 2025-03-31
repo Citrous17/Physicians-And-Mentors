@@ -27,17 +27,6 @@ is_port_in_use() {
     fi
 }
 
-# Check if required ports are open
-if is_port_in_use $DB_PORT; then
-    echo "❌ Error: Port $DB_PORT is already in use. Stop the process/container using it before continuing."
-    exit 1
-fi
-
-if is_port_in_use $APP_PORT; then
-    echo "❌ Error: Port $APP_PORT is already in use. Stop the process/container using it before continuing."
-    exit 1
-fi
-
 # Load environment variables
 if [ -f .env ]; then
   echo "🔄 Loading environment variables from .env file..."
@@ -67,7 +56,7 @@ fi
 
 # Remove .env from .dockerignore
 if grep -q "^$ENV_FILE$" $DOCKERIGNORE_FILE; then
-    echo -ne "🔄 Removing .env from .dockerignore...\r"
+    echo "🔄 Removing .env from .dockerignore..."
     grep -v "^$ENV_FILE$" $DOCKERIGNORE_FILE > temp_dockerignore && mv temp_dockerignore $DOCKERIGNORE_FILE
 fi
 echo "✅ Removed .env from .dockerignore if it wasn't removed already."
@@ -75,13 +64,24 @@ echo "✅ Removed .env from .dockerignore if it wasn't removed already."
 # Stop and remove existing containers if they exist
 for CONTAINER in $APP_HOST $DATABASE_HOST; do
     if [ "$(docker ps -aq -f name=$CONTAINER)" ]; then
-        echo -ne "🔄 Stopping and removing container: $CONTAINER...\r"
+        echo "🔄 Stopping and removing container: $CONTAINER..."
         docker stop $CONTAINER >/dev/null 2>&1 && docker rm $CONTAINER >/dev/null 2>&1
         echo "✅ Container $CONTAINER stopped and removed."
     else
         echo "ℹ️ No existing container named $CONTAINER found."
     fi
 done
+
+# Check if required ports are open
+if is_port_in_use $DB_PORT; then
+    echo "❌ Error: Port $DB_PORT is already in use. Stop the process/container using it before continuing."
+    exit 1
+fi
+
+if is_port_in_use $APP_PORT; then
+    echo "❌ Error: Port $APP_PORT is already in use. Stop the process/container using it before continuing."
+    exit 1
+fi
 
 # Build the new Docker image
 echo "🔄 Building Docker image: $IMAGE_NAME..."
@@ -94,7 +94,7 @@ fi
 
 # Run the new containers
 echo "🔄 Starting containers..."
-echo -ne "🔄 Starting new container for database: $DATABASE_HOST...\r"
+echo "🔄 Starting new container for database: $DATABASE_HOST..."
 docker run --name $DATABASE_HOST \
   --network rails-net \
   -e POSTGRES_PASSWORD=$DATABASE_PASSWORD \
@@ -102,7 +102,7 @@ docker run --name $DATABASE_HOST \
   -p $DB_PORT:5432 \
   -d postgres:latest 
 
-echo -ne "🔄 Starting new container for app: $APP_HOST...\r"
+echo "🔄 Starting new container for app: $APP_HOST..."
 docker run --name $APP_HOST \
     --network rails-net \
     -p $APP_PORT:3000 \
@@ -110,6 +110,10 @@ docker run --name $APP_HOST \
     -d $IMAGE_NAME:latest sleep infinity
 
 docker exec -it $APP_HOST bash -c "sed -i 's/\r$//' bin/rails"
+
+echo "🔄 Setting up initial database..."
+docker exec -it $APP_HOST bash -c "rails db:create db:migrate"
+echo "✅ Initial database setup complete."
 
 echo "✅ Local Docker setup complete!"
 chmod +x ./connect_local.sh
