@@ -70,7 +70,7 @@ class PostsController < ApplicationController
       if @comment.save
         redirect_to post_path(@post), notice: "Comment created successfully!"
       else
-        @comments = @posts.comments.order(created_at: :asc)
+        @comments = @post.comments.order(created_at: :asc)
         render :show, status: :unprocessable_entity
       end
     end
