@@ -1,5 +1,4 @@
 <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-<%= stylesheet_link_tag 'posts', media: 'all', data: { turbolinks: false } %>
 
 
 <div class="flex flex-col items-center justify-center p-8">
@@ -25,7 +24,7 @@
       <p><small>Posted on: <%= @post.created_at.strftime("%B %d, %Y %I:%M %p") %></small></p>
 
 <h2>Comments</h2>
-<% if @comments.any? %>
+<% if @comments&.any? %>
   <ul>
     <% @comments.each do |comment| %>
       <li>

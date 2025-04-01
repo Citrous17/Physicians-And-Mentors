@@ -53,6 +53,8 @@ class PostsController < ApplicationController
 
     def show
       @post = Post.find(params[:id])
+      @comment = @post.comments.build
+      @comments = @post.comments.order(created_at: :asc)
       # Check if the user is a professional and has matching specialties
       if current_user.isProfessional?
         user_specialty_ids = current_user.specialties.pluck(:id)
@@ -64,8 +66,12 @@ class PostsController < ApplicationController
 
     def create_comment
       @post = Post.find(params[:id])
-      @comment = @post.comments.build(comment_params)
+      @comment = @post.comments.build
       @comment.sending_user_id = current_user.id
+      @comment.parent_post_id = @post.id # Set the parent post ID for the comment
+      @comment.content = params[:comment][:content] if params[:comment].present?
+      @comment.sending_user_id = current_user.id
+      @comment.parent_post_id = @post.id # Set the parent post ID for the comment
 
       if @comment.save
         redirect_to post_path(@post), notice: "Comment created successfully!"
