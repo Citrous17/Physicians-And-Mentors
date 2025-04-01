@@ -3,6 +3,7 @@ class Post < ApplicationRecord
 
   has_many :posts_specialties, dependent: :destroy
   has_and_belongs_to_many :specialties, join_table: "post_specialties"
+  has_many :comments, foreign_key: "parent_post_id", dependent: :destroy
 
   validates :title, presence: true
   validates :content, presence: true

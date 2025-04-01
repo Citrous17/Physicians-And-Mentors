@@ -9,7 +9,12 @@ Rails.application.routes.draw do
       get "confirm_destroy"
     end
   end
-  resources :posts, only: [ :index, :new, :create, :show ]
+  resources :posts, only: [:index, :new, :create, :show] do
+    post :create_comment, on: :member
+  end
+  # get "users/index"
+  # get "users/new"
+  # get "users/edit"
   get "home/index"
 
   # Health check route
