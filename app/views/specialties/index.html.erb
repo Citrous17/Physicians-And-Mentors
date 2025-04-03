@@ -4,12 +4,6 @@
 <div class="text-white">
   <h1 class="text-2xl font-bold text-center my-6">All Specialties</h1>
 
-  <% if notice.present? %>
-    <div class="flex flex-col items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[var(--accent-color)]">
-      <h1 id="notice"><%= notice %></h1>
-    </div>
-  <% end %>
-
   <div class="flex flex-row justify-between m-4 w-80/100 mx-auto">
     <%= link_to 'New Specialty', new_specialty_path, class: "px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition" %>
   </div>
@@ -31,7 +25,7 @@
               <td><%= specialty.name %></td>
               <td><%= link_to 'Show', specialty, class: "blue-button p-2 rounded-md bg-blue-500 hover:bg-blue-600 transition text-white" %></td>
               <td><%= link_to 'Edit', edit_specialty_path(specialty), class: "blue-button p-2 rounded-md bg-yellow-500 hover:bg-yellow-600 transition text-white" %></td>
-              <td><%= link_to 'Destroy', confirm_destroy_specialty_path(specialty), class: "red-button p-2 rounded-md bg-red-500 hover:bg-red-600 transition text-white" %></td>
+              <td><%= button_to 'Delete', specialty, method: :delete, data: { confirm: 'Are you sure?' }, class: "red-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %></td>
             </tr>
           <% end %>
         </tbody>

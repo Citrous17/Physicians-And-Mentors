@@ -4,20 +4,16 @@ class SpecialtiesController < ApplicationController
     before_action :set_specialty, only: [:edit, :show, :update, :destroy]
 
     def index
-        @specialty = Specialty.all
+        @specialties = Specialty.all
     end
 
     def new
         @specialty = Specialty.new
     end
 
-    def edit
-        @specialty = Specialty.find(params[:id])
-    end
+    def edit; end
 
-    def show
-        @specialty = Specialty.find(params[:id])
-    end
+    def show; end
 
     def create
         @specialty = Specialty.new(specialty_params)
@@ -29,7 +25,6 @@ class SpecialtiesController < ApplicationController
     end
 
     def update
-        @specialty = Specialty.find(params[:id])
         respond_to do |format|
             if @specialty.update(specialty_params)
                 format.html { redirect_to specialties_path, notice: "Specialty was successfully updated." }
@@ -40,16 +35,12 @@ class SpecialtiesController < ApplicationController
             end
         end
     end
-
-    def confirm_destroy
-        @specialty = Specialty.find(params[:id])
-    end
     
     def destroy
         @specialty.destroy
 
         respond_to do |format|
-            format.html { redirect_to specialtiess_path, status: :see_other, notice: "Specialty was successfully destroyed." }
+            format.html { redirect_to specialties_path, notice: "Specialty was successfully destroyed." }
             format.json { head :no_content }
         end
     end
@@ -57,6 +48,10 @@ class SpecialtiesController < ApplicationController
     private
         def specialty_params
             params.require(:name, :description)
+        end
+
+        def set_specialty
+            @specialty = Specialty.find(params[:id])
         end
 
 end
