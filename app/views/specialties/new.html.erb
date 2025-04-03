@@ -1,0 +1,11 @@
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<div class="flex flex-col items-center justify-center">
+  <h1 class="text-2xl m-auto font-bold p-4">Creating a New Specialty</h1>
+</div>
+
+<%= render 'form', specialty: @specialty%>
+
+<div class="flex flex-col items-center justify-center p-8 mb-4">
+  <%= link_to 'Cancel', specialties_path, class: "blue-button p-4 mb-4 rounded-md bg-[var(--surface-color)]" %>
+</div>

@@ -1,0 +1,43 @@
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+
+<% if @specialty.errors.any? %>
+  <div id="error_explanation" class="flex flex-col items-center justify-center rounded-lg p-10 m-10 w-80/100 mx-auto bg-[var(--accent-color)]">
+    <h2><%= pluralize(@specialty.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+      <% @specialty.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="flex flex-col items-center justify-center">
+  <div class="w-60/100 bg-[var(--surface-color)] rounded-md">
+    <%= form_with(model: @specialty, url: @specialty.new_record? ? specialties_path : specialty_path(@specialty), method: @specialty.new_record? ? :post : :patch) do |form| %>
+
+      <%= form.hidden_field :isProfessional, value:true %>
+
+      <table class="m-auto">
+
+        <tr class="field">
+          <td>
+            <%= form.label :name, "Specialty name:" %>
+          </td>
+          <td>
+            <%= form.text_field :name %>
+          </td>
+        </tr>
+      </table>
+
+      <div class="flex flex-col items-center justify-center">
+        <div class="actions blue-button p-4 m-4 rounded-md bg-[var(--surface-color)]">
+          <%= form.submit class: "submit-button" %>
+        </div>
+      </div>
+
+      <% end %>
+
+  </div>
+</div>
+<%# End surface color %>

@@ -27,6 +27,10 @@ class User < ApplicationRecord
     password_digest.present?
   end
 
+  def admin?
+    isAdmin
+  end
+
   def self.from_omniauth(auth)
     user = User.find_by(oauth_uid: auth.uid, provider: auth.provider) || User.find_by(email: auth.info.email)
 
