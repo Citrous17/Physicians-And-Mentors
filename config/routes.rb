@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get "confirm_destroy"
     end
   end
+  resources :specialties, only: [:index, :new, :create, :show, :destroy]
   resources :posts, only: [ :index, :new, :create, :show ]
   get "home/index"
 
