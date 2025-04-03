@@ -1,5 +1,5 @@
 <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-<%= stylesheet_link_tag 'posts', media: 'all', data: { turbolinks: false } %>
+
 
 <div class="flex flex-col items-center justify-center">
   <h1 class="text-2xl m-auto font-bold p-4">All Posts</h1>
@@ -46,6 +46,7 @@
               <div class="flex flex-row items-center justify-between">
                 <p><strong>Posted by:</strong> <%= post.sending_user.full_name %></p>
                 <p><small>Posted on: <%= post.created_at.strftime("%B %d, %Y %I:%M %p") %></small></p>
+                <td><%= link_to 'Show', post, class: "blue-button p-2 rounded-md" %></td>
               </div>
 
             </li>

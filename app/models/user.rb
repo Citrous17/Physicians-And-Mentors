@@ -32,12 +32,15 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
+    return nil if auth.nil? || auth.uid.blank? || auth.provider.blank?
+
     user = User.find_by(oauth_uid: auth.uid, provider: auth.provider) || User.find_by(email: auth.info.email)
 
     if user
       user.update(
         oauth_uid: auth.uid,
         provider: auth.provider,
+        profile_image_url: auth.info.image
       )
       is_new_user = false
     else

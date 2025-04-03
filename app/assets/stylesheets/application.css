@@ -57,10 +57,11 @@
 
 .blue-button:hover {
   background-color: var(--ok-highlight-color);
+  color: var(--text-color);
 }
 
 .blue-button:not(:hover) {
-  transition: background-color 1s;
+  transition: background-color 1s, color 1s;
 }
 
 .red-button:hover {
@@ -77,4 +78,38 @@
 
 .accent-button:not(:hover) {
   transition: background-color 1s;
+}
+
+.gray-button:hover {
+  background-color: var(--gray-highlight-color);
+}
+
+.gray-button:not(:hover) {
+  transition: background-color 1s;
+}
+
+/* Forms */
+.field {
+  padding: 5px;
+}
+
+input[type=text], input[type=password], textarea {
+  border: 2px solid var(--accent-color);
+  border-radius: 4px;
+}
+
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+  background-color: var(--accent-color-weak);
+}
+
+/* General table style */
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+
+/* Table header */
+th {
+  border-bottom: 1px solid #ddd;
+  color: var(--text-color);
 }

@@ -1,15 +1,3 @@
-/* General table style */
-th, td {
-  padding: 15px;
-  text-align: left;
-}
-
-/* Table header */
-th {
-  border-bottom: 1px solid #ddd;
-  color: var(--text-color);
-}
-
 /* Profile td has less padding */
 .profile-td {
   padding-top: 5px;
@@ -27,21 +15,20 @@ th {
   transition: background-color 1s;
 }
 
-
-/* Forms */
-.field {
-  padding: 5px;
+/* Profile card */
+.profile-container {
+  background-color: transparent;
 }
 
-input {
-  border: 2px solid var(--accent-color);
-  border-radius: 4px;
+.profile-card {
+  background-color: var(--surface-color);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
 
-input:focus {
-  background-color: var(--accent-color);
-}
-
-.submit-button {
-  border: none;
+.profile-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
