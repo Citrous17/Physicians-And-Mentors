@@ -1,8 +1,8 @@
 # Creating Specialties
-specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatology"].map do |name|
+specialties = [ "Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatology" ].map do |name|
     Specialty.create!(name: name)
   end
-  
+
   # Creating Users
   users = 10.times.map do |i|
     User.create!(
@@ -14,7 +14,7 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
         DOB: Date.parse("199#{i}-01-01"),
         phone_number: i.even? ? "123-456-789#{i}" : '123-456-7890',
         profile_image_url: "https://example.com/profile#{i}.jpg",
-        isProfessional: [true, false].sample,
+        isProfessional: [ true, false ].sample,
         user_id: i,
         isAdmin: false
       )
@@ -34,7 +34,7 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
     user_id: 12,
     isAdmin: true
   )
-  
+
   # Assigning Physician Specialties
   users.each do |user|
     if user.isProfessional
@@ -44,7 +44,7 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
       )
     end
   end
-  
+
   # Creating Posts
   posts = []
     10.times do |i|
@@ -52,16 +52,15 @@ specialties = ["Cardiology", "Neurology", "Orthopedics", "Pediatrics", "Dermatol
         content: "This is post content #{i}",
         title: "Post Title #{i}",
         sending_user: User.all.sample, # Ensure users exist
-        specialties: [Specialty.all.sample]
+        specialties: [ Specialty.all.sample ]
     )
     posts << post
   end
-  
+
   # Creating Admins
   Admin.create!(
     user_id: users.sample.id,
     canEditDatabase: true
   )
-  
+
   puts "Seed data successfully created!"
-  

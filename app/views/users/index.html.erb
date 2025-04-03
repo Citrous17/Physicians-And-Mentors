@@ -66,9 +66,16 @@
         <tbody>
           <% @users.each do |user| %>
             <tr class="users-table-rows">
-              <td class="profile-td"><%= image_tag(user.profile_image_url, alt: "Profile image", class: "w-full h-full object-cover aspect-square rounded-md",  onerror: "this.onerror=null; this.src='#{asset_path('profile-placeholder.png')}';") %></td>
-              <td><%= user.first_name %></td>
-              <td><%= user.last_name %></td>
+              <td class="profile-td" onclick="window.location='<%= user_path(user) %>'">
+                <%= image_tag(
+                  user.profile_image_url.presence || asset_path('profile-placeholder.png'),
+                  alt: "Profile image",
+                  class: "w-full object-cover aspect-square rounded-md",
+                  onerror: "this.onerror=null; this.src='#{asset_path('profile-placeholder.png')}';"
+                ) %>
+              </td>
+              <td onclick="window.location='<%= user_path(user) %>'"><%= user.first_name %></td>
+              <td onclick="window.location='<%= user_path(user) %>'"><%= user.last_name %></td>
               <td><%= user.email %></td>
               <td><%= user.DOB %></td>
               <td><%= user.phone_number %></td>

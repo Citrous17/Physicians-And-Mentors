@@ -1,14 +1,35 @@
 #!/bin/bash
+
+echo "🚀 Starting local Docker build script..."
+
+# Check for required tools
+if ! command -v docker &>/dev/null; then
+  echo "❌ Docker is not installed. Please install Docker and try again."
+  exit 1
+fi
+
 IMAGE_NAME="$IMAGE_NAME"
 ENV_FILE=".env"
 DOCKERIGNORE_FILE=".dockerignore"
+APP_PORT=3000
+DB_PORT=5432
 
-# dont change the required vars unless you know what you're doing!!
+# Required environment variables
 REQUIRED_VARS=("GOOGLE_CLIENT_ID" "GOOGLE_CLIENT_SECRET" "DATABASE_USERNAME" "DATABASE_PASSWORD" "DATABASE_HOST" "IMAGE_NAME")
 
-# Load environment variables from .env file if it exists
-echo -ne "🔄 Loading environment variables from .env file...\r"
+# Function to check if a port is in use
+is_port_in_use() {
+    local port=$1
+    if ss -tuln | grep -q ":$port "; then
+        return 0  # Port is in use
+    else
+        return 1  # Port is available
+    fi
+}
+
+# Load environment variables
 if [ -f .env ]; then
+  echo "🔄 Loading environment variables from .env file..."
   export $(grep -v '^#' .env | xargs)
   echo "✅ Environment variables loaded."
 else
@@ -16,113 +37,84 @@ else
   exit 1
 fi
 
-# once env file has all variables loaded, then check if we have all the right variables
+# Check for missing environment variables
 MISSING_VARS=()
-
-# find missing variables
 for VAR in "${REQUIRED_VARS[@]}"; do
-  if [ -z "${!VAR}" ]; then
-    MISSING_VARS+=("$VAR")
-  fi
+    if [ -z "${!VAR}" ]; then
+        MISSING_VARS+=("$VAR")
+    fi
 done
 
-# print out missing variables
 if [ ${#MISSING_VARS[@]} -ne 0 ]; then
-  echo "❌ Error: The following environment variables are missing:"
-  for VAR in "${MISSING_VARS[@]}"; do
-    echo "   - $VAR"
-  done
-  exit 1
+    echo "❌ Error: The following environment variables are missing:"
+    for VAR in "${MISSING_VARS[@]}"; do
+        echo "   - $VAR"
+    done
+    echo "💡 Please update your .env file and try again."
+    exit 1
 fi
 
-# Remove .env from .dockerignore if it exists
+# Remove .env from .dockerignore
 if grep -q "^$ENV_FILE$" $DOCKERIGNORE_FILE; then
-    echo -ne "🔄 Removing .env from .dockerignore...\r"
+    echo "🔄 Removing .env from .dockerignore..."
     grep -v "^$ENV_FILE$" $DOCKERIGNORE_FILE > temp_dockerignore && mv temp_dockerignore $DOCKERIGNORE_FILE
 fi
 echo "✅ Removed .env from .dockerignore if it wasn't removed already."
 
-# Stop and remove the existing container if it exists
-if [ "$(docker ps -aq -f name=$APP_HOST)" ]; then
-    echo -ne "🔄 Stopping existing container: $APP_HOST...\r"
-    if docker stop $APP_HOST >/dev/null 2>&1; then
-        echo "✅ Container $APP_HOST stopped."
+# Stop and remove existing containers if they exist
+for CONTAINER in $APP_HOST $DATABASE_HOST; do
+    if [ "$(docker ps -aq -f name=$CONTAINER)" ]; then
+        echo "🔄 Stopping and removing container: $CONTAINER..."
+        docker stop $CONTAINER >/dev/null 2>&1 && docker rm $CONTAINER >/dev/null 2>&1
+        echo "✅ Container $CONTAINER stopped and removed."
     else
-        echo "❌ Failed to stop $APP_HOST."
-        echo "Potential issues:"
-        echo "1. Docker Desktop may not be running."
-        echo "2. There is some other error with the container."
-        exit 1
+        echo "ℹ️ No existing container named $CONTAINER found."
     fi
+done
 
-    echo -ne "🔄 Removing existing container: $APP_HOST...\r"
-    if docker rm $APP_HOST >/dev/null 2>&1; then
-        echo "✅ Container $APP_HOST removed."
-    else
-        echo "❌ Failed to remove $APP_HOST."
-        echo "1. Docker Desktop may not be running."
-        echo "2. There is some other error with the container."
-        exit 1
-    fi
-else
-    echo "ℹ️ No existing container named $APP_HOST found."
+# Check if required ports are open
+if is_port_in_use $DB_PORT; then
+    echo "❌ Error: Port $DB_PORT is already in use. Stop the process/container using it before continuing."
+    exit 1
 fi
 
-# Stop and remove the existing container if it exists
-if [ "$(docker ps -aq -f name=$DATABASE_HOST)" ]; then
-    echo -ne "🔄 Stopping existing container: $DATABASE_HOST...\r"
-    if docker stop $DATABASE_HOST >/dev/null 2>&1; then
-        echo "✅ Container $DATABASE_HOST stopped."
-    else
-        echo "❌ Failed to stop $DATABASE_HOST."
-        echo "potential fix: make sure docker desktop is running!"
-        echo "1. Docker Desktop may not be running."
-        echo "2. There is some other error with the container."
-        exit 1
-    fi
-
-    echo -ne "🔄 Removing existing container: $DATABASE_HOST...\r"
-    if docker rm $DATABASE_HOST >/dev/null 2>&1; then
-        echo "✅ Container $DATABASE_HOST removed."
-    else
-        echo "❌ Failed to remove $DATABASE_HOST."
-        echo "1. Docker Desktop may not be running."
-        echo "2. There is some other error with the container."
-        exit 1
-    fi
-else
-    echo "ℹ️ No existing container named $DATABASE_HOST found."
+if is_port_in_use $APP_PORT; then
+    echo "❌ Error: Port $APP_PORT is already in use. Stop the process/container using it before continuing."
+    exit 1
 fi
 
 # Build the new Docker image
-echo "🔄 Building new Docker image $IMAGE_NAME..."
-# docker build -t $IMAGE_NAME -f Dockerfile.local .
+echo "🔄 Building Docker image: $IMAGE_NAME..."
 if docker build -t $IMAGE_NAME -f Dockerfile.local .; then
     echo "✅ Successfully built Docker image: $IMAGE_NAME"
 else
     echo "❌ Failed to build Docker image: $IMAGE_NAME"
-    exit 1  # Exit the script if the build fails
+    exit 1
 fi
 
-# Run the new container
-echo -ne "🔄 Starting new container for database: $DATABASE_HOST...\r"
+# Run the new containers
+echo "🔄 Starting containers..."
+echo "🔄 Starting new container for database: $DATABASE_HOST..."
 docker run --name $DATABASE_HOST \
   --network rails-net \
   -e POSTGRES_PASSWORD=$DATABASE_PASSWORD \
   -e POSTGRES_USER=$DATABASE_USERNAME \
-  -p 5432:5432 \
+  -p $DB_PORT:5432 \
   -d postgres:latest 
 
-echo -ne "🔄 Starting new container for app: $APP_HOST...\r"
+echo "🔄 Starting new container for app: $APP_HOST..."
 docker run --name $APP_HOST \
     --network rails-net \
-    -p 3000:3000 \
+    -p $APP_PORT:3000 \
     -v $(pwd):/app \
     -d $IMAGE_NAME:latest sleep infinity
-    #-d $IMAGE_NAME:latest bash -c "rails db:create && rails db:migrate && rails server -b '0.0.0.0'"
 
 docker exec -it $APP_HOST bash -c "sed -i 's/\r$//' bin/rails"
 
-echo "✅ Docker container setup complete!"
+echo "🔄 Setting up initial database..."
+docker exec -it $APP_HOST bash -c "rails db:create db:migrate"
+echo "✅ Initial database setup complete."
+
+echo "✅ Local Docker setup complete!"
 chmod +x ./connect_local.sh
 ./connect_local.sh
