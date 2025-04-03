@@ -25,7 +25,9 @@
               <td><%= specialty.name %></td>
               <td><%= link_to 'Show', specialty, class: "blue-button p-2 rounded-md bg-blue-500 hover:bg-blue-600 transition text-white" %></td>
               <td><%= link_to 'Edit', edit_specialty_path(specialty), class: "blue-button p-2 rounded-md bg-yellow-500 hover:bg-yellow-600 transition text-white" %></td>
-              <td><%= button_to 'Delete', specialty, method: :delete, data: { confirm: 'Are you sure?' }, class: "red-button p-4 m-4 rounded-md bg-[var(--surface-color)]" %></td>
+              <td>
+                <%= link_to "Delete", specialty, data: {turbo_method: :delete, turbo_confirm: "Are you sure to delete #{specialty.name}?"} %>
+              </td>
             </tr>
           <% end %>
         </tbody>
