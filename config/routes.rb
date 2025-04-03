@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       get "confirm_destroy"
     end
   end
+  resources :specialties, only: [:index, :new, :create, :show, :destroy]
   resources :posts, only: [:index, :new, :create, :show] do
     post :create_comment, on: :member
   end
@@ -43,6 +44,7 @@ Rails.application.routes.draw do
   get "users", to: "users#index"
   get "professionals", to: "professionals#index"
   get "/newAuth", to: "users#newAuth", as: "new_auth"
+  get "specialties", to: "specialties#index"
 
   # Admin routes
   get "admin/dashboard", to: "admin#dashboard"
