@@ -10,7 +10,12 @@ Rails.application.routes.draw do
     end
   end
   resources :specialties, only: [:index, :new, :create, :show, :destroy]
-  resources :posts, only: [ :index, :new, :create, :show ]
+  resources :posts, only: [:index, :new, :create, :show] do
+    post :create_comment, on: :member
+  end
+  # get "users/index"
+  # get "users/new"
+  # get "users/edit"
   get "home/index"
 
   # Health check route
