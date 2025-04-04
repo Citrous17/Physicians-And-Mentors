@@ -1,0 +1,38 @@
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+
+<% if @specialty.errors.any? %>
+  <div id="error_explanation" class="flex flex-col items-center justify-center rounded-lg p-4 m-4 w-4/5 mx-auto bg-red-200 text-red-900 border border-red-400">
+    <h2><%= pluralize(@specialty.errors.count, "error") %> prohibited this specialty from being saved:</h2>
+    <ul class="list-disc">
+      <% @specialty.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="flex flex-col items-center justify-center">
+  <div class="w-3/5 bg-[var(--surface-color)] rounded-md p-6">
+    <%= form_with(model: @specialty) do |form| %>
+
+      <%= form.hidden_field :isProfessional, value: true %>
+
+      <table class="m-auto">
+        <tr class="field">
+          <td>
+            <%= form.label :name, "Specialty name:" %>
+          </td>
+          <td>
+            <%= form.text_field :name, class: "border rounded p-2 w-full" %>
+          </td>
+        </tr>
+      </table>
+
+      <div class="flex flex-col items-center justify-center">
+        <%= form.submit "Save", class: "blue-button p-4 m-4 rounded-md bg-blue-500 text-white hover:bg-blue-600" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+

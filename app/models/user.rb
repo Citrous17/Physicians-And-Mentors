@@ -27,6 +27,10 @@ class User < ApplicationRecord
     password_digest.present?
   end
 
+  def admin?
+    isAdmin
+  end
+
   def self.from_omniauth(auth)
     return nil if auth.nil? || auth.uid.blank? || auth.provider.blank?
 
