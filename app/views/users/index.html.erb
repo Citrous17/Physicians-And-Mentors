@@ -67,11 +67,11 @@
           <% @users.each do |user| %>
             <tr class="users-table-rows">
               <td class="profile-td" onclick="window.location='<%= user_path(user) %>'">
-                <%= image_tag(
-                  user.profile_image_url.presence || asset_path('profile-placeholder.png'),
+                <%= tag.img(
+                  src: user.profile_image_url.presence || asset_path('profile-placeholder.png'),
                   alt: "Profile image",
                   class: "w-full object-cover aspect-square rounded-md",
-                  onerror: "this.onerror=null; this.src='#{asset_path('profile-placeholder.png')}';"
+                  onerror: "this.onerror=null;this.src='#{asset_path('profile-placeholder.png')}';"
                 ) %>
               </td>
               <td onclick="window.location='<%= user_path(user) %>'"><%= user.first_name %></td>

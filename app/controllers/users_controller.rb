@@ -52,8 +52,27 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def invalid_image_url?(url)
+    return true if url.blank?
+  
+    begin
+      # Only allow certain image types (png, jpg, jpeg, gif)
+      uri = URI.parse(url)
+      return true unless uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
+  
+      content_type = URI.open(uri, allow_redirections: :all).content_type
+      !content_type.start_with?('image/')
+    rescue
+      true
+    end
+  end
+
   def create
     @user = User.new(user_params)
+
+    if invalid_image_url?(@user.profile_image_url)
+      @user.profile_image_url = helpers.asset_path("profile-placeholder.png")
+    end
 
     respond_to do |format|
       if @user.save
