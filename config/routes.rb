@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get "confirm_destroy"
     end
   end
-  resources :specialties, only: [:index, :new, :create, :show, :destroy, :edit]
+  resources :specialties, only: [:index, :new, :create, :show, :destroy, :edit, :update]
   resources :posts, only: [:index, :new, :create, :show] do
     post :create_comment, on: :member
   end

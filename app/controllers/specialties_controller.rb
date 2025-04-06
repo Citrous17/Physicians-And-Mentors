@@ -46,12 +46,13 @@ class SpecialtiesController < ApplicationController
     end
 
     private
-        def specialty_params
-            params.require(:name)
-        end
 
         def set_specialty
             @specialty = Specialty.find(params[:id])
+        end
+
+        def specialty_params
+            params.require(:specialty).permit(:name)
         end
 
 end
