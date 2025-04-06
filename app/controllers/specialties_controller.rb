@@ -47,7 +47,7 @@ class SpecialtiesController < ApplicationController
 
     private
         def specialty_params
-            params.require(:name, :description)
+            params.require(:name)
         end
 
         def set_specialty
