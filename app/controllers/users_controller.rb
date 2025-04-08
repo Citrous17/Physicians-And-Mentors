@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   before_action :set_user, only: [ :edit, :update, :destroy ]
   before_action :require_login
   before_action :require_admin, except: [:complete_profile, :update_complete_profile, :newAuth]
