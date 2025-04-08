@@ -10,47 +10,73 @@
   <h2>Users Table</h2>
 
   <h3>Admin View</h3>
-
   <p>
-    The admin can view all users on the user table.  The admin can also edit user information, delete users, and add new users.  Each row in the user table correspond to a user.  There are actions for showing, editing, and deleting.  Clicking on the show button loads the user’s profile page.  Clicking the column title sorts the rows with the column.  For example, clicking “Last Name” sorts the users by last name.
+    The admin can view all users on the user table. The admin can also edit user information, delete users, and add new users. Each row in the user table corresponds to a user. There are actions for showing, editing, and deleting. Clicking on the show button loads the user’s profile page.
   </p>
 
   <h3>Adding New Users</h3>
-
   <p>
-    The admin can add new users from the user table’s page.  Click on “New User.”  Fill out all fields and click “Create” to make that user.
+    The admin can add new users from the user table’s page. Click on “New User.” Fill out all fields and click “Create” to make that user.
   </p>
 
   <h3>Deleting Users</h3>
-
   <p>
-    The admin can delete users from the user table’s page.  Click on “Destroy” on a user.  A confirmation page will appear confirming the action.  After confirming deleting, the user is removed from the database.
+    The admin can delete users from the user table’s page. Click on “Destroy” on a user. A confirmation page will appear confirming the action. After confirming deleting, the user is removed from the database.
   </p>
 
   <h3>Editing Users</h3>
-
   <p>
-    The admin can edit users from the user table’s page.  Click on “Edit” on a user.  Edit the fields for the user and save to modify the user’s information.
+    The admin can edit users from the user table’s page. Click on “Edit” on a user. Edit the fields for the user and save to modify the user’s information.
   </p>
 
   <h3>Search Filters</h3>
-
   <p>
     You can manually type in a user’s first name and similar results will appear. For example, if you fill out “Kyl”, users with the names “Kyle”, “Kylie”, and “Kyla” will appear. You can also filter them based on whether they are professionals or not. First you click “Pick a Filter Option” then select “Filter by Professional” then you can select whether you want to filter by “Professional” or “Not professional”. In the future, a specialization filter will be added for professionals.
   </p>
 
-  <h2>Posts</h2>
+  <h2>Additional Questions</h2>
 
-  <h3>All Posts</h3>
-
+  <h3>Instruction on how to edit user/professional accounts management and permissions</h3>
   <p>
-    To view all posts, click the “View Posts” button on the header navigation bar.  Here, all the posts will be shown.  The title, specialties, author, post date, and a preview of the description for each post are shown.  Clicking on the title of a post will show the full post.
+    These can be edited in the admin profile on the users page at <code>/admin/users</code>.
   </p>
 
-  <h3>Adding a New Post</h3>
-
+  <h3>Recovery: What is the plan for recovery if the system crashes?</h3>
   <p>
-    Click “Create New Post” from the all posts page.  There will be a prompt for the post title, content (description), and specialties.  Fill out these fields and click “Create Post” to create the post.  Alternatively, click “Cancel” to cancel and go back.
+    Since the application is deployed on Heroku, recovery options include:
+    <ul class="list-disc list-inside">
+      <li>Using Heroku’s automated daily backups (Heroku Postgres has built-in backups called "Heroku PGBackups").</li>
+      <li>You can restore from a backup using <code>heroku pg:backups:restore</code>.</li>
+      <li>To download a backup, run <code>heroku pg:backups:download</code> from your terminal.</li>
+    </ul>
+    It's highly recommended to automate daily backups and store them offsite for extra safety.
+  </p>
+
+  <h3>Data to be transferred from old system & reason for retaining the data</h3>
+  <p>
+    The following data will be transferred from the old system. Items marked with * are considered critical for continued functionality:
+    <ul class="list-disc list-inside">
+      <li><strong>*Admin data</strong>: Required for access control and permissions.</li>
+      <li><strong>*Users data</strong>: Required to retain account and profile information.</li>
+      <li><strong>Post data</strong>: Preserves historical user content.</li>
+    </ul>
+  </p>
+
+  <h3>How to export database from Heroku</h3>
+  <p>
+    You can export your Heroku Postgres database to a CSV or SQL file for data migration or backup:
+    <ul class="list-disc list-inside">
+      <li>Install the Heroku CLI if you haven’t already.</li>
+      <li>Run <code>heroku login</code> and <code>heroku apps</code> to find your app name.</li>
+      <li>To export the database: <code>heroku pg:backups:capture</code></li>
+      <li>Then download it: <code>heroku pg:backups:download</code></li>
+      <li>To convert to CSV:
+        <ul class="list-disc list-inside ml-4">
+          <li>Restore the SQL to a local Postgres database.</li>
+          <li>Then run <code>\copy tablename TO 'filename.csv' DELIMITER ',' CSV HEADER;</code> inside <code>psql</code>.</li>
+        </ul>
+      </li>
+    </ul>
   </p>
 
 </div>
