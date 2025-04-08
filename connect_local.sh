@@ -1,14 +1,16 @@
 #!/bin/bash
 
+echo "🚀 Starting local container connection script..."
+
 REQUIRED_VARS=("GOOGLE_CLIENT_ID" "GOOGLE_CLIENT_SECRET" "DATABASE_USERNAME" "DATABASE_PASSWORD" "DATABASE_HOST" "IMAGE_NAME")
 
 # Load environment variables from .env file if it exists
-echo -ne "🔄 Loading environment variables from .env file...\r"
 if [ -f .env ]; then
+  echo "🔄 Loading environment variables from .env file..."
   export $(grep -v '^#' .env | xargs)
-  echo -ne "✅ Environment variables loaded.                  \n"
+  echo "✅ Environment variables loaded."
 else
-  echo -ne "❌ Error: .env file not found. Please create it before running this script.      \n"
+  echo "❌ Error: .env file not found. Please create it before running this script."
   exit 1
 fi
 
@@ -21,31 +23,32 @@ for VAR in "${REQUIRED_VARS[@]}"; do
 done
 
 if [ ${#MISSING_VARS[@]} -ne 0 ]; then
-  echo "❌ Error: The following environment variables are missing:"
+  echo "❌ Error: The following environment variables are missing in your .env file:"
   for VAR in "${MISSING_VARS[@]}"; do
     echo "   - $VAR"
   done
+  echo "💡 Please update your .env file and try again."
   exit 1
 fi
 
 if [[ -z "$APP_HOST" || -z "$DATABASE_HOST" ]]; then
-  echo "❌ APP_HOST or DATABASE_HOST is not set."
+  echo "❌ APP_HOST or DATABASE_HOST is not set in your .env file."
   exit 1
 fi
 
-echo -ne "🔄 Starting container: $APP_HOST...\r"
+echo "🔄 Starting container: $APP_HOST..."
 if docker start "$APP_HOST" >/dev/null 2>&1; then
-  echo -ne "✅ Container $APP_HOST started.            \n"
+  echo "✅ Container $APP_HOST started."
 else
-  echo -ne "❌ Failed to start $APP_HOST.              \n"
+  echo "❌ Failed to start $APP_HOST. Please check if the container exists."
   exit 1
 fi
 
-echo -ne "🔄 Starting database container: $DATABASE_HOST...\r"
+echo "🔄 Starting database container: $DATABASE_HOST..."
 if docker start "$DATABASE_HOST" >/dev/null 2>&1; then
-  echo -ne "✅ Database container $DATABASE_HOST started.      \n"
+  echo "✅ Database container $DATABASE_HOST started."
 else
-  echo -ne "❌ Failed to start $DATABASE_HOST.           \n"
+  echo "❌ Failed to start $DATABASE_HOST. Please check if the container exists."
   exit 1
 fi
 
@@ -54,5 +57,5 @@ if ! docker ps --format '{{.Names}}' | grep -q "^$APP_HOST$"; then
   exit 1
 fi
 
-echo "🔄 Entering $APP_HOST bash shell..."
+echo "🔄 Connecting to $APP_HOST bash shell..."
 exec docker exec -it "$APP_HOST" bash

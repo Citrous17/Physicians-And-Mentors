@@ -1,25 +1,23 @@
 # PostgreSQL. Versions 9.3 and up are supported.
-#
-# Install the pg driver:
-#   gem install pg
-# On macOS with Homebrew:
-#   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
-# On Windows:
-#   gem install pg
-#       Choose the win32 build.
-#       Install PostgreSQL and put its /bin directory on your path.
-#
-# Configure Using Gemfile
-# gem "pg"
-#
+
+# This file uses environment variables to configure the database connection.
+# Ensure the following variables are set in your `.env` file for this configuration to work:
+# 
+# DATABASE_HOST: The hostname of the database server (e.g., "localhost" or "postgres").
+# DATABASE_PORT: The port number for the database server (default: 5432 for PostgreSQL).
+# DATABASE_USERNAME: The username to connect to the database.
+# DATABASE_PASSWORD: The password to connect to the database.
+# You may need to remove all related containers and re-run the build script if you change these variables after declaring them for the first time OR changing them.
+
 default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: postgres
-  port: 5432
-  username: postgres
-  password: password
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
+  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "postgres") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "password") %>
+
 
 
 development:

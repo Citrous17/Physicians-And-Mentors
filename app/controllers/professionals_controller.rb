@@ -25,9 +25,10 @@ class ProfessionalsController < ApplicationController
 
     respond_to do |format|
       if @professional.save
-        format.html { redirect_to professionals_path, notice: "Professional was successfully created." }
+        format.html { redirect_to professional_path(@professional), notice: "Professional was successfully created." }
         format.json { render :show, status: :created, location: @professional }
       else
+        Rails.logger.debug "Failed to save professional: #{@professional.errors.full_messages}"
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @professional.errors, status: :unprocessable_entity }
       end
@@ -38,7 +39,7 @@ class ProfessionalsController < ApplicationController
     @professional = User.find(params[:id])
     respond_to do |format|
       if @professional.update(professional_params)
-        format.html { redirect_to professionals_path, notice: "Professional was successfully updated." }
+        format.html { redirect_to professional_path(@professional), notice: "Professional was successfully updated." }
         format.json { render :show, status: :ok, location: @professional }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,7 +59,6 @@ class ProfessionalsController < ApplicationController
 
   def confirm_destroy
     @professional = User.find(params[:id])
-
   end
 
   private
