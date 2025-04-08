@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_action :require_login, only: [:help]
   before_action :require_admin, only: [:help]
   def index
   end

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [ :edit, :update, :destroy ] # Add :destroy here
-  before_action :require_login, only: [ :complete_profile, :update_complete_profile ]
+
+  before_action :set_user, only: [ :edit, :update, :destroy ]
+  before_action :require_login
   before_action :require_admin, except: [:complete_profile, :update_complete_profile, :newAuth]
 
   def index
