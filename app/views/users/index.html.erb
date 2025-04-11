@@ -21,7 +21,7 @@
     <%= link_to 'New User', new_user_path, class: "flex items-center justify-center blue-button p-2 w-10/100 rounded-md bg-[var(--surface-color)]" %>
   </div>
 
-<form action="/users" method="GET">
+  <form action="/users" method="GET">
   <label for="filter">Filter Options</label>
   <select id="filter" name="filter" onchange="this.form.submit()">
     <option value="">Pick a Filter Option</option>
