@@ -43,6 +43,7 @@
     <div class="flex justify-center text-white">
     <%= link_to "View Profile", user_path(session[:user_id]), class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl rounded" %>
     <%= link_to "View Posts", posts_path, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl rounded" %>
+    <%= link_to "View Professionals", professionals_path, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white text-3xl rounded" %>
     <%= button_to "Log Out", logout_path, method: :delete, class: "header-button hover:text-gray-300 text-lg bg-transparent text-white-900 font-semibold hover:text-white mx-4 text-3xl rounded" %>
     </div>
   
