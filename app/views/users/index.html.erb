@@ -28,11 +28,12 @@
     <%= link_to 'New User', new_user_path, class: "flex items-center justify-center blue-button p-2 w-10/100 rounded-md bg-[var(--surface-color)]" %>
   </div>
 
-<form action="/users" method="GET">
+  <form action="/users" method="GET">
   <label for="filter">Filter Options</label>
   <select id="filter" name="filter" onchange="this.form.submit()">
     <option value="">Pick a Filter Option</option>
     <option value="isProfessional" <%= "selected" if session[:filter] == "isProfessional" %>>Filter by Professional</option>
+    <option value="isSpecialty" <%= "selected" if session[:filter] == "isSpecialty" %>>Filter by Specialty</option>
   </select>
 
   <% if session[:filter] == "isProfessional" %>
@@ -40,6 +41,17 @@
       <option value="">Pick professional</option>
       <option value="True" <%= "selected" if session[:filter_option] == "True" %>>Professional</option>
       <option value="False" <%= "selected" if session[:filter_option] == "False" %>>Not professional</option>
+    </select>
+  <% end %>
+  <% if session[:filter] == "isSpecialty" %>
+    <select name="filter_option" onchange="this.form.submit()">
+      <option value="">Pick specialty</option>
+      <option value="all" <%= "selected" if session[:filter_option] == "all" %>>All Specialties</option>
+      <% Specialty.all.each do |specialty| %>
+        <option value="<%= specialty.id %>" <%= "selected" if session[:filter_option] == specialty.id.to_s %>>
+          <%= specialty.name %>
+        </option>
+      <% end %>
     </select>
   <% end %>
 </form>

@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
   # Other routes
   get "clear", to: "users#clear"
+  get "clears", to: "professionals#clear"
   get "home", to: "home#index"
   get "help", to: "home#help"
   get "users", to: "users#index"
